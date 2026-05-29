@@ -2,15 +2,14 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, UserCircle, ShoppingCart, MessageCircle } from 'lucide-react'
+import { Home, Grid2x2, ShoppingCart, UserCircle } from 'lucide-react'
 import { useCart } from './CartProvider'
-import { waHelpLink } from '@/lib/whatsapp'
 
 const items = [
-  { href: '/', label: 'Home', icon: Home },
-  { href: '/reviews', label: 'Account', icon: UserCircle },
-  { href: '/cart', label: 'Cart', icon: ShoppingCart, isCart: true },
-  { href: null, label: 'Help', icon: MessageCircle, isWA: true },
+  { href: '/',        label: 'Home',       icon: Home },
+  { href: '/shop',    label: 'Categories', icon: Grid2x2 },
+  { href: '/cart',    label: 'Cart',       icon: ShoppingCart, isCart: true },
+  { href: '/reviews', label: 'Account',    icon: UserCircle },
 ]
 
 export default function BottomNav() {
@@ -21,26 +20,11 @@ export default function BottomNav() {
     <nav className="md:hidden fixed bottom-0 inset-x-0 z-50 bg-white border-t border-line">
       <div className="grid grid-cols-4 h-14">
         {items.map(item => {
-          if (item.isWA) {
-            return (
-              <a
-                key="wa"
-                href={waHelpLink()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col items-center justify-center gap-0.5 text-muted"
-              >
-                <item.icon size={22} style={{ color: '#25D366' }} />
-                <span className="text-[10px]">{item.label}</span>
-              </a>
-            )
-          }
-
-          const active = item.href ? pathname === item.href : false
+          const active = pathname === item.href
           return (
             <Link
               key={item.href}
-              href={item.href!}
+              href={item.href}
               className={`flex flex-col items-center justify-center gap-0.5 transition-colors ${
                 active ? 'text-rust' : 'text-muted'
               }`}
@@ -56,7 +40,7 @@ export default function BottomNav() {
                   </span>
                 )}
               </div>
-              <span className="text-[10px]">{item.label}</span>
+              <span className="text-[10px] font-medium">{item.label}</span>
             </Link>
           )
         })}
