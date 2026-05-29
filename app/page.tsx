@@ -3,14 +3,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { waHelpLink } from '@/lib/whatsapp'
 import { money } from '@/lib/format'
-import { getFeaturedBooks, getEbookBooks, getLatestBlogPosts, getLatestEbook } from '@/lib/db'
+import { getFeaturedBooks, getEbookBooks, getLatestBlogPosts } from '@/lib/db'
 import BookCard from '@/components/BookCard'
-import BookCover from '@/components/BookCover'
-import FormatBadge from '@/components/FormatBadge'
 import DealOfTheDay from '@/components/DealOfTheDay'
-import AdBanner from '@/components/AdBanner'
-import QuoteBlock from '@/components/QuoteBlock'
-import SectionHeading from '@/components/SectionHeading'
 import type { Book, BlogPost } from '@/types'
 
 export const metadata: Metadata = {
@@ -18,235 +13,253 @@ export const metadata: Metadata = {
   description: 'Browse our collection of hardcopy and ebook titles. Order via WhatsApp with cash on delivery anywhere in Nairobi.',
 }
 
+const categories = [
+  { label: 'Fiction', emoji: '📖', href: '/shop?category=Fiction' },
+  { label: 'Business', emoji: '💼', href: '/shop?category=Business' },
+  { label: 'Self-Help', emoji: '🌱', href: '/shop?category=Self-Help' },
+  { label: 'Children', emoji: '🎨', href: '/shop?category=Children' },
+  { label: 'History', emoji: '🏛️', href: '/shop?category=History' },
+  { label: 'Science', emoji: '🔬', href: '/shop?category=Science' },
+  { label: 'Poetry', emoji: '✍️', href: '/shop?category=Poetry' },
+  { label: 'Ebooks', emoji: '⚡', href: '/shop?format=ebook' },
+]
+
 export default async function HomePage() {
-  const [featuredBooks, ebookBooks, blogPosts, featuredEbook] = await Promise.all([
+  const [featuredBooks, ebookBooks, blogPosts] = await Promise.all([
     getFeaturedBooks(),
     getEbookBooks(),
     getLatestBlogPosts(3),
-    getLatestEbook(),
   ])
 
   return (
-    <div>
-      {/* Announcement bar with shimmer */}
-      <div className="shimmer-bar relative bg-grove text-paper text-sm py-2.5 text-center px-4 font-medium">
-        🚚 Free delivery within Nairobi CBD on orders over KSh 2,000 &nbsp;·&nbsp; Order via WhatsApp
+    <div className="bg-paper2">
+
+      {/* ── Announcement bar ── */}
+      <div
+        className="shimmer-bar text-white text-xs sm:text-sm py-2 text-center px-4 font-medium"
+        style={{ backgroundColor: '#1b1c2b' }}
+      >
+        🚚 Free delivery in Nairobi CBD on orders over KSh 2,000 &nbsp;·&nbsp;
+        <a href={waHelpLink()} target="_blank" rel="noopener noreferrer" className="underline hover:no-underline" style={{ color: '#f68b1e' }}>
+          Order via WhatsApp
+        </a>
       </div>
 
-      {/* Hero section */}
-      <section
-        className="relative overflow-hidden"
-        style={{
-          background: 'linear-gradient(180deg, rgba(245,237,224,0) 0%, rgba(245,237,224,1) 60%)',
-        }}
-      >
-        {/* Ambient decorative background circles */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-          <div
-            className="absolute rounded-full"
-            style={{
-              width: 500,
-              height: 500,
-              top: -100,
-              right: -120,
-              background: 'radial-gradient(circle, rgba(192,92,32,0.08) 0%, transparent 70%)',
-            }}
-          />
-          <div
-            className="absolute rounded-full"
-            style={{
-              width: 340,
-              height: 340,
-              bottom: -60,
-              left: -80,
-              background: 'radial-gradient(circle, rgba(30,58,43,0.08) 0%, transparent 70%)',
-            }}
-          />
-        </div>
+      <div className="max-w-7xl mx-auto px-3 sm:px-6">
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-14">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            {/* Hero text */}
-            <div>
-              <div className="animate-fade-up">
-                <span className="inline-flex items-center gap-1.5 bg-rust/10 text-rust text-xs font-bold uppercase tracking-[0.15em] px-3 py-1.5 rounded-full mb-5">
-                  ✦ New arrivals this week
-                </span>
-              </div>
-              <h1 className="font-display text-5xl sm:text-6xl font-bold text-ink leading-[1.08] mb-5 animate-fade-up-1">
-                Find your next{' '}
-                <em className="text-rust not-italic relative">
-                  great read.
-                  <span
-                    className="absolute -bottom-1 left-0 right-0 h-1 rounded-full"
-                    style={{ background: 'linear-gradient(to right, #c05c20, rgba(192,92,32,0))' }}
-                  />
-                </em>
+        {/* ── Hero banner ── */}
+        <section className="mt-3 grid grid-cols-1 md:grid-cols-[1fr_280px] gap-3">
+          {/* Main banner */}
+          <div
+            className="relative rounded overflow-hidden flex items-center"
+            style={{
+              minHeight: 220,
+              background: 'linear-gradient(120deg, #1b1c2b 0%, #2d2040 60%, #1b1c2b 100%)',
+            }}
+          >
+            {/* Decorative circles */}
+            <div className="absolute top-0 right-0 w-64 h-64 rounded-full opacity-10"
+              style={{ background: 'radial-gradient(circle, #f68b1e 0%, transparent 70%)', transform: 'translate(30%, -30%)' }} />
+            <div className="absolute bottom-0 left-1/2 w-48 h-48 rounded-full opacity-10"
+              style={{ background: 'radial-gradient(circle, #f68b1e 0%, transparent 70%)', transform: 'translate(-20%, 30%)' }} />
+
+            <div className="relative z-10 p-6 sm:p-10">
+              <span
+                className="inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 rounded mb-4"
+                style={{ backgroundColor: '#f68b1e', color: 'white' }}
+              >
+                New Arrivals
+              </span>
+              <h1 className="font-display font-bold text-white text-3xl sm:text-5xl leading-tight mb-4">
+                Your next great<br />
+                <span style={{ color: '#f68b1e' }}>read awaits.</span>
               </h1>
-              <p className="text-muted text-lg mb-8 leading-relaxed max-w-md animate-fade-up-2">
-                Good books. Great prices. Delivered across Nairobi. Browse our collection and order directly via WhatsApp.
+              <p className="text-white/60 text-sm sm:text-base mb-6 max-w-sm">
+                Hardcopy books delivered across Nairobi. Ebooks available instantly.
               </p>
-              <div className="flex gap-3 flex-wrap animate-fade-up-3">
+              <div className="flex gap-3 flex-wrap">
                 <Link
                   href="/shop"
-                  className="bg-rust text-white font-semibold px-7 py-3.5 rounded-full hover:bg-rust-d transition-colors text-sm"
-                  style={{ boxShadow: '0 4px 16px rgba(192,92,32,0.35)' }}
+                  className="text-white text-sm font-bold px-6 py-2.5 rounded transition-opacity hover:opacity-90"
+                  style={{ backgroundColor: '#f68b1e' }}
                 >
-                  Browse the Shop →
+                  Shop Now →
                 </Link>
                 <a
                   href={waHelpLink()}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white font-semibold px-7 py-3.5 rounded-full hover:opacity-90 transition-opacity text-sm"
-                  style={{ backgroundColor: '#25D366', boxShadow: '0 4px 16px rgba(37,211,102,0.3)' }}
+                  className="text-white text-sm font-bold px-6 py-2.5 rounded border border-white/30 hover:bg-white/10 transition-colors"
                 >
-                  💬 Help me order
+                  💬 WhatsApp Order
                 </a>
               </div>
             </div>
-
-            {/* Featured ebook highlight */}
-            {featuredEbook && (
-              <div
-                className="relative bg-paper2 border border-line rounded-2xl overflow-hidden animate-fade-up-2"
-                style={{ boxShadow: '0 8px 40px rgba(37,28,20,0.12)' }}
-              >
-                <span className="absolute top-3 right-3 z-10 bg-grove text-paper text-xs font-bold px-3 py-1 rounded-full">
-                  ⚡ Instant download
-                </span>
-                <BookCover book={featuredEbook} height={240} />
-                <div className="p-5">
-                  <FormatBadge format="ebook" />
-                  <h2 className="font-display font-bold text-ink text-xl mt-2 mb-1 leading-tight">
-                    {featuredEbook.title}
-                  </h2>
-                  <p className="text-muted text-sm mb-3 line-clamp-2">
-                    {featuredEbook.description?.slice(0, 100)}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-rust font-display font-bold text-xl">
-                      {money(featuredEbook.price_ebook!)}
-                    </span>
-                    <Link
-                      href={`/book/${featuredEbook.id}`}
-                      className="bg-rust text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-rust-d transition-colors"
-                    >
-                      Get the Ebook
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
-        </div>
-      </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          {/* Side banners */}
+          <div className="hidden md:flex flex-col gap-3">
+            <div
+              className="flex-1 rounded overflow-hidden flex items-center p-5"
+              style={{ background: 'linear-gradient(135deg, #f68b1e 0%, #d97b18 100%)', minHeight: 100 }}
+            >
+              <div className="text-white">
+                <p className="text-xs font-semibold opacity-80 uppercase tracking-widest mb-1">Instant Access</p>
+                <p className="font-display font-bold text-xl leading-tight">Ebooks</p>
+                <p className="text-xs opacity-80 mt-1">Download in seconds</p>
+                <Link href="/shop?format=ebook" className="inline-block mt-3 text-xs bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded font-semibold transition-colors">
+                  Browse →
+                </Link>
+              </div>
+              <div className="ml-auto text-5xl opacity-80">⚡</div>
+            </div>
+            <div
+              className="flex-1 rounded overflow-hidden flex items-center p-5"
+              style={{ background: 'linear-gradient(135deg, #1a3a2b 0%, #0d2018 100%)', minHeight: 100 }}
+            >
+              <div className="text-white">
+                <p className="text-xs font-semibold opacity-80 uppercase tracking-widest mb-1">Kenyan Authors</p>
+                <p className="font-display font-bold text-xl leading-tight">Local Voices</p>
+                <p className="text-xs opacity-80 mt-1">Stories from Nairobi</p>
+                <Link href="/shop" className="inline-block mt-3 text-xs bg-white/20 hover:bg-white/30 px-3 py-1.5 rounded font-semibold transition-colors">
+                  Discover →
+                </Link>
+              </div>
+              <div className="ml-auto text-5xl opacity-80">📚</div>
+            </div>
+          </div>
+        </section>
 
-        {/* Deal of the Day */}
-        <section className="mb-14">
+        {/* ── Category icons ── */}
+        <section className="mt-3 bg-white rounded p-4 sm:p-5">
+          <h2 className="font-bold text-ink text-base sm:text-lg mb-4">Shop by Category</h2>
+          <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">
+            {categories.map(cat => (
+              <Link
+                key={cat.label}
+                href={cat.href}
+                className="flex flex-col items-center gap-2 group"
+              >
+                <div
+                  className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-paper2 flex items-center justify-center text-xl sm:text-2xl group-hover:bg-rust/10 transition-colors border border-line group-hover:border-rust/30"
+                >
+                  {cat.emoji}
+                </div>
+                <span className="text-[10px] sm:text-xs text-ink text-center leading-tight font-medium">
+                  {cat.label}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ── Flash Deal / Deal of the Day ── */}
+        <section className="mt-3">
           <DealOfTheDay />
         </section>
 
-        {/* Ad banner */}
-        <section className="mb-14 max-w-2xl mx-auto">
-          <AdBanner />
-        </section>
-
-        {/* Featured books */}
-        <section className="mb-14">
-          <SectionHeading
-            eyebrow="Hand-picked"
-            title="Featured books"
-            action={{ label: 'See all', href: '/shop' }}
-          />
-          {featuredBooks && featuredBooks.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
+        {/* ── Featured books ── */}
+        {featuredBooks && featuredBooks.length > 0 && (
+          <section className="mt-3 bg-white rounded overflow-hidden">
+            {/* Section header */}
+            <div
+              className="flex items-center justify-between px-4 py-3"
+              style={{ borderBottom: '3px solid #f68b1e' }}
+            >
+              <h2 className="font-bold text-ink text-base sm:text-lg">
+                ⭐ Featured Books
+              </h2>
+              <Link href="/shop" className="text-sm font-semibold hover:underline" style={{ color: '#f68b1e' }}>
+                See All →
+              </Link>
+            </div>
+            <div className="p-3 sm:p-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
               {(featuredBooks as Book[]).map(book => (
                 <Link key={book.id} href={`/book/${book.id}`} className="group">
                   <BookCard book={book} />
                 </Link>
               ))}
             </div>
-          ) : (
-            <p className="text-muted">No featured books yet. Check back soon!</p>
-          )}
-        </section>
+          </section>
+        )}
 
-        {/* Ebook spotlight */}
+        {/* ── Ebooks ── */}
         {ebookBooks && ebookBooks.length > 0 && (
-          <section className="mb-14">
-            <SectionHeading
-              eyebrow="Instant download"
-              title="Available as Ebooks"
-            />
-            {/* Gradient mask on scroll edges */}
-            <div className="relative">
-              <div className="absolute left-0 top-0 bottom-0 w-8 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #f5ede0, transparent)' }} />
-              <div className="absolute right-0 top-0 bottom-0 w-8 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #f5ede0, transparent)' }} />
-              <div className="flex gap-4 overflow-x-auto pb-3 -mx-4 px-4 scrollbar-hide">
-                {(ebookBooks as Book[]).map(book => (
-                  <Link key={book.id} href={`/book/${book.id}`} className="shrink-0 w-40 group">
-                    <BookCard book={book} />
-                  </Link>
-                ))}
-              </div>
+          <section className="mt-3 bg-white rounded overflow-hidden">
+            <div
+              className="flex items-center justify-between px-4 py-3"
+              style={{ borderBottom: '3px solid #f68b1e' }}
+            >
+              <h2 className="font-bold text-ink text-base sm:text-lg">
+                ⚡ Instant Ebooks
+              </h2>
+              <Link href="/shop?format=ebook" className="text-sm font-semibold hover:underline" style={{ color: '#f68b1e' }}>
+                See All →
+              </Link>
+            </div>
+            <div className="p-3 sm:p-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+              {(ebookBooks as Book[]).map(book => (
+                <Link key={book.id} href={`/book/${book.id}`} className="group">
+                  <BookCard book={book} />
+                </Link>
+              ))}
             </div>
           </section>
         )}
 
-        {/* Quote block */}
-        <QuoteBlock />
+        {/* ── Promo strip ── */}
+        <section className="mt-3 grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {[
+            { icon: '🚚', title: 'Free Delivery', body: 'On orders over KSh 2,000 in Nairobi CBD' },
+            { icon: '💬', title: 'WhatsApp Orders', body: 'Chat with us to place your order instantly' },
+            { icon: '⚡', title: 'Instant Ebooks', body: 'Get your ebook link within minutes' },
+          ].map(p => (
+            <div key={p.title} className="bg-white rounded p-4 flex items-start gap-3">
+              <span className="text-2xl shrink-0">{p.icon}</span>
+              <div>
+                <p className="font-bold text-ink text-sm">{p.title}</p>
+                <p className="text-muted text-xs mt-0.5 leading-snug">{p.body}</p>
+              </div>
+            </div>
+          ))}
+        </section>
 
-        {/* Latest blog posts */}
+        {/* ── Blog posts ── */}
         {blogPosts && blogPosts.length > 0 && (
-          <section className="mb-14 mt-4">
-            <SectionHeading
-              eyebrow="Reading list"
-              title="From the blog"
-              action={{ label: 'All posts', href: '/blog' }}
-            />
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <section className="mt-3 bg-white rounded overflow-hidden mb-4">
+            <div
+              className="flex items-center justify-between px-4 py-3"
+              style={{ borderBottom: '3px solid #f68b1e' }}
+            >
+              <h2 className="font-bold text-ink text-base sm:text-lg">📝 Reading List</h2>
+              <Link href="/blog" className="text-sm font-semibold hover:underline" style={{ color: '#f68b1e' }}>
+                All Posts →
+              </Link>
+            </div>
+            <div className="p-3 sm:p-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
               {(blogPosts as BlogPost[]).map(post => (
-                <Link key={post.id} href={`/blog/${post.slug}`} className="group">
-                  <div
-                    className="rounded-2xl bg-paper2 border border-line overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5"
-                  >
+                <Link key={post.id} href={`/blog/${post.slug}`} className="group block">
+                  <div className="rounded overflow-hidden border border-line hover:border-rust/30 transition-colors">
                     {post.cover_url ? (
-                      <div className="relative h-48 overflow-hidden">
+                      <div className="relative h-36 overflow-hidden">
                         <Image
                           src={post.cover_url}
                           alt={post.title}
                           fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                          className="object-cover group-hover:scale-105 transition-transform duration-300"
                           sizes="(max-width: 768px) 100vw, 33vw"
                         />
                       </div>
                     ) : (
-                      <div className="h-48 bg-grove relative overflow-hidden">
-                        <div
-                          className="absolute inset-0 opacity-20"
-                          style={{ backgroundImage: 'repeating-linear-gradient(-45deg, transparent, transparent 8px, rgba(255,255,255,0.15) 8px, rgba(255,255,255,0.15) 16px)' }}
-                        />
-                      </div>
+                      <div className="h-36" style={{ background: 'linear-gradient(135deg, #1b1c2b, #2d2040)' }} />
                     )}
-                    <div className="p-5">
-                      <p className="text-muted text-xs mb-2">
-                        {new Date(post.created_at).toLocaleDateString('en-KE', {
-                          day: 'numeric',
-                          month: 'long',
-                          year: 'numeric',
-                        })}
+                    <div className="p-3">
+                      <p className="text-muted text-[11px] mb-1">
+                        {new Date(post.created_at).toLocaleDateString('en-KE', { day: 'numeric', month: 'short', year: 'numeric' })}
                       </p>
-                      <h3 className="font-display font-semibold text-ink leading-snug mb-2 text-base">
-                        {post.title}
-                      </h3>
-                      {post.excerpt && (
-                        <p className="text-muted text-sm line-clamp-2 leading-relaxed">{post.excerpt}</p>
-                      )}
-                      <p className="text-rust text-sm font-semibold mt-4 group-hover:underline">
-                        Read →
+                      <h3 className="font-semibold text-ink text-sm leading-snug line-clamp-2">{post.title}</h3>
+                      <p className="text-xs font-semibold mt-2 group-hover:underline" style={{ color: '#f68b1e' }}>
+                        Read more →
                       </p>
                     </div>
                   </div>
@@ -255,6 +268,7 @@ export default async function HomePage() {
             </div>
           </section>
         )}
+
       </div>
     </div>
   )

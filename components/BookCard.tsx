@@ -2,7 +2,6 @@
 
 import type { Book } from '@/types'
 import BookCover from './BookCover'
-import FormatBadge from './FormatBadge'
 import StarRating from './StarRating'
 import { money } from '@/lib/format'
 
@@ -13,58 +12,63 @@ type Props = {
 
 export default function BookCard({ book, onClick }: Props) {
   const price = book.price_hard ?? book.price_ebook ?? 0
-  const initial = book.author.charAt(0).toUpperCase()
+  const hasBoth = book.price_hard != null && book.price_ebook != null
+  const isEbookOnly = book.price_hard == null && book.price_ebook != null
 
   return (
     <div
       onClick={onClick}
-      className="group rounded-xl bg-paper2 border border-line cursor-pointer overflow-hidden transition-all duration-300 hover:-translate-y-1"
-      style={{
-        boxShadow: 'var(--shadow-card)',
-      }}
-      onMouseEnter={e => {
-        ;(e.currentTarget as HTMLDivElement).style.boxShadow =
-          'var(--shadow-lift), var(--shadow-glow-rust)'
-      }}
-      onMouseLeave={e => {
-        ;(e.currentTarget as HTMLDivElement).style.boxShadow = 'var(--shadow-card)'
-      }}
+      className="group bg-white border border-line rounded cursor-pointer overflow-hidden transition-shadow duration-200 hover:shadow-lg"
     >
-      {/* Cover with gradient fade into card body */}
-      <div className="relative">
-        <BookCover book={book} height={210} />
-        {/* Gradient bleed from cover into card body */}
-        <div className="absolute bottom-0 inset-x-0 h-8 bg-gradient-to-t from-paper2 to-transparent pointer-events-none" />
+      {/* Product image area */}
+      <div className="relative overflow-hidden bg-paper2" style={{ aspectRatio: '3/4' }}>
+        <BookCover book={book} height={220} />
+
+        {/* Discount / format badge — top left */}
+        {hasBoth && (
+          <span
+            className="absolute top-2 left-2 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-sm"
+            style={{ backgroundColor: '#e31837' }}
+          >
+            -15% OFF
+          </span>
+        )}
+        {isEbookOnly && (
+          <span
+            className="absolute top-2 left-2 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-sm"
+            style={{ backgroundColor: '#f68b1e' }}
+          >
+            EBOOK
+          </span>
+        )}
+
+        {/* Quick-view overlay on hover */}
+        <div className="absolute inset-x-0 bottom-0 bg-rust py-1.5 text-white text-xs font-semibold text-center translate-y-full group-hover:translate-y-0 transition-transform duration-200">
+          View Book
+        </div>
       </div>
 
-      <div className="p-3 flex flex-col gap-1.5">
-        {/* Format badges */}
-        <div className="flex gap-1 flex-wrap">
-          {book.price_hard != null && <FormatBadge format="hardcopy" />}
-          {book.price_ebook != null && <FormatBadge format="ebook" />}
-        </div>
-
-        {/* Title */}
-        <h3 className="font-display font-semibold text-ink text-sm leading-tight line-clamp-2 mt-0.5">
+      {/* Product info */}
+      <div className="p-2 sm:p-3">
+        <h3 className="text-xs sm:text-sm text-ink font-medium leading-snug line-clamp-2 mb-1 min-h-[2.5em]">
           {book.title}
         </h3>
+        <p className="text-[11px] text-muted mb-1.5 truncate">{book.author}</p>
 
-        {/* Author with initial avatar */}
-        <div className="flex items-center gap-1.5">
-          <span
-            className="w-5 h-5 rounded-full flex items-center justify-center text-[9px] font-bold shrink-0 text-white"
-            style={{ backgroundColor: '#7a6a57' }}
-          >
-            {initial}
-          </span>
-          <p className="text-muted text-xs truncate">{book.author}</p>
+        <div className="flex items-center gap-1 mb-1.5">
+          <StarRating rating={4} />
+          <span className="text-[10px] text-muted">(24)</span>
         </div>
 
-        {/* Price row */}
-        <div className="flex items-center justify-between mt-1">
-          <StarRating rating={0} />
-          <span className="font-display font-bold text-rust text-base">{money(price)}</span>
-        </div>
+        <p className="font-bold text-base sm:text-lg leading-none" style={{ color: '#f68b1e' }}>
+          {money(price)}
+        </p>
+
+        {book.price_hard && (
+          <p className="text-[10px] font-medium mt-1" style={{ color: '#3bb77e' }}>
+            + Free Delivery in Nairobi
+          </p>
+        )}
       </div>
     </div>
   )

@@ -1,0 +1,66 @@
+'use client'
+
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { Home, Grid2x2, ShoppingCart, MessageCircle } from 'lucide-react'
+import { useCart } from './CartProvider'
+import { waHelpLink } from '@/lib/whatsapp'
+
+const items = [
+  { href: '/', label: 'Home', icon: Home },
+  { href: '/shop', label: 'All', icon: Grid2x2 },
+  { href: '/cart', label: 'Cart', icon: ShoppingCart, isCart: true },
+  { href: null, label: 'Help', icon: MessageCircle, isWA: true },
+]
+
+export default function BottomNav() {
+  const pathname = usePathname()
+  const { count } = useCart()
+
+  return (
+    <nav className="md:hidden fixed bottom-0 inset-x-0 z-50 bg-white border-t border-line">
+      <div className="grid grid-cols-4 h-14">
+        {items.map(item => {
+          if (item.isWA) {
+            return (
+              <a
+                key="wa"
+                href={waHelpLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-col items-center justify-center gap-0.5 text-muted"
+              >
+                <item.icon size={22} style={{ color: '#25D366' }} />
+                <span className="text-[10px]">{item.label}</span>
+              </a>
+            )
+          }
+
+          const active = item.href ? pathname === item.href : false
+          return (
+            <Link
+              key={item.href}
+              href={item.href!}
+              className={`flex flex-col items-center justify-center gap-0.5 transition-colors ${
+                active ? 'text-rust' : 'text-muted'
+              }`}
+            >
+              <div className="relative">
+                <item.icon size={22} />
+                {item.isCart && count > 0 && (
+                  <span
+                    className="absolute -top-1.5 -right-1.5 text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none"
+                    style={{ backgroundColor: '#f68b1e' }}
+                  >
+                    {count > 9 ? '9+' : count}
+                  </span>
+                )}
+              </div>
+              <span className="text-[10px]">{item.label}</span>
+            </Link>
+          )
+        })}
+      </div>
+    </nav>
+  )
+}

@@ -4,7 +4,7 @@ import { Toaster } from 'sonner'
 import { CartProvider } from '@/components/CartProvider'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import WhatsAppFAB from '@/components/WhatsAppFAB'
+import BottomNav from '@/components/BottomNav'
 import './globals.css'
 
 const displayFont = Fraunces({
@@ -28,13 +28,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}>
-      <body className="min-h-screen bg-paper text-ink font-body">
+      <body className="min-h-screen bg-paper2 text-ink font-body">
         <CartProvider>
           <Navbar />
-          <main>{children}</main>
+          {/* pb-14 on mobile to clear the fixed bottom nav */}
+          <main className="pb-14 md:pb-0">{children}</main>
           <Footer />
-          <WhatsAppFAB />
-          <Toaster richColors position="bottom-right" />
+          <BottomNav />
+          <Toaster richColors position="top-center" />
         </CartProvider>
       </body>
     </html>
