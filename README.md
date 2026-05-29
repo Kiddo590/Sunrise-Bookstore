@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sunrise Bookstore
+
+A warm, editorial online bookshop for Nairobi, Kenya. Built with Next.js 16, Tailwind CSS v4, Supabase, and Cloudinary. Orders placed via WhatsApp — no payment gateway required.
+
+## Stack
+
+- **Next.js 16** (App Router, TypeScript)
+- **Tailwind CSS v4** (CSS-based config via `@theme inline`)
+- **Supabase** (Postgres + Auth + Storage)
+- **Cloudinary** (cover image uploads)
+- **Vercel** (deployment)
+
+## Features
+
+- Public shop with format/category filters and search
+- Hardcopy orders via pre-filled WhatsApp messages
+- Ebook purchases (instant download)
+- Deal of the Day with live countdown
+- Blog / reading list
+- Customer reviews (moderated)
+- Book request form
+- Admin dashboard (books, orders, blog, reviews)
+- Mock data mode — works fully without Supabase credentials
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The app runs without any environment variables — mock data is served automatically when Supabase is not configured.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy `.env.example` to `.env.local` and fill in your credentials to connect to a live backend:
 
-## Learn More
+```
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+NEXT_PUBLIC_WHATSAPP_NUMBER=2547XXXXXXXX
+NEXT_PUBLIC_STORE_TAGLINE=Good books. Great prices. Delivered across Nairobi.
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Database
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Run `supabase-schema.sql` in the Supabase SQL Editor to create all tables and RLS policies, then `supabase-seed.sql` to load sample data.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deploy
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Push to GitHub and connect to [Vercel](https://vercel.com). Add the environment variables in the Vercel dashboard. The free Hobby plan is sufficient.
