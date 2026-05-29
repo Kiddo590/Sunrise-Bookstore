@@ -7,11 +7,11 @@ import { useState, useEffect, useRef } from 'react'
 import { useCart } from './CartProvider'
 
 const links = [
-  { href: '/', label: 'Home' },
-  { href: '/shop', label: 'Shop' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/reviews', label: 'Reviews' },
-  { href: '/request', label: 'Request a Book' },
+  { href: '/', label: 'Home', short: 'Home' },
+  { href: '/shop', label: 'Shop', short: 'Shop' },
+  { href: '/blog', label: 'Blog', short: 'Blog' },
+  { href: '/reviews', label: 'Reviews', short: 'Reviews' },
+  { href: '/request', label: 'Request a Book', short: 'Request' },
 ]
 
 export default function Navbar() {
@@ -38,19 +38,21 @@ export default function Navbar() {
 
   return (
     <nav
-      className="sticky top-0 z-40 border-b border-line transition-shadow duration-300"
+      className="sticky top-0 z-40 transition-shadow duration-300"
       style={{
-        backgroundColor: 'rgba(245,237,224,0.88)',
-        backdropFilter: 'blur(14px)',
-        WebkitBackdropFilter: 'blur(14px)',
-        boxShadow: scrolled ? '0 2px 16px rgba(37,28,20,0.10)' : '0 1px 0 rgba(37,28,20,0.06)',
+        backgroundColor: 'rgba(245,237,224,0.92)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        boxShadow: scrolled
+          ? '0 2px 20px rgba(37,28,20,0.12)'
+          : '0 1px 0 rgba(37,28,20,0.08)',
       }}
     >
-      {/* Top bar: Logo + Cart */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
-        <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
+      {/* ── Top bar: Logo + Cart ── */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-13 flex items-center justify-between gap-3">
+        <Link href="/" className="flex items-center gap-2.5 shrink-0 group min-w-0">
           <div
-            className="w-8 h-8 rounded-xl bg-rust flex items-center justify-center transition-transform duration-200 group-hover:scale-105"
+            className="w-8 h-8 shrink-0 rounded-xl bg-rust flex items-center justify-center transition-transform duration-200 group-hover:scale-105"
             style={{ boxShadow: '0 2px 8px rgba(192,92,32,0.35)' }}
           >
             <svg width="18" height="18" viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -59,18 +61,26 @@ export default function Navbar() {
               <rect x="16" y="3" width="4" height="14" rx="1" fill="rgba(255,255,255,0.45)"/>
             </svg>
           </div>
-          <span className="flex flex-col leading-none">
-            <span className="font-display font-bold text-ink text-[15px]">Sunrise Bookstore</span>
-            <span className="text-muted text-[10px] tracking-wide">Bookshop · Nairobi</span>
-          </span>
+          <div className="min-w-0 leading-none">
+            <p className="font-display font-bold text-ink text-sm sm:text-[15px] truncate">
+              Sunrise Bookstore
+            </p>
+            <p className="hidden sm:block text-muted text-[10px] tracking-wide mt-0.5">
+              Bookshop · Nairobi
+            </p>
+          </div>
         </Link>
 
-        <Link href="/cart" className="relative p-2 rounded-lg hover:bg-paper2 transition-colors">
+        <Link
+          href="/cart"
+          className="relative shrink-0 p-2.5 rounded-xl hover:bg-paper2 transition-colors"
+          aria-label="Cart"
+        >
           <ShoppingCart size={20} className="text-ink" />
           {count > 0 && (
             <span
               key={count}
-              className={`absolute -top-1 -right-1 bg-rust text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center ${
+              className={`absolute -top-0.5 -right-0.5 bg-rust text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center leading-none ${
                 cartBounce ? 'animate-badge-pop' : ''
               }`}
             >
@@ -80,31 +90,40 @@ export default function Navbar() {
         </Link>
       </div>
 
-      {/* Nav links strip — always visible on all screen sizes */}
+      {/* ── Nav links strip ── */}
       <div
-        className="border-t border-line"
-        style={{ borderColor: 'rgba(221,208,188,0.5)' }}
+        className="border-t"
+        style={{ borderColor: 'rgba(221,208,188,0.6)', backgroundColor: 'rgba(236,226,208,0.4)' }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex overflow-x-auto gap-0.5 py-1 scrollbar-hide">
-          {links.map(l => {
-            const active = pathname === l.href
-            return (
-              <Link
-                key={l.href}
-                href={l.href}
-                className={`relative shrink-0 text-sm font-medium px-3.5 py-2 rounded-lg transition-colors whitespace-nowrap ${
-                  active
-                    ? 'text-rust bg-rust/8'
-                    : 'text-ink hover:text-rust hover:bg-rust/5'
-                }`}
-              >
-                {l.label}
-                {active && (
-                  <span className="absolute bottom-0.5 left-3.5 right-3.5 h-[2.5px] bg-rust rounded-full" />
-                )}
-              </Link>
-            )
-          })}
+        {/* Scroll-mask wrapper */}
+        <div className="relative">
+          {/* Right fade — hints that the strip scrolls */}
+          <div
+            className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 z-10"
+            style={{ background: 'linear-gradient(to left, rgba(245,237,224,0.9), transparent)' }}
+          />
+
+          <div className="flex overflow-x-auto scrollbar-hide px-3 sm:px-6 gap-1 py-1.5">
+            {links.map(l => {
+              const active = pathname === l.href
+              return (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className={`shrink-0 whitespace-nowrap font-medium transition-all duration-200 rounded-full ${
+                    active
+                      ? 'bg-rust text-white text-xs sm:text-sm px-4 py-2'
+                      : 'text-ink text-xs sm:text-sm px-3.5 py-2 hover:bg-rust/8 hover:text-rust'
+                  }`}
+                  style={active ? { boxShadow: '0 2px 8px rgba(192,92,32,0.3)' } : {}}
+                >
+                  {/* Short label on mobile, full label on sm+ */}
+                  <span className="sm:hidden">{l.short}</span>
+                  <span className="hidden sm:inline">{l.label}</span>
+                </Link>
+              )
+            })}
+          </div>
         </div>
       </div>
     </nav>
