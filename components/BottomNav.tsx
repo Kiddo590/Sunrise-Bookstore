@@ -2,13 +2,13 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, Grid2x2, ShoppingCart, MessageCircle } from 'lucide-react'
+import { Home, UserCircle, ShoppingCart, MessageCircle } from 'lucide-react'
 import { useCart } from './CartProvider'
 import { waHelpLink } from '@/lib/whatsapp'
 
 const items = [
   { href: '/', label: 'Home', icon: Home },
-  { href: '/shop', label: 'All', icon: Grid2x2 },
+  { href: '/reviews', label: 'Account', icon: UserCircle },
   { href: '/cart', label: 'Cart', icon: ShoppingCart, isCart: true },
   { href: null, label: 'Help', icon: MessageCircle, isWA: true },
 ]
