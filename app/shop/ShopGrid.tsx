@@ -43,7 +43,7 @@ export default function ShopGrid({ books }: Props) {
   return (
     <div>
       {/* Sticky filter bar */}
-      <div className="sticky top-16 z-30 -mx-4 px-4 sm:-mx-6 sm:px-6 py-3 mb-6"
+      <div className="sticky top-[100px] z-30 -mx-4 px-4 sm:-mx-6 sm:px-6 py-3 mb-6"
         style={{
           backgroundColor: 'rgba(245,237,224,0.92)',
           backdropFilter: 'blur(12px)',

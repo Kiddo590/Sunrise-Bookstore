@@ -97,6 +97,15 @@ body {
 }
 
 /* ── Diagonal stripe pattern (reusable) ── */
+/* Hide scrollbar but keep scroll functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 .stripe-pattern {
   background-image: repeating-linear-gradient(
     -45deg,
