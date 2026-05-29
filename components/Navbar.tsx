@@ -8,12 +8,10 @@ import { useState, useEffect, useRef } from 'react'
 import { useCart } from './CartProvider'
 
 const navLinks = [
-  { href: '/', label: 'Home' },
   { href: '/shop', label: 'All Books' },
   { href: '/shop?format=hardcopy', label: 'Hardcopy' },
   { href: '/shop?format=ebook', label: 'Ebooks' },
   { href: '/blog', label: 'Blog' },
-  { href: '/reviews', label: 'Reviews' },
   { href: '/request', label: 'Request a Book' },
 ]
 
