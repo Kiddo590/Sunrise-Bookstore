@@ -3,8 +3,8 @@ import { getAllBooks } from '@/lib/db'
 import ShopGrid from './ShopGrid'
 
 export const metadata: Metadata = {
-  title: 'Shop — Sunrise Bookstore',
-  description: 'Browse our full collection of hardcopy and ebook titles.',
+  title: 'Shop — The Sunrise BookStore',
+  description: 'Browse our full collection of hardcopy and ebook titles at The Sunrise BookStore.',
 }
 
 export default async function ShopPage() {

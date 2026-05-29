@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { waHelpLink } from '@/lib/whatsapp'
 
 export default function Footer() {
@@ -8,21 +9,17 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-8">
         {/* Brand */}
         <div className="col-span-2 md:col-span-1">
-          <div className="flex items-center gap-2.5 mb-4">
-            <div
-              className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
-              style={{ backgroundColor: '#f68b1e' }}
-            >
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                <rect x="1" y="2" width="7" height="16" rx="1.5" fill="white"/>
-                <rect x="9.5" y="4" width="5.5" height="13" rx="1.5" fill="rgba(255,255,255,0.8)"/>
-                <rect x="16" y="3" width="4" height="14" rx="1" fill="rgba(255,255,255,0.5)"/>
-              </svg>
+          <div className="mb-4">
+            <div className="bg-white rounded-lg px-3 py-2 inline-block mb-2">
+              <Image
+                src="/logo.png"
+                alt="The SunRise BookStore"
+                width={140}
+                height={65}
+                className="h-12 w-auto object-contain"
+              />
             </div>
-            <div>
-              <p className="font-bold text-white text-base leading-none">Sunrise Bookstore</p>
-              <p className="text-xs mt-0.5" style={{ color: '#f68b1e' }}>Nairobi, Kenya</p>
-            </div>
+            <p className="text-xs" style={{ color: '#f68b1e' }}>Nairobi, Kenya</p>
           </div>
           <p className="text-white/50 text-sm leading-relaxed mb-4">
             {process.env.NEXT_PUBLIC_STORE_TAGLINE ?? 'Good books. Great prices. Delivered across Nairobi.'}
@@ -91,7 +88,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-white/30 text-xs">
-          <p>© 2026 Sunrise Bookstore. All rights reserved.</p>
+          <p>© 2026 The Sunrise BookStore. All rights reserved.</p>
           <p>Built with ♥ in Nairobi</p>
         </div>
       </div>

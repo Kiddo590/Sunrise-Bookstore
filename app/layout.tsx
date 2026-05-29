@@ -20,9 +20,9 @@ const bodyFont = Hanken_Grotesk({
 })
 
 export const metadata: Metadata = {
-  title: 'Sunrise Bookstore — Good books. Great prices. Delivered across Nairobi.',
+  title: 'The Sunrise BookStore — Good books. Great prices. Delivered across Nairobi.',
   description:
-    'Shop for hardcopy and ebook titles at Sunrise Bookstore in Nairobi, Kenya. Order via WhatsApp with cash on delivery.',
+    'Shop for hardcopy and ebook titles at The Sunrise BookStore in Nairobi, Kenya. Order via WhatsApp with cash on delivery.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

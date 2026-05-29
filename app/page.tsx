@@ -9,8 +9,8 @@ import DealOfTheDay from '@/components/DealOfTheDay'
 import type { Book, BlogPost } from '@/types'
 
 export const metadata: Metadata = {
-  title: 'Sunrise Bookstore — Good books. Great prices. Delivered across Nairobi.',
-  description: 'Browse our collection of hardcopy and ebook titles. Order via WhatsApp with cash on delivery anywhere in Nairobi.',
+  title: 'The Sunrise BookStore — Good books. Great prices. Delivered across Nairobi.',
+  description: 'Browse our collection of hardcopy and ebook titles at The Sunrise BookStore. Order via WhatsApp with cash on delivery anywhere in Nairobi.',
 }
 
 const categories = [

@@ -1,8 +1,9 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
-import { ShoppingCart, Search, User, MapPin } from 'lucide-react'
+import { ShoppingCart, Search, User } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import { useCart } from './CartProvider'
 
@@ -55,21 +56,17 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-3 sm:px-6 h-14 sm:h-16 flex items-center gap-3 sm:gap-4">
 
           {/* Logo */}
-          <Link href="/" className="shrink-0 flex items-center gap-2 group">
-            <div
-              className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 transition-transform duration-150 group-hover:scale-105"
-              style={{ backgroundColor: '#f68b1e' }}
-            >
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-                <rect x="1" y="2" width="7" height="16" rx="1.5" fill="white"/>
-                <rect x="9.5" y="4" width="5.5" height="13" rx="1.5" fill="rgba(255,255,255,0.8)"/>
-                <rect x="16" y="3" width="4" height="14" rx="1" fill="rgba(255,255,255,0.5)"/>
-              </svg>
+          <Link href="/" className="shrink-0 group">
+            <div className="bg-white rounded-lg px-2.5 py-1 transition-opacity duration-150 group-hover:opacity-90">
+              <Image
+                src="/logo.png"
+                alt="The SunRise BookStore"
+                width={120}
+                height={55}
+                className="h-9 w-auto object-contain"
+                priority
+              />
             </div>
-            <span className="hidden sm:block font-bold text-white text-[15px] leading-tight">
-              Sunrise<br />
-              <span style={{ color: '#f68b1e' }} className="font-normal text-xs tracking-wide">Bookstore</span>
-            </span>
           </Link>
 
           {/* ── Search bar ── */}
