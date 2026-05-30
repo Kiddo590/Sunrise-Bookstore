@@ -92,7 +92,7 @@ export default function Navbar() {
               href="/reviews"
               className="hidden md:flex flex-col items-center text-white hover:text-rust transition-colors text-xs gap-0.5 px-1"
             >
-              <User size={18} />
+              <User size={24} />
               <span className="whitespace-nowrap">Account</span>
             </Link>
             <Link
