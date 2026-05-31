@@ -24,15 +24,26 @@ export default function Footer() {
           <p className="text-white/50 text-sm leading-relaxed mb-4">
             {process.env.NEXT_PUBLIC_STORE_TAGLINE ?? 'Good books. Great prices. Delivered across Nairobi.'}
           </p>
-          <a
-            href={waHelpLink()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded transition-opacity hover:opacity-90"
-            style={{ backgroundColor: '#25D366', color: 'white' }}
-          >
-            💬 Chat on WhatsApp
-          </a>
+          <div className="flex flex-col gap-2">
+            <a
+              href={waHelpLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded transition-opacity hover:opacity-90 w-fit"
+              style={{ backgroundColor: '#25D366', color: 'white' }}
+            >
+              💬 WhatsApp: 0143304460
+            </a>
+            <a
+              href={`https://instagram.com/${process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE ?? 'thesunrisebookstore'}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded transition-opacity hover:opacity-90 w-fit"
+              style={{ background: 'linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)', color: 'white' }}
+            >
+              📸 IG: @{process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE ?? 'thesunrisebookstore'}
+            </a>
+          </div>
         </div>
 
         {/* Navigate */}
@@ -72,6 +83,7 @@ export default function Footer() {
         <div>
           <p className="font-bold text-white text-sm mb-4 uppercase tracking-wider">Contact</p>
           <p className="text-white/50 text-sm mb-2">📍 Nairobi, Kenya</p>
+          <p className="text-white/50 text-sm mb-1">📱 0143304460</p>
           <p className="text-white/50 text-sm mb-3">
             Cash on delivery across Nairobi & Kiambu.
           </p>
