@@ -51,7 +51,7 @@ export default function BookFormClient({ book, isNew }: { book: Book | null; isN
         setForm(f => ({ ...f, cover_url: data.url, cover_public_id: data.public_id }))
         toast.success('Cover uploaded!')
       } else {
-        toast.error('Upload failed')
+        toast.error(data.error || 'Upload failed')
       }
     } catch {
       toast.error('Upload failed')
@@ -97,10 +97,11 @@ export default function BookFormClient({ book, isNew }: { book: Book | null; isN
         router.push('/admin/books')
         router.refresh()
       } else {
-        toast.error('Failed to save book')
+        const errData = await res.json().catch(() => ({}))
+        toast.error(errData.error || `Failed to save book (${res.status})`)
       }
-    } catch {
-      toast.error('Something went wrong')
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : 'Something went wrong')
     } finally {
       setSaving(false)
     }

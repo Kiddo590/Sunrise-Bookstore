@@ -85,7 +85,8 @@ export default function AdminOthersClient({ products: initial }: { products: Oth
         toast.success('Product updated')
         closeForm()
       } else {
-        toast.error('Failed to update')
+        const errData = await res.json().catch(() => ({}))
+        toast.error(errData.error || `Failed to update (${res.status})`)
       }
     } else {
       const res = await fetch('/api/other-products', {
@@ -99,7 +100,8 @@ export default function AdminOthersClient({ products: initial }: { products: Oth
         toast.success('Product added')
         closeForm()
       } else {
-        toast.error('Failed to add product')
+        const errData = await res.json().catch(() => ({}))
+        toast.error(errData.error || `Failed to add product (${res.status})`)
       }
     }
     setSaving(false)

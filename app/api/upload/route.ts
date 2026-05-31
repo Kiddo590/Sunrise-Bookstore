@@ -22,6 +22,6 @@ export async function POST(request: Request) {
 
     return Response.json({ url: result.secure_url, public_id: result.public_id })
   } catch (err) {
-    return Response.json({ error: 'Upload failed' }, { status: 500 })
+    return Response.json({ error: String(err) }, { status: 500 })
   }
 }

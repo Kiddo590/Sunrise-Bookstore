@@ -1,5 +1,7 @@
 import { createClient, createServiceClient } from '@/lib/supabase/server'
 
+export const dynamic = 'force-dynamic'
+
 export async function PATCH(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
