@@ -5,6 +5,7 @@ import { getFeaturedBooks, getEbookBooks, getLatestBlogPosts, getOtherProducts }
 import BookCard from '@/components/BookCard'
 import FlashCard from '@/components/FlashCard'
 import HeroBanner from '@/components/HeroBanner'
+import BannerStrip from '@/components/BannerStrip'
 import Countdown from '@/components/Countdown'
 import OtherProductCard from '@/components/OtherProductCard'
 import type { Book, BlogPost, OtherProduct } from '@/types'
@@ -87,6 +88,7 @@ export default async function HomePage() {
             {/* 1. Hero banner */}
             <div className="mt-2">
               <HeroBanner />
+              <BannerStrip />
             </div>
 
             {/* 2. Category tiles — mobile/tablet only (sidebar handles desktop) */}

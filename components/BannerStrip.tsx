@@ -5,7 +5,7 @@ import Image from 'next/image'
 
 type Banner = { id: string; image_url: string }
 
-export default function AnnouncementBar() {
+export default function BannerStrip() {
   const [banners, setBanners] = useState<Banner[]>([])
   const [idx, setIdx] = useState(0)
   const [visible, setVisible] = useState(true)
@@ -32,7 +32,7 @@ export default function AnnouncementBar() {
   if (!banners.length) return null
 
   return (
-    <div className="w-full overflow-hidden bg-paper" style={{ height: 80 }}>
+    <div className="w-full overflow-hidden mt-2 rounded" style={{ height: 120 }}>
       <div
         style={{
           transition: 'opacity 0.4s',
@@ -44,7 +44,7 @@ export default function AnnouncementBar() {
       >
         <Image
           src={banners[idx].image_url}
-          alt="Banner"
+          alt="Promotion"
           fill
           className="object-cover"
           priority
