@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { LayoutDashboard, BookOpen, ShoppingCart, Star, Newspaper, Inbox, Package, Image, Megaphone, Zap, Layers, LogOut } from 'lucide-react'
+import { LayoutDashboard, BookOpen, ShoppingCart, Star, Newspaper, Inbox, Package, Image, Megaphone, Zap, Layers, LogOut, X } from 'lucide-react'
 
 const links = [
   { href: '/admin',              label: 'Dashboard',    icon: LayoutDashboard, group: 'Overview' },
@@ -21,7 +21,7 @@ const links = [
 
 const groups = ['Overview', 'Content', 'Marketing']
 
-export default function AdminSidebar() {
+export default function AdminSidebar({ onClose }: { onClose?: () => void }) {
   const pathname = usePathname()
   const router = useRouter()
 
@@ -34,9 +34,16 @@ export default function AdminSidebar() {
   return (
     <aside className="w-56 h-screen sticky top-0 flex flex-col shrink-0 overflow-hidden" style={{ backgroundColor: '#12131f' }}>
       {/* Brand header */}
-      <div className="px-5 py-4 shrink-0" style={{ background: 'linear-gradient(135deg, #f68b1e 0%, #c05000 100%)' }}>
-        <p className="font-display font-black text-white text-sm tracking-tight">Sunrise Admin</p>
-        <p className="text-white/70 text-[11px] mt-0.5">Bookstore dashboard</p>
+      <div className="px-5 py-4 shrink-0 flex items-center justify-between" style={{ background: 'linear-gradient(135deg, #f68b1e 0%, #c05000 100%)' }}>
+        <div>
+          <p className="font-display font-black text-white text-sm tracking-tight">Sunrise Admin</p>
+          <p className="text-white/70 text-[11px] mt-0.5">Bookstore dashboard</p>
+        </div>
+        {onClose && (
+          <button onClick={onClose} className="text-white/70 hover:text-white lg:hidden p-1" aria-label="Close menu">
+            <X size={18} />
+          </button>
+        )}
       </div>
 
       {/* Nav */}
@@ -54,6 +61,7 @@ export default function AdminSidebar() {
                   <Link
                     key={href}
                     href={href}
+                    onClick={onClose}
                     className={`flex items-center gap-3 mx-2 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                       active
                         ? 'text-white'
