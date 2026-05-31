@@ -1,43 +1,55 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 
-const messages = [
-  '🚚 Free delivery on orders over KSh 2,000 within Nairobi CBD',
-  '⚡ Ebooks delivered to your email — instantly after payment',
-  '📱 Order via WhatsApp · Cash on Delivery available',
-  '📚 New titles added every week — check our latest arrivals',
-]
+type Banner = { id: string; image_url: string }
 
 export default function AnnouncementBar() {
+  const [banners, setBanners] = useState<Banner[]>([])
   const [idx, setIdx] = useState(0)
   const [visible, setVisible] = useState(true)
 
   useEffect(() => {
+    fetch('/api/banners')
+      .then(r => r.json())
+      .then((data: Banner[]) => { if (Array.isArray(data) && data.length) setBanners(data) })
+      .catch(() => {})
+  }, [])
+
+  useEffect(() => {
+    if (banners.length < 2) return
     const t = setInterval(() => {
       setVisible(false)
       setTimeout(() => {
-        setIdx(i => (i + 1) % messages.length)
+        setIdx(i => (i + 1) % banners.length)
         setVisible(true)
-      }, 300)
-    }, 4000)
+      }, 400)
+    }, 5000)
     return () => clearInterval(t)
-  }, [])
+  }, [banners.length])
+
+  if (!banners.length) return null
 
   return (
-    <div
-      className="text-white text-xs py-2 text-center font-medium overflow-hidden"
-      style={{ backgroundColor: '#1b1c2b' }}
-    >
-      <span
+    <div className="w-full overflow-hidden bg-paper" style={{ height: 80 }}>
+      <div
         style={{
-          display: 'inline-block',
-          transition: 'opacity 0.3s',
+          transition: 'opacity 0.4s',
           opacity: visible ? 1 : 0,
+          width: '100%',
+          height: '100%',
+          position: 'relative',
         }}
       >
-        {messages[idx]}
-      </span>
+        <Image
+          src={banners[idx].image_url}
+          alt="Banner"
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
     </div>
   )
 }
