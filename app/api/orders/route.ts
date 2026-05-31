@@ -20,6 +20,7 @@ export async function POST(request: Request) {
       total_kes,
       payment_method: 'cod',
       status: 'pending',
+      user_id: body.user_id ?? null,
     })
     .select('id')
     .single()

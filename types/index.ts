@@ -46,6 +46,7 @@ export type Order = {
   payment_method: string
   status: string
   created_at: string
+  user_id?: string | null
 }
 
 export type CartItem = {

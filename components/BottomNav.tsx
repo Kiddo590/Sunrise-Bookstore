@@ -10,7 +10,7 @@ const items = [
   { href: '/',        label: 'Home',    icon: Home },
   { href: null,       label: 'Help',    icon: MessageCircle, isWA: true },
   { href: '/cart',    label: 'Cart',    icon: ShoppingCart,  isCart: true },
-  { href: '/reviews', label: 'Account', icon: UserCircle },
+  { href: '/account', label: 'Account', icon: UserCircle },
 ]
 
 export default function BottomNav() {

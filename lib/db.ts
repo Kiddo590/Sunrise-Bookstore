@@ -3,7 +3,7 @@
  * (NEXT_PUBLIC_SUPABASE_URL is empty), otherwise queries Supabase.
  */
 
-import type { Book, Review, BlogPost } from '@/types'
+import type { Book, Review, BlogPost, Order } from '@/types'
 import { MOCK_BOOKS, MOCK_REVIEWS, MOCK_BLOG_POSTS } from './mock-data'
 
 function isConfigured() {
@@ -40,8 +40,8 @@ export async function getLatestEbook(): Promise<Book | null> {
     return MOCK_BOOKS.filter(b => b.price_ebook != null)[0] ?? null
   }
   const sb = await getSupabase()
-  const { data } = await sb.from('books').select('*').not('price_ebook', 'is', null).order('created_at', { ascending: false }).limit(1).single()
-  return data as Book | null
+  const { data } = await sb.from('books').select('*').not('price_ebook', 'is', null).order('created_at', { ascending: false }).limit(1)
+  return (data?.[0] as Book) ?? null
 }
 
 export async function getDealBook(): Promise<Book | null> {
@@ -49,8 +49,8 @@ export async function getDealBook(): Promise<Book | null> {
     return MOCK_BOOKS.find(b => b.is_deal) ?? null
   }
   const sb = await getSupabase()
-  const { data } = await sb.from('books').select('*').eq('is_deal', true).single()
-  return data as Book | null
+  const { data } = await sb.from('books').select('*').eq('is_deal', true).limit(1)
+  return (data?.[0] as Book) ?? null
 }
 
 export async function getAllBooks(): Promise<Book[]> {
@@ -110,6 +110,21 @@ export async function getAllPublishedPosts(): Promise<BlogPost[]> {
   const { data } = await sb.from('blog_posts').select('*').eq('published', true).order('created_at', { ascending: false })
   return (data as BlogPost[]) ?? []
 }
+
+// ── Orders ─────────────────────────────────────────────────
+
+export async function getOrdersByUserId(userId: string): Promise<Order[]> {
+  if (!isConfigured()) return []
+  const sb = await getSupabase()
+  const { data } = await sb
+    .from('orders')
+    .select('*')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false })
+  return (data as Order[]) ?? []
+}
+
+// ── Blog ───────────────────────────────────────────────────
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
   if (!isConfigured()) {
