@@ -20,11 +20,14 @@ export default function LoginForm() {
     setError('')
     setLoading(true)
     const supabase = createClient()
-    const { error: authError } = await supabase.auth.signInWithPassword({ email, password })
+    const { data, error: authError } = await supabase.auth.signInWithPassword({ email, password })
     if (authError) {
       setError(authError.message)
     } else {
-      router.push(redirectTo)
+      const dest = data.user?.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL
+        ? '/admin'
+        : redirectTo
+      router.push(dest)
       router.refresh()
     }
     setLoading(false)
