@@ -10,7 +10,7 @@ export default async function AdminBookFormPage({ params }: Props) {
 
   let book: Book | null = null
   if (!isNew) {
-    const supabase = await createServiceClient()
+    const supabase = createServiceClient()
     const { data } = await supabase.from('books').select('*').eq('id', id).single()
     book = data as Book | null
   }

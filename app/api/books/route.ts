@@ -1,4 +1,4 @@
-import { createClient, createServiceClient } from '@/lib/supabase/server'
+﻿import { createClient, createServiceClient } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
 
@@ -18,7 +18,7 @@ export async function POST(request: Request) {
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
   const body = await request.json()
-  const serviceClient = await createServiceClient()
+  const serviceClient = createServiceClient()
   const { data, error } = await serviceClient
     .from('books')
     .insert(body)

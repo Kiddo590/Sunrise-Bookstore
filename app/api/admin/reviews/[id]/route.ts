@@ -12,7 +12,7 @@ export async function PATCH(
 
   const { id } = await params
   const body = await request.json()
-  const serviceClient = await createServiceClient()
+  const serviceClient = createServiceClient()
   const { error } = await serviceClient.from('reviews').update(body).eq('id', id)
   if (error) return Response.json({ error: error.message }, { status: 500 })
   return Response.json({ ok: true })
@@ -27,7 +27,7 @@ export async function DELETE(
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
   const { id } = await params
-  const serviceClient = await createServiceClient()
+  const serviceClient = createServiceClient()
   const { error } = await serviceClient.from('reviews').delete().eq('id', id)
   if (error) return Response.json({ error: error.message }, { status: 500 })
   return Response.json({ ok: true })

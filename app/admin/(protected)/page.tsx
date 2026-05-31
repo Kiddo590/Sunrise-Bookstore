@@ -1,8 +1,8 @@
-import { createServiceClient } from '@/lib/supabase/server'
+﻿import { createServiceClient } from '@/lib/supabase/server'
 import { money } from '@/lib/format'
 
 export default async function AdminDashboard() {
-  const supabase = await createServiceClient()
+  const supabase = createServiceClient()
 
   const now = new Date()
   const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString()

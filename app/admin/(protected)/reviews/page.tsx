@@ -1,8 +1,8 @@
-import { createServiceClient } from '@/lib/supabase/server'
+﻿import { createServiceClient } from '@/lib/supabase/server'
 import AdminReviewsClient from './AdminReviewsClient'
 
 export default async function AdminReviewsPage() {
-  const supabase = await createServiceClient()
+  const supabase = createServiceClient()
   const { data: reviews } = await supabase
     .from('reviews')
     .select('*, books(id, title)')

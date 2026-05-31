@@ -1,4 +1,4 @@
-import { createClient, createServiceClient } from '@/lib/supabase/server'
+﻿import { createClient, createServiceClient } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
 
@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     return Response.json({ error: 'Missing required fields' }, { status: 400 })
   }
 
-  const supabase = await createServiceClient()
+  const supabase = createServiceClient()
   const { data, error } = await supabase
     .from('orders')
     .insert({

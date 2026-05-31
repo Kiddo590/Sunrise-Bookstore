@@ -1,9 +1,9 @@
-import { createServiceClient } from '@/lib/supabase/server'
+﻿import { createServiceClient } from '@/lib/supabase/server'
 import AdminOthersClient from './AdminOthersClient'
 import type { OtherProduct } from '@/types'
 
 export default async function AdminOthersPage() {
-  const supabase = await createServiceClient()
+  const supabase = createServiceClient()
   const { data } = await supabase
     .from('other_products')
     .select('*')

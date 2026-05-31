@@ -12,7 +12,7 @@ export async function PATCH(
 
   const { id } = await params
   const body = await request.json()
-  const serviceClient = await createServiceClient()
+  const serviceClient = createServiceClient()
   const { error } = await serviceClient.from('orders').update(body).eq('id', id)
   if (error) return Response.json({ error: error.message }, { status: 500 })
   return Response.json({ ok: true })

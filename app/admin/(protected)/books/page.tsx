@@ -1,11 +1,11 @@
-import Link from 'next/link'
+﻿import Link from 'next/link'
 import { createServiceClient } from '@/lib/supabase/server'
 import BookCover from '@/components/BookCover'
 import AdminBooksClient from './AdminBooksClient'
 import type { Book } from '@/types'
 
 export default async function AdminBooksPage() {
-  const supabase = await createServiceClient()
+  const supabase = createServiceClient()
   const { data: books } = await supabase.from('books').select('*').order('created_at', { ascending: false })
 
   return (

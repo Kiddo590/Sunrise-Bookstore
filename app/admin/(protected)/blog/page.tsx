@@ -1,9 +1,9 @@
-import { createServiceClient } from '@/lib/supabase/server'
+﻿import { createServiceClient } from '@/lib/supabase/server'
 import AdminBlogClient from './AdminBlogClient'
 import type { BlogPost } from '@/types'
 
 export default async function AdminBlogPage() {
-  const supabase = await createServiceClient()
+  const supabase = createServiceClient()
   const { data: posts } = await supabase
     .from('blog_posts')
     .select('*')

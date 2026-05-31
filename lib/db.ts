@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Data access layer. Returns mock data when Supabase is not configured
  * (NEXT_PUBLIC_SUPABASE_URL is empty), otherwise queries Supabase.
  */
@@ -142,7 +142,7 @@ export async function getOtherProducts(): Promise<OtherProduct[]> {
 export async function getBookRequests(): Promise<BookRequestRecord[]> {
   if (!isConfigured()) return []
   const { createServiceClient } = await import('./supabase/server')
-  const sb = await createServiceClient()
+  const sb = createServiceClient()
   const { data } = await sb
     .from('book_requests')
     .select('*')
