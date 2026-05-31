@@ -3,7 +3,7 @@
  * (NEXT_PUBLIC_SUPABASE_URL is empty), otherwise queries Supabase.
  */
 
-import type { Book, Review, BlogPost, Order, BookRequestRecord } from '@/types'
+import type { Book, Review, BlogPost, Order, BookRequestRecord, OtherProduct } from '@/types'
 import { MOCK_BOOKS, MOCK_REVIEWS, MOCK_BLOG_POSTS } from './mock-data'
 
 function isConfigured() {
@@ -122,6 +122,19 @@ export async function getOrdersByUserId(userId: string): Promise<Order[]> {
     .eq('user_id', userId)
     .order('created_at', { ascending: false })
   return (data as Order[]) ?? []
+}
+
+// ── Other Products ─────────────────────────────────────────
+
+export async function getOtherProducts(): Promise<OtherProduct[]> {
+  if (!isConfigured()) return []
+  const sb = await getSupabase()
+  const { data } = await sb
+    .from('other_products')
+    .select('*')
+    .eq('in_stock', true)
+    .order('created_at', { ascending: false })
+  return (data as OtherProduct[]) ?? []
 }
 
 // ── Book Requests ──────────────────────────────────────────

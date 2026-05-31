@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import { getFeaturedBooks, getEbookBooks, getLatestBlogPosts } from '@/lib/db'
+import { getFeaturedBooks, getEbookBooks, getLatestBlogPosts, getOtherProducts } from '@/lib/db'
 import BookCard from '@/components/BookCard'
 import FlashCard from '@/components/FlashCard'
 import HeroBanner from '@/components/HeroBanner'
 import Countdown from '@/components/Countdown'
-import type { Book, BlogPost } from '@/types'
+import OtherProductCard from '@/components/OtherProductCard'
+import type { Book, BlogPost, OtherProduct } from '@/types'
 
 export const metadata: Metadata = {
   title: 'The Sunrise BookStore — Good books. Great prices. Delivered across Nairobi.',
@@ -29,10 +30,11 @@ const categories = [
 ]
 
 export default async function HomePage() {
-  const [featuredBooks, ebookBooks, blogPosts] = await Promise.all([
+  const [featuredBooks, ebookBooks, blogPosts, otherProducts] = await Promise.all([
     getFeaturedBooks(),
     getEbookBooks(),
     getLatestBlogPosts(3),
+    getOtherProducts(),
   ])
 
   return (
@@ -185,7 +187,27 @@ export default async function HomePage() {
               </section>
             )}
 
-            {/* 6. Blog */}
+            {/* 6. Other Products */}
+            {otherProducts && otherProducts.length > 0 && (
+              <section className="mt-2 bg-white rounded overflow-hidden">
+                <div
+                  className="flex items-center justify-between px-4 py-3"
+                  style={{ borderBottom: '3px solid #f68b1e' }}
+                >
+                  <h2 className="font-bold text-ink text-base sm:text-lg">🛍️ Other Products</h2>
+                  <Link href="/others" className="text-sm font-semibold hover:underline" style={{ color: '#f68b1e' }}>
+                    See All →
+                  </Link>
+                </div>
+                <div className="p-3 sm:p-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                  {(otherProducts as OtherProduct[]).slice(0, 8).map(p => (
+                    <OtherProductCard key={p.id} product={p} />
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* 7. Blog */}
             {blogPosts && blogPosts.length > 0 && (
               <section className="mt-2 bg-white rounded overflow-hidden mb-4">
                 <div

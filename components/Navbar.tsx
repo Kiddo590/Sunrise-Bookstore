@@ -12,6 +12,7 @@ const navLinks = [
   { href: '/shop', label: 'All Books' },
   { href: '/shop?format=hardcopy', label: 'Hardcopy' },
   { href: '/shop?format=ebook', label: 'Ebooks' },
+  { href: '/others', label: '🛍️ Others' },
   { href: '/blog', label: 'Blog' },
   { href: '/request', label: 'Request a Book' },
 ]

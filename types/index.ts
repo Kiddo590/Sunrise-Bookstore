@@ -66,6 +66,18 @@ export type BookRequest = {
   notes?: string
 }
 
+export type OtherProduct = {
+  id: string
+  name: string
+  description: string | null
+  price_kes: number
+  cover_url: string | null
+  cover_public_id: string | null
+  category: string | null
+  in_stock: boolean
+  created_at: string
+}
+
 export type BookRequestRecord = {
   id: string
   title: string
