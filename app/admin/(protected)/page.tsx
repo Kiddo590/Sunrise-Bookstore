@@ -1,4 +1,4 @@
-import { createClient, createServiceClient } from '@/lib/supabase/server'
+import { createServiceClient } from '@/lib/supabase/server'
 import { money } from '@/lib/format'
 
 export default async function AdminDashboard() {
@@ -13,29 +13,40 @@ export default async function AdminDashboard() {
     { count: pendingReviews },
     { count: monthOrders },
     { data: recentOrders },
+    { data: allRevData },
+    { data: monthRevData },
   ] = await Promise.all([
     supabase.from('books').select('*', { count: 'exact', head: true }),
     supabase.from('orders').select('*', { count: 'exact', head: true }).eq('status', 'pending'),
     supabase.from('reviews').select('*', { count: 'exact', head: true }).eq('approved', false),
     supabase.from('orders').select('*', { count: 'exact', head: true }).gte('created_at', startOfMonth),
     supabase.from('orders').select('*').order('created_at', { ascending: false }).limit(10),
+    supabase.from('orders').select('total_kes'),
+    supabase.from('orders').select('total_kes').gte('created_at', startOfMonth),
   ])
+
+  const totalRevenue = (allRevData ?? []).reduce((s: number, o: any) => s + (o.total_kes ?? 0), 0)
+  const monthRevenue = (monthRevData ?? []).reduce((s: number, o: any) => s + (o.total_kes ?? 0), 0)
 
   return (
     <div>
       <h1 className="font-display font-bold text-ink text-2xl mb-6">Dashboard</h1>
 
       {/* Stat cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         {[
-          { label: 'Total Books', value: totalBooks ?? 0 },
-          { label: 'Pending Orders', value: pendingOrders ?? 0 },
-          { label: 'Pending Reviews', value: pendingReviews ?? 0 },
-          { label: 'Orders This Month', value: monthOrders ?? 0 },
-        ].map(({ label, value }) => (
+          { label: 'Total Books', value: totalBooks ?? 0, format: 'number' },
+          { label: 'Pending Orders', value: pendingOrders ?? 0, format: 'number' },
+          { label: 'Pending Reviews', value: pendingReviews ?? 0, format: 'number' },
+          { label: 'Orders This Month', value: monthOrders ?? 0, format: 'number' },
+          { label: 'Revenue This Month', value: monthRevenue, format: 'money' },
+          { label: 'Total Revenue', value: totalRevenue, format: 'money' },
+        ].map(({ label, value, format }) => (
           <div key={label} className="bg-paper2 border border-line rounded-xl p-5">
             <p className="text-muted text-xs font-semibold uppercase tracking-wide mb-1">{label}</p>
-            <p className="font-display font-bold text-ink text-3xl">{value}</p>
+            <p className="font-display font-bold text-ink text-2xl">
+              {format === 'money' ? money(value as number) : value}
+            </p>
           </div>
         ))}
       </div>

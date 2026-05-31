@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { createServiceClient } from '@/lib/supabase/server'
 
 export async function POST(request: Request) {
   const body = await request.json()
@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     return Response.json({ error: 'Missing required fields' }, { status: 400 })
   }
 
-  const supabase = await createClient()
+  const supabase = await createServiceClient()
   const { data, error } = await supabase
     .from('book_requests')
     .insert({
@@ -17,6 +17,7 @@ export async function POST(request: Request) {
       format: body.format ?? 'either',
       phone,
       notes: body.notes ?? null,
+      status: 'pending',
     })
     .select('id')
     .single()

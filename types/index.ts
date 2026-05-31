@@ -65,3 +65,14 @@ export type BookRequest = {
   phone: string
   notes?: string
 }
+
+export type BookRequestRecord = {
+  id: string
+  title: string
+  author: string | null
+  format: 'hardcopy' | 'ebook' | 'either'
+  phone: string
+  notes: string | null
+  status: 'pending' | 'sourced' | 'unavailable'
+  created_at: string
+}
