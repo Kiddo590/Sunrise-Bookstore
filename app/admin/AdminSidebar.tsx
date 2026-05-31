@@ -30,12 +30,12 @@ export default function AdminSidebar() {
   }
 
   return (
-    <aside className="w-56 min-h-screen bg-ink text-paper flex flex-col shrink-0">
+    <aside className="w-56 h-screen sticky top-0 bg-ink text-paper flex flex-col shrink-0 overflow-hidden">
       <div className="p-5 border-b border-paper/10">
         <p className="font-display font-bold text-sm">Sunrise Admin</p>
         <p className="text-paper/50 text-xs">Bookstore dashboard</p>
       </div>
-      <nav className="flex-1 py-4">
+      <nav className="flex-1 py-4 overflow-y-auto">
         {links.map(({ href, label, icon: Icon }) => (
           <Link
             key={href}
