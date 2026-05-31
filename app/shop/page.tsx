@@ -13,10 +13,11 @@ export default async function ShopPage() {
   return (
     <div className="bg-paper2 min-h-screen">
       {/* Page header */}
-      <div style={{ backgroundColor: '#1b1c2b' }} className="py-5 px-4 sm:px-6">
+      <div className="py-6 px-4 sm:px-6" style={{ background: 'linear-gradient(135deg, #1b1c2b 0%, #2d1f3d 100%)' }}>
         <div className="max-w-7xl mx-auto">
-          <h1 className="font-bold text-white text-xl sm:text-2xl">All Books</h1>
-          <p className="text-white/50 text-sm mt-1">{books.length} books available</p>
+          <p className="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">The Sunrise BookStore</p>
+          <h1 className="font-bold text-white text-2xl sm:text-3xl">📚 All Books</h1>
+          <p className="text-white/50 text-sm mt-1">{books.length} titles available</p>
         </div>
       </div>
 

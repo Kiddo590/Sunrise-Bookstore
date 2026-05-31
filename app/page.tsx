@@ -47,9 +47,10 @@ export default async function HomePage() {
         <div className="lg:flex lg:gap-2 lg:items-start">
 
           {/* ── Desktop sidebar ── */}
-          <aside className="hidden lg:block w-56 shrink-0 self-start mt-2 rounded overflow-hidden bg-white">
-            <div className="px-4 py-2.5" style={{ backgroundColor: '#1b1c2b' }}>
-              <span className="text-white text-xs font-bold uppercase tracking-wide">All Categories</span>
+          <aside className="hidden lg:block w-56 shrink-0 self-start mt-2 rounded-xl overflow-hidden bg-white shadow-sm">
+            <div className="px-4 py-3" style={{ background: 'linear-gradient(135deg, #1b1c2b 0%, #2d1f3d 100%)' }}>
+              <span className="text-white/50 text-[10px] font-black uppercase tracking-widest block mb-0.5">Browse</span>
+              <span className="text-white text-sm font-bold">All Categories</span>
             </div>
             <nav className="py-1">
               {categories.map(cat => (
@@ -120,7 +121,7 @@ export default async function HomePage() {
               <section className="mt-2">
                 <div
                   className="flex items-center justify-between px-4 py-3 rounded-t"
-                  style={{ backgroundColor: '#e31837' }}
+                  style={{ background: 'linear-gradient(135deg, #e31837 0%, #b01020 100%)' }}
                 >
                   <div className="flex items-center gap-2">
                     <span className="text-white text-lg">⚡</span>
@@ -136,8 +137,8 @@ export default async function HomePage() {
                     See All
                   </Link>
                 </div>
-                <div className="bg-white rounded-b p-3">
-                  <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
+                <div className="bg-white rounded-b-xl p-3 shadow-sm">
+                  <div className="flex gap-3 overflow-x-auto scrollbar-hide pb-1">
                     {(featuredBooks as Book[]).map(book => (
                       <FlashCard key={book.id} book={book} />
                     ))}
@@ -148,13 +149,13 @@ export default async function HomePage() {
 
             {/* 4. Featured Books */}
             {featuredBooks && featuredBooks.length > 0 && (
-              <section className="mt-2 bg-white rounded overflow-hidden">
+              <section className="mt-2 bg-white rounded-xl overflow-hidden shadow-sm">
                 <div
                   className="flex items-center justify-between px-4 py-3"
-                  style={{ borderBottom: '3px solid #f68b1e' }}
+                  style={{ background: 'linear-gradient(135deg, #f68b1e 0%, #d97b18 100%)' }}
                 >
-                  <h2 className="font-bold text-ink text-base sm:text-lg">⭐ Featured Books</h2>
-                  <Link href="/shop" className="text-sm font-semibold hover:underline" style={{ color: '#f68b1e' }}>
+                  <h2 className="font-bold text-white text-base sm:text-lg">⭐ Featured Books</h2>
+                  <Link href="/shop" className="text-white/80 text-sm font-semibold hover:text-white transition-colors">
                     See All →
                   </Link>
                 </div>
@@ -170,13 +171,13 @@ export default async function HomePage() {
 
             {/* 5. Ebooks */}
             {ebookBooks && ebookBooks.length > 0 && (
-              <section className="mt-2 bg-white rounded overflow-hidden">
+              <section className="mt-2 bg-white rounded-xl overflow-hidden shadow-sm">
                 <div
                   className="flex items-center justify-between px-4 py-3"
-                  style={{ borderBottom: '3px solid #f68b1e' }}
+                  style={{ background: 'linear-gradient(135deg, #1b1c2b 0%, #2d1f3d 100%)' }}
                 >
-                  <h2 className="font-bold text-ink text-base sm:text-lg">⚡ Instant Ebooks</h2>
-                  <Link href="/shop?format=ebook" className="text-sm font-semibold hover:underline" style={{ color: '#f68b1e' }}>
+                  <h2 className="font-bold text-white text-base sm:text-lg">⚡ Instant Ebooks</h2>
+                  <Link href="/shop?format=ebook" className="text-white/80 text-sm font-semibold hover:text-white transition-colors">
                     See All →
                   </Link>
                 </div>
@@ -192,13 +193,13 @@ export default async function HomePage() {
 
             {/* 6. Other Products */}
             {otherProducts && otherProducts.length > 0 && (
-              <section className="mt-2 bg-white rounded overflow-hidden">
+              <section className="mt-2 bg-white rounded-xl overflow-hidden shadow-sm">
                 <div
                   className="flex items-center justify-between px-4 py-3"
-                  style={{ borderBottom: '3px solid #f68b1e' }}
+                  style={{ background: 'linear-gradient(135deg, #0d6e4b 0%, #0a5238 100%)' }}
                 >
-                  <h2 className="font-bold text-ink text-base sm:text-lg">🛍️ Other Products</h2>
-                  <Link href="/others" className="text-sm font-semibold hover:underline" style={{ color: '#f68b1e' }}>
+                  <h2 className="font-bold text-white text-base sm:text-lg">🛍️ Other Products</h2>
+                  <Link href="/others" className="text-white/80 text-sm font-semibold hover:text-white transition-colors">
                     See All →
                   </Link>
                 </div>
@@ -212,20 +213,20 @@ export default async function HomePage() {
 
             {/* 7. Blog */}
             {blogPosts && blogPosts.length > 0 && (
-              <section className="mt-2 bg-white rounded overflow-hidden mb-4">
+              <section className="mt-2 bg-white rounded-xl overflow-hidden shadow-sm mb-4">
                 <div
                   className="flex items-center justify-between px-4 py-3"
-                  style={{ borderBottom: '3px solid #f68b1e' }}
+                  style={{ background: 'linear-gradient(135deg, #1a2810 0%, #2d3a1a 100%)' }}
                 >
-                  <h2 className="font-bold text-ink text-base sm:text-lg">📝 Reading List</h2>
-                  <Link href="/blog" className="text-sm font-semibold hover:underline" style={{ color: '#f68b1e' }}>
+                  <h2 className="font-bold text-white text-base sm:text-lg">📝 Reading List</h2>
+                  <Link href="/blog" className="text-white/80 text-sm font-semibold hover:text-white transition-colors">
                     All Posts →
                   </Link>
                 </div>
                 <div className="p-3 sm:p-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {(blogPosts as BlogPost[]).map(post => (
                     <Link key={post.id} href={`/blog/${post.slug}`} className="group block">
-                      <div className="rounded overflow-hidden border border-line hover:border-rust/30 transition-colors">
+                      <div className="rounded-lg overflow-hidden border border-line hover:border-rust/30 transition-colors hover:shadow-md">
                         {post.cover_url ? (
                           <div className="relative h-32 overflow-hidden">
                             <Image
