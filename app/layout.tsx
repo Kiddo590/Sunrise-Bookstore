@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Fraunces, Hanken_Grotesk } from 'next/font/google'
 import { Toaster } from 'sonner'
 import { CartProvider } from '@/components/CartProvider'
+import AnnouncementBar from '@/components/AnnouncementBar'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import BottomNav from '@/components/BottomNav'
@@ -30,6 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}>
       <body className="min-h-screen bg-paper2 text-ink font-body">
         <CartProvider>
+          <AnnouncementBar />
           <Navbar />
           {/* pb-14 clears the fixed bottom nav on all screen sizes */}
           <main className="pb-14">{children}</main>
