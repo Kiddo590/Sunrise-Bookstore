@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { ShoppingCart, Search, User } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import { useCart } from './CartProvider'
+import AnnouncementBar from './AnnouncementBar'
 
 const navLinks = [
   { href: '/shop', label: 'All Books' },
@@ -118,6 +119,9 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+
+      {/* ── Announcement bar ── */}
+      <AnnouncementBar />
 
       {/* ── Row 2: Category strip ── */}
       <div className="bg-white border-b border-line">

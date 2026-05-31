@@ -5,7 +5,6 @@ import { CartProvider } from '@/components/CartProvider'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import BottomNav from '@/components/BottomNav'
-import AnnouncementBar from '@/components/AnnouncementBar'
 import './globals.css'
 
 const displayFont = Fraunces({
@@ -31,7 +30,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}>
       <body className="min-h-screen bg-paper2 text-ink font-body">
         <CartProvider>
-          <AnnouncementBar />
           <Navbar />
           {/* pb-14 on mobile to clear the fixed bottom nav */}
           <main className="pb-14 md:pb-0">{children}</main>
