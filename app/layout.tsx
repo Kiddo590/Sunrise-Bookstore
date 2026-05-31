@@ -2,7 +2,9 @@ import type { Metadata } from 'next'
 import { Fraunces, Hanken_Grotesk } from 'next/font/google'
 import { Toaster } from 'sonner'
 import { CartProvider } from '@/components/CartProvider'
-import ShopShell from '@/components/ShopShell'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
+import BottomNav from '@/components/BottomNav'
 import './globals.css'
 
 const displayFont = Fraunces({
@@ -28,7 +30,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}>
       <body className="min-h-screen bg-paper2 text-ink font-body">
         <CartProvider>
-          <ShopShell>{children}</ShopShell>
+          <Navbar />
+          <main className="pb-14">{children}</main>
+          <Footer />
+          <BottomNav />
           <Toaster richColors position="top-center" />
         </CartProvider>
       </body>

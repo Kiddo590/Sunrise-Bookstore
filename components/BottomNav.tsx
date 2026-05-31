@@ -2,9 +2,13 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, MessageCircle, ShoppingCart, UserCircle } from 'lucide-react'
+import { Home, MessageCircle, ShoppingCart, UserCircle, LayoutDashboard } from 'lucide-react'
+import { useState, useEffect } from 'react'
 import { useCart } from './CartProvider'
 import { waHelpLink } from '@/lib/whatsapp'
+import { createClient } from '@/lib/supabase/client'
+
+const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL
 
 const items = [
   { href: '/',        label: 'Home',    icon: Home },
@@ -16,10 +20,21 @@ const items = [
 export default function BottomNav() {
   const pathname = usePathname()
   const { count } = useCart()
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  useEffect(() => {
+    if (!ADMIN_EMAIL) return
+    const supabase = createClient()
+    supabase.auth.getUser().then(({ data }) => {
+      setIsAdmin(data.user?.email === ADMIN_EMAIL)
+    })
+  }, [])
+
+  const cols = isAdmin ? 'grid-cols-5' : 'grid-cols-4'
 
   return (
     <nav className="fixed bottom-0 inset-x-0 z-50 bg-white border-t border-line">
-      <div className="grid grid-cols-4 h-14">
+      <div className={`grid ${cols} h-14`}>
         {items.map(item => {
           if (item.isWA) {
             return (
@@ -60,6 +75,17 @@ export default function BottomNav() {
             </Link>
           )
         })}
+        {isAdmin && (
+          <Link
+            href="/admin"
+            className={`flex flex-col items-center justify-center gap-0.5 transition-colors ${
+              pathname.startsWith('/admin') ? 'text-rust' : 'text-muted'
+            }`}
+          >
+            <LayoutDashboard size={22} />
+            <span className="text-[10px] font-medium">Admin</span>
+          </Link>
+        )}
       </div>
     </nav>
   )

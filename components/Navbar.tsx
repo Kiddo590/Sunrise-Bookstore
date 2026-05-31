@@ -3,10 +3,11 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
-import { ShoppingCart, Search, User } from 'lucide-react'
+import { ShoppingCart, Search, User, LayoutDashboard } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import { useCart } from './CartProvider'
 import AnnouncementBar from './AnnouncementBar'
+import { createClient } from '@/lib/supabase/client'
 
 const navLinks = [
   { href: '/shop', label: 'All Books' },
@@ -17,6 +18,8 @@ const navLinks = [
   { href: '/request', label: 'Request a Book' },
 ]
 
+const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL
+
 export default function Navbar() {
   const pathname = usePathname()
   const router = useRouter()
@@ -25,6 +28,15 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const prevCount = useRef(count)
   const [cartBounce, setCartBounce] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  useEffect(() => {
+    if (!ADMIN_EMAIL) return
+    const supabase = createClient()
+    supabase.auth.getUser().then(({ data }) => {
+      setIsAdmin(data.user?.email === ADMIN_EMAIL)
+    })
+  }, [])
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 4)
@@ -90,6 +102,15 @@ export default function Navbar() {
 
           {/* Account + Cart */}
           <div className="flex items-center gap-1 sm:gap-3 shrink-0">
+            {isAdmin && (
+              <Link
+                href="/admin"
+                className="hidden sm:flex flex-col items-center text-white hover:text-rust transition-colors text-xs gap-0.5 px-1"
+              >
+                <LayoutDashboard size={24} />
+                <span className="whitespace-nowrap">Admin</span>
+              </Link>
+            )}
             <Link
               href="/reviews"
               className="hidden md:flex flex-col items-center text-white hover:text-rust transition-colors text-xs gap-0.5 px-1"
