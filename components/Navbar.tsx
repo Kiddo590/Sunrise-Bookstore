@@ -34,9 +34,10 @@ export default function Navbar() {
   useEffect(() => {
     if (!ADMIN_EMAIL) return
     const supabase = createClient()
-    supabase.auth.getUser().then(({ data }) => {
-      setIsAdmin(data.user?.email === ADMIN_EMAIL)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsAdmin(session?.user?.email === ADMIN_EMAIL)
     })
+    return () => subscription.unsubscribe()
   }, [])
 
   useEffect(() => {
