@@ -1,6 +1,6 @@
 import type { CartItem, BookRequest } from '@/types'
 
-const BASE = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}`
+const BASE = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '254143304460'}`
 
 export function waOrderLink(
   form: { name: string; phone: string; address: string },

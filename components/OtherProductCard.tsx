@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { money } from '@/lib/format'
 import type { OtherProduct } from '@/types'
 
-const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER
+const waNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '254143304460'
 
 export default function OtherProductCard({ product }: { product: OtherProduct }) {
   const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(
