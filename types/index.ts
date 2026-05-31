@@ -11,6 +11,7 @@ export type Book = {
   is_deal: boolean
   is_featured: boolean
   in_stock: boolean
+  discount_pct: number | null
   created_at: string
 }
 

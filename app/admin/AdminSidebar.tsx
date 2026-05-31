@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { LayoutDashboard, BookOpen, ShoppingCart, Star, Newspaper, Inbox, Package, Image, Megaphone, LogOut } from 'lucide-react'
+import { LayoutDashboard, BookOpen, ShoppingCart, Star, Newspaper, Inbox, Package, Image, Megaphone, Zap, LogOut } from 'lucide-react'
 
 const links = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
@@ -11,6 +11,7 @@ const links = [
   { href: '/admin/orders', label: 'Orders', icon: ShoppingCart },
   { href: '/admin/reviews', label: 'Reviews', icon: Star },
   { href: '/admin/blog', label: 'Blog', icon: Newspaper },
+  { href: '/admin/flashsale', label: 'Flash Sale', icon: Zap },
   { href: '/admin/requests', label: 'Requests', icon: Inbox },
   { href: '/admin/others', label: 'Others', icon: Package },
   { href: '/admin/banners', label: 'Banners', icon: Image },

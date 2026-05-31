@@ -24,6 +24,7 @@ export default function BookFormClient({ book, isNew }: { book: Book | null; isN
     is_featured: book?.is_featured ?? false,
     is_deal: book?.is_deal ?? false,
     in_stock: book?.in_stock ?? true,
+    discount_pct: book?.discount_pct != null ? String(book.discount_pct) : '',
   })
 
   const previewBook: Book = {
@@ -75,6 +76,7 @@ export default function BookFormClient({ book, isNew }: { book: Book | null; isN
       is_featured: form.is_featured,
       is_deal: form.is_deal,
       in_stock: form.in_stock,
+      discount_pct: form.discount_pct ? parseInt(form.discount_pct) : null,
     }
 
     try {
@@ -172,10 +174,31 @@ export default function BookFormClient({ book, isNew }: { book: Book | null; isN
               onChange={e => setForm(f => ({ ...f, [key]: e.target.checked }))}
               className="accent-rust w-4 h-4"
             />
-            <span className="text-sm text-ink capitalize">{key.replace('_', ' ')}</span>
+            <span className="text-sm text-ink capitalize">{key.replace(/_/g, ' ')}</span>
           </label>
         ))}
       </div>
+
+      {/* Discount % — only shown when featured */}
+      {form.is_featured && (
+        <div>
+          <label className="text-sm font-semibold text-ink block mb-1">
+            Flash Sale Discount % <span className="text-muted font-normal">(shown in Flash Sales section)</span>
+          </label>
+          <div className="flex items-center gap-2">
+            <input
+              type="number"
+              min="1"
+              max="90"
+              value={form.discount_pct}
+              onChange={e => setForm(f => ({ ...f, discount_pct: e.target.value }))}
+              placeholder="e.g. 20"
+              className="w-32 border border-line rounded-xl px-4 py-2.5 text-sm bg-paper focus:outline-none focus:border-rust"
+            />
+            <span className="text-sm text-muted">% off the listed price</span>
+          </div>
+        </div>
+      )}
 
       <div className="flex gap-3">
         <button
