@@ -1,5 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 
+export const dynamic = 'force-dynamic'
+
 export async function POST(request: Request) {
   const body = await request.json()
   const { book_id, reviewer, body: reviewBody, rating } = body

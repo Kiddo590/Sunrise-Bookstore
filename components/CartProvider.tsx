@@ -33,7 +33,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [cart, hydrated])
 
   function addItem(book: Book, format: 'hardcopy' | 'ebook') {
-    const price = format === 'hardcopy' ? book.price_hard! : book.price_ebook!
+    const price = format === 'hardcopy' ? (book.price_hard ?? 0) : (book.price_ebook ?? 0)
     const item: CartItem = {
       uid: crypto.randomUUID(),
       bookId: book.id,
