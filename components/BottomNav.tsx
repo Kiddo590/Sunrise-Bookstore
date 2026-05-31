@@ -18,7 +18,7 @@ export default function BottomNav() {
   const { count } = useCart()
 
   return (
-    <nav className="md:hidden fixed bottom-0 inset-x-0 z-50 bg-white border-t border-line">
+    <nav className="fixed bottom-0 inset-x-0 z-50 bg-white border-t border-line">
       <div className="grid grid-cols-4 h-14">
         {items.map(item => {
           if (item.isWA) {

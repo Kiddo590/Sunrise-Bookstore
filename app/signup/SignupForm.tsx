@@ -17,6 +17,7 @@ export default function SignupForm() {
   const [confirm, setConfirm] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [needsConfirmation, setNeedsConfirmation] = useState(false)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -31,7 +32,7 @@ export default function SignupForm() {
     }
     setLoading(true)
     const supabase = createClient()
-    const { error: authError } = await supabase.auth.signUp({
+    const { data, error: authError } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -40,11 +41,37 @@ export default function SignupForm() {
     })
     if (authError) {
       setError(authError.message)
+    } else if (!data.session) {
+      // Email confirmation is required — session is null until the user clicks the link
+      setNeedsConfirmation(true)
     } else {
       router.push(redirectTo)
       router.refresh()
     }
     setLoading(false)
+  }
+
+  if (needsConfirmation) {
+    return (
+      <div className="min-h-screen bg-paper2 flex items-center justify-center px-4 py-12">
+        <div className="w-full max-w-sm bg-paper rounded-2xl border border-line p-8 text-center">
+          <p className="text-4xl mb-3">📬</p>
+          <h2 className="font-display font-bold text-ink text-xl mb-2">Check your inbox</h2>
+          <p className="text-muted text-sm leading-relaxed">
+            We sent a confirmation link to{' '}
+            <strong className="text-ink">{email}</strong>.
+            Click it to activate your account, then sign in.
+          </p>
+          <Link
+            href="/login"
+            className="inline-block mt-6 text-sm font-semibold text-white px-5 py-2.5 rounded-full"
+            style={{ backgroundColor: '#f68b1e' }}
+          >
+            Go to sign in
+          </Link>
+        </div>
+      </div>
+    )
   }
 
   return (

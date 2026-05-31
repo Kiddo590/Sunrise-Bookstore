@@ -31,8 +31,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen bg-paper2 text-ink font-body">
         <CartProvider>
           <Navbar />
-          {/* pb-14 on mobile to clear the fixed bottom nav */}
-          <main className="pb-14 md:pb-0">{children}</main>
+          {/* pb-14 clears the fixed bottom nav on all screen sizes */}
+          <main className="pb-14">{children}</main>
           <Footer />
           <BottomNav />
           <Toaster richColors position="top-center" />
