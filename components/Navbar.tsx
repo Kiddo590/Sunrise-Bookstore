@@ -107,7 +107,7 @@ export default function Navbar() {
             {isAdmin && (
               <Link
                 href="/admin"
-                className="hidden sm:flex flex-col items-center text-white hover:text-rust transition-colors text-xs gap-0.5 px-1"
+                className="flex flex-col items-center text-white hover:text-rust transition-colors text-xs gap-0.5 px-1"
               >
                 <LayoutDashboard size={24} />
                 <span className="whitespace-nowrap">Admin</span>
