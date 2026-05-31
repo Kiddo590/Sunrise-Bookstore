@@ -5,6 +5,7 @@ import { CartProvider } from '@/components/CartProvider'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import BottomNav from '@/components/BottomNav'
+import FloatingWhatsApp from '@/components/FloatingWhatsApp'
 import './globals.css'
 
 const displayFont = Fraunces({
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="pb-14">{children}</main>
           <Footer />
           <BottomNav />
+          <FloatingWhatsApp />
           <Toaster richColors position="top-center" />
         </CartProvider>
       </body>
