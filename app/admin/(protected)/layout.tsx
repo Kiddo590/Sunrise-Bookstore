@@ -4,10 +4,10 @@ import AdminSidebar from '../AdminSidebar'
 
 export default async function AdminProtectedLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
-  const { data: { session } } = await supabase.auth.getSession()
+  const { data: { user } } = await supabase.auth.getUser()
 
-  if (!session) redirect('/admin/login')
-  if (session.user.email !== process.env.ADMIN_EMAIL) redirect('/')
+  if (!user) redirect('/admin/login')
+  if (user.email !== process.env.ADMIN_EMAIL) redirect('/')
 
   return (
     <div className="min-h-screen bg-paper flex">
