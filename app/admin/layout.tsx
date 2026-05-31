@@ -7,6 +7,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const { data: { session } } = await supabase.auth.getSession()
 
   if (!session) redirect('/admin/login')
+  if (session.user.email !== process.env.ADMIN_EMAIL) redirect('/')
 
   return (
     <div className="min-h-screen bg-paper flex">
