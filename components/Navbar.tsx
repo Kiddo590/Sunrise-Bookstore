@@ -3,10 +3,11 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
-import { ShoppingCart, Search, User, LayoutDashboard } from 'lucide-react'
+import { ShoppingCart, Search, LayoutDashboard } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import { useCart } from './CartProvider'
 import AnnouncementBar from './AnnouncementBar'
+import DarkModeToggle from './DarkModeToggle'
 import { createClient } from '@/lib/supabase/client'
 
 const navLinks = [
@@ -100,8 +101,9 @@ export default function Navbar() {
             </button>
           </form>
 
-          {/* Account + Cart */}
+          {/* Actions */}
           <div className="flex items-center gap-1 sm:gap-3 shrink-0">
+            <DarkModeToggle />
             {isAdmin && (
               <Link
                 href="/admin"
@@ -111,13 +113,6 @@ export default function Navbar() {
                 <span className="whitespace-nowrap">Admin</span>
               </Link>
             )}
-            <Link
-              href="/reviews"
-              className="hidden md:flex flex-col items-center text-white hover:text-rust transition-colors text-xs gap-0.5 px-1"
-            >
-              <User size={24} />
-              <span className="whitespace-nowrap">Account</span>
-            </Link>
             <Link
               href="/cart"
               className="relative flex flex-col items-center text-white hover:text-rust transition-colors text-xs gap-0.5 px-2 py-1 rounded"

@@ -31,6 +31,25 @@ body {
   font-family: var(--font-body);
 }
 
+/* ── Dark mode ── */
+html.dark {
+  --color-paper:  #1c1c2e;
+  --color-paper2: #13131f;
+  --color-ink:    #e2e2ee;
+  --color-muted:  #8888aa;
+  --color-line:   #2a2a40;
+}
+
+html.dark body {
+  background-color: #13131f;
+  color: #e2e2ee;
+}
+
+/* bg-white is a literal Tailwind class — remap it in dark mode */
+html.dark .bg-white {
+  background-color: #1c1c2e;
+}
+
 ::selection {
   background-color: #f68b1e;
   color: #ffffff;
