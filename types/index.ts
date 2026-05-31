@@ -79,6 +79,19 @@ export type OtherProduct = {
   created_at: string
 }
 
+export type HeroSlide = {
+  id: string
+  eyebrow: string
+  heading: string
+  sub: string | null
+  cta: string
+  href: string
+  bg: string
+  emoji: string | null
+  position: number
+  is_active: boolean
+}
+
 export type BookRequestRecord = {
   id: string
   title: string

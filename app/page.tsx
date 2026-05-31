@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import { getFeaturedBooks, getEbookBooks, getLatestBlogPosts, getOtherProducts } from '@/lib/db'
+import { getFeaturedBooks, getEbookBooks, getLatestBlogPosts, getOtherProducts, getHeroSlides } from '@/lib/db'
 import BookCard from '@/components/BookCard'
 import FlashCard from '@/components/FlashCard'
 import HeroBanner from '@/components/HeroBanner'
@@ -31,11 +31,12 @@ const categories = [
 ]
 
 export default async function HomePage() {
-  const [featuredBooks, ebookBooks, blogPosts, otherProducts] = await Promise.all([
+  const [featuredBooks, ebookBooks, blogPosts, otherProducts, heroSlides] = await Promise.all([
     getFeaturedBooks(),
     getEbookBooks(),
     getLatestBlogPosts(3),
     getOtherProducts(),
+    getHeroSlides(),
   ])
 
   return (
@@ -87,7 +88,7 @@ export default async function HomePage() {
 
             {/* 1. Hero banner */}
             <div className="mt-2">
-              <HeroBanner />
+              <HeroBanner slides={heroSlides.length ? heroSlides : undefined} />
               <BannerStrip />
             </div>
 

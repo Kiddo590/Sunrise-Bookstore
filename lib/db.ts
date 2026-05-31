@@ -3,7 +3,7 @@
  * (NEXT_PUBLIC_SUPABASE_URL is empty), otherwise queries Supabase.
  */
 
-import type { Book, Review, BlogPost, Order, BookRequestRecord, OtherProduct } from '@/types'
+import type { Book, Review, BlogPost, Order, BookRequestRecord, OtherProduct, HeroSlide } from '@/types'
 import { MOCK_BOOKS, MOCK_REVIEWS, MOCK_BLOG_POSTS } from './mock-data'
 
 function isConfigured() {
@@ -135,6 +135,20 @@ export async function getOtherProducts(): Promise<OtherProduct[]> {
     .eq('in_stock', true)
     .order('created_at', { ascending: false })
   return (data as OtherProduct[]) ?? []
+}
+
+// ── Hero Slides ────────────────────────────────────────────
+
+export async function getHeroSlides(): Promise<HeroSlide[]> {
+  if (!isConfigured()) return []
+  const { createServiceClient } = await import('./supabase/server')
+  const sb = createServiceClient()
+  const { data } = await sb
+    .from('hero_slides')
+    .select('*')
+    .eq('is_active', true)
+    .order('position', { ascending: true })
+  return (data as HeroSlide[]) ?? []
 }
 
 // ── Book Requests ──────────────────────────────────────────
