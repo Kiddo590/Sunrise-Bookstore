@@ -1,55 +1,58 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
 
-type Banner = { id: string; image_url: string }
+const DEFAULTS = [
+  '🚚 Free delivery on orders over KSh 2,000 within Nairobi CBD',
+  '⚡ Ebooks delivered to your email — instantly after payment',
+  '📱 Order via WhatsApp · Cash on Delivery available',
+  '📚 New titles added every week — check our latest arrivals',
+]
+
+type Announcement = { id: string; message: string }
 
 export default function AnnouncementBar() {
-  const [banners, setBanners] = useState<Banner[]>([])
+  const [messages, setMessages] = useState<string[]>(DEFAULTS)
   const [idx, setIdx] = useState(0)
   const [visible, setVisible] = useState(true)
 
   useEffect(() => {
-    fetch('/api/banners')
+    fetch('/api/announcements')
       .then(r => r.json())
-      .then((data: Banner[]) => { if (Array.isArray(data) && data.length) setBanners(data) })
+      .then((data: Announcement[]) => {
+        if (Array.isArray(data) && data.length) {
+          setMessages(data.map(a => a.message))
+        }
+      })
       .catch(() => {})
   }, [])
 
   useEffect(() => {
-    if (banners.length < 2) return
+    if (messages.length < 2) return
     const t = setInterval(() => {
       setVisible(false)
       setTimeout(() => {
-        setIdx(i => (i + 1) % banners.length)
+        setIdx(i => (i + 1) % messages.length)
         setVisible(true)
-      }, 400)
+      }, 300)
     }, 5000)
     return () => clearInterval(t)
-  }, [banners.length])
-
-  if (!banners.length) return null
+  }, [messages.length])
 
   return (
-    <div className="w-full overflow-hidden bg-paper" style={{ height: 80 }}>
-      <div
+    <div
+      className="text-white text-xs py-2 text-center font-medium overflow-hidden"
+      style={{ backgroundColor: '#1b1c2b' }}
+    >
+      <span
         style={{
-          transition: 'opacity 0.4s',
+          display: 'inline-block',
+          transition: 'opacity 0.3s',
           opacity: visible ? 1 : 0,
-          width: '100%',
-          height: '100%',
-          position: 'relative',
         }}
       >
-        <Image
-          src={banners[idx].image_url}
-          alt="Banner"
-          fill
-          className="object-cover"
-          priority
-        />
-      </div>
+        {messages[idx]}
+      </span>
     </div>
   )
 }
