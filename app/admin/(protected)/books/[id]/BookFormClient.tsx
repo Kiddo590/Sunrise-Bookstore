@@ -36,6 +36,7 @@ export default function BookFormClient({ book, isNew }: { book: Book | null; isN
     cover_public_id: form.cover_public_id || null,
     category: form.category || null,
     description: form.description || null,
+    discount_pct: form.discount_pct ? parseInt(form.discount_pct) : null,
     created_at: book?.created_at ?? '',
   }
 
