@@ -44,7 +44,7 @@ export default async function AdminDashboard() {
         ].map(({ label, value, format }) => (
           <div key={label} className="bg-paper2 border border-line rounded-xl p-5">
             <p className="text-muted text-xs font-semibold uppercase tracking-wide mb-1">{label}</p>
-            <p className="font-display font-bold text-ink text-2xl">
+            <p className={`font-display font-bold text-2xl ${format === 'money' ? 'text-rust' : 'text-ink'}`}>
               {format === 'money' ? money(value as number) : value}
             </p>
           </div>
@@ -74,7 +74,7 @@ export default async function AdminDashboard() {
                   <td className="p-3 font-medium text-ink">{order.customer_name}</td>
                   <td className="p-3 text-muted">{order.customer_phone}</td>
                   <td className="p-3 text-muted">{Array.isArray(order.items) ? order.items.length : '—'}</td>
-                  <td className="p-3 font-semibold text-ink">{money(order.total_kes)}</td>
+                  <td className="p-3 font-semibold text-rust">{money(order.total_kes)}</td>
                   <td className="p-3">
                     <span className={`px-2 py-0.5 rounded-full text-xs font-bold uppercase ${
                       order.status === 'pending' ? 'bg-amber-100 text-amber-800' :

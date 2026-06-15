@@ -102,7 +102,7 @@ export default function AdminOrdersClient({ orders: initial }: { orders: Order[]
                   <td className="p-3 font-medium text-ink">{order.customer_name}</td>
                   <td className="p-3 text-muted">{order.customer_phone}</td>
                   <td className="p-3 text-muted">{Array.isArray(order.items) ? order.items.length : '—'}</td>
-                  <td className="p-3 font-semibold text-ink">{money(order.total_kes)}</td>
+                  <td className="p-3 font-semibold text-rust">{money(order.total_kes)}</td>
                   <td className="p-3">
                     <select
                       value={order.status}

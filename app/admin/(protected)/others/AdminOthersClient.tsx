@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { toast } from 'sonner'
 import { Plus, X } from 'lucide-react'
 import { money } from '@/lib/format'
+import RichTextEditor from '@/components/RichTextEditor'
 import type { OtherProduct } from '@/types'
 
 const BLANK = { name: '', category: '', price_kes: '', description: '', cover_url: '', cover_public_id: '', in_stock: true }
@@ -199,12 +200,11 @@ export default function AdminOthersClient({ products: initial }: { products: Oth
             </div>
             <div className="sm:col-span-2">
               <label className="text-xs font-semibold text-muted uppercase tracking-wide block mb-1">Description</label>
-              <textarea
+              <RichTextEditor
                 value={form.description}
-                onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
+                onChange={value => setForm(f => ({ ...f, description: value }))}
                 placeholder="Short product description (optional)"
-                rows={2}
-                className="w-full border border-line rounded-xl px-3 py-2 text-sm bg-paper focus:outline-none focus:border-rust resize-none"
+                minHeight={180}
               />
             </div>
             <div className="sm:col-span-2">
@@ -288,7 +288,7 @@ export default function AdminOthersClient({ products: initial }: { products: Oth
                     {p.description && <p className="text-muted text-xs line-clamp-1">{p.description}</p>}
                   </td>
                   <td className="p-3 text-muted text-xs">{p.category ?? '—'}</td>
-                  <td className="p-3 font-semibold text-ink">{money(p.price_kes)}</td>
+                  <td className="p-3 font-semibold text-rust">{money(p.price_kes)}</td>
                   <td className="p-3 text-center">
                     <input
                       type="checkbox"

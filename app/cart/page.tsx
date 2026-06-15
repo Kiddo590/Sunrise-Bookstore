@@ -96,7 +96,7 @@ export default function CartPage() {
             <div className="p-5">
               <div className="flex justify-between text-sm mb-2">
                 <span className="text-muted">Subtotal ({cart.length} {cart.length === 1 ? 'item' : 'items'})</span>
-                <span className="text-ink font-medium">{money(total)}</span>
+                <span className="text-rust font-medium">{money(total)}</span>
               </div>
               <div className="flex justify-between text-sm mb-5">
                 <span className="text-muted">Delivery</span>

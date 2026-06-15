@@ -24,6 +24,7 @@ const categories = [
   { label: 'Science',   emoji: '🔬', href: '/shop?category=Science' },
   { label: 'Poetry',    emoji: '✍️',  href: '/shop?category=Poetry' },
   { label: 'Ebooks',    emoji: '⚡', href: '/shop?format=ebook' },
+  { label: 'Other',     emoji: '📦', href: '/shop?category=Other' },
   { label: 'Romance',   emoji: '💕', href: '/shop?category=Romance' },
   { label: 'Religion',  emoji: '✝️',  href: '/shop?category=Religion' },
   { label: 'Biography', emoji: '👤', href: '/shop?category=Biography' },
@@ -95,20 +96,20 @@ export default async function HomePage() {
 
             {/* 2. Category tiles — mobile/tablet only (sidebar handles desktop) */}
             <section className="mt-2 bg-white rounded lg:hidden">
-              <div className="flex overflow-x-auto scrollbar-hide px-3 py-4 gap-2">
-                {categories.slice(0, 8).map(cat => (
+              <div className="flex overflow-x-auto scrollbar-hide px-2 py-3 gap-1.5">
+                {categories.slice(0, 9).map(cat => (
                   <Link
                     key={cat.label}
                     href={cat.href}
-                    className="flex flex-col items-center gap-1.5 shrink-0 group"
+                    className="flex flex-col items-center gap-1 shrink-0 group"
                   >
                     <div
-                      className="w-16 h-16 rounded-xl flex items-center justify-center text-2xl transition-colors group-hover:bg-rust/10 border border-line group-hover:border-rust/30"
+                      className="w-12 h-12 rounded-lg flex items-center justify-center text-xl transition-colors group-hover:bg-rust/10 border border-line group-hover:border-rust/30"
                       style={{ backgroundColor: '#f9f9f9' }}
                     >
                       {cat.emoji}
                     </div>
-                    <span className="text-[10px] text-ink font-medium text-center w-16 leading-tight">
+                    <span className="text-[9px] sm:text-[10px] text-ink font-medium text-center w-14 leading-tight">
                       {cat.label}
                     </span>
                   </Link>

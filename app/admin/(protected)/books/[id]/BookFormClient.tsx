@@ -4,6 +4,7 @@ import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import BookCover from '@/components/BookCover'
+import RichTextEditor from '@/components/RichTextEditor'
 import type { Book } from '@/types'
 
 export default function BookFormClient({ book, isNew }: { book: Book | null; isNew: boolean }) {
@@ -131,11 +132,11 @@ export default function BookFormClient({ book, isNew }: { book: Book | null; isN
 
       <div>
         <label className="text-sm font-semibold text-ink block mb-1">Description</label>
-        <textarea
+        <RichTextEditor
           value={form.description}
-          onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
-          rows={4}
-          className="w-full border border-line rounded-xl px-4 py-2.5 text-sm bg-paper focus:outline-none focus:border-rust resize-none"
+          onChange={value => setForm(f => ({ ...f, description: value }))}
+          placeholder="Add product description, key features, and notes..."
+          minHeight={220}
         />
       </div>
 

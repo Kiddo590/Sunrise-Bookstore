@@ -75,17 +75,18 @@ const defaultPalette: Palette = {
 type Props = {
   book: Book
   height?: number
+  fit?: 'cover' | 'contain'
 }
 
-export default function BookCover({ book, height = 200 }: Props) {
+export default function BookCover({ book, height = 200, fit = 'cover' }: Props) {
   if (book.cover_url) {
     return (
-      <div className="relative w-full overflow-hidden group-hover:[transform:scale(1.02)] transition-transform duration-500" style={{ height }}>
+      <div className="relative w-full overflow-hidden group-hover:[transform:scale(1.02)] transition-transform duration-500 bg-white" style={{ height }}>
         <Image
           src={book.cover_url}
           alt={book.title}
           fill
-          className="object-cover"
+          className={fit === 'contain' ? 'object-contain object-top p-2' : 'object-cover'}
           sizes="(max-width: 768px) 50vw, 25vw"
         />
       </div>

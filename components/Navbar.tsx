@@ -11,12 +11,12 @@ import DarkModeToggle from './DarkModeToggle'
 import { createClient } from '@/lib/supabase/client'
 
 const navLinks = [
-  { href: '/shop', label: 'All Books' },
-  { href: '/shop?format=hardcopy', label: 'Hardcopy' },
-  { href: '/shop?format=ebook', label: 'Ebooks' },
-  { href: '/others', label: '🛍️ Others' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/request', label: 'Request a Book' },
+  { href: '/shop', label: '📚 All Books' },
+  { href: '/shop?format=hardcopy', label: '📕 Hardcopy' },
+  { href: '/shop?format=ebook', label: '⚡ Ebooks' },
+  { href: '/others', label: '🛍️ Other Products' },
+  { href: '/blog', label: '📝 Blog' },
+  { href: '/request', label: '🔎 Request a Book' },
 ]
 
 const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL
