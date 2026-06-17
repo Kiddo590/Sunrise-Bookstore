@@ -248,7 +248,7 @@ export default async function BookPage({ params }: Props) {
 
             <div id="product-details" className="bg-white rounded shadow-sm">
               <h2 className="text-3xl font-semibold text-ink p-6 border-b border-line">Product details</h2>
-              <div className="p-6 text-2xl text-ink leading-snug">
+              <div className="p-6 text-xl text-ink leading-relaxed">
                 {book.description ? (
                   <p>{book.description}</p>
                 ) : (
