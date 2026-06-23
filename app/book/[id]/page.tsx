@@ -9,7 +9,7 @@ import StarRating from '@/components/StarRating'
 import { money } from '@/lib/format'
 import FormatSelector from './FormatSelector'
 import ReviewFormClient from './ReviewFormClient'
-import { ChevronRight, ClipboardList, Heart, MessageSquare, PackageCheck, RotateCcw, ShieldCheck, ShoppingBag, Truck } from 'lucide-react'
+import { ClipboardList, Heart, MessageSquare, PackageCheck, RotateCcw, ShieldCheck, ShoppingBag, Truck } from 'lucide-react'
 
 type Props = { params: Promise<{ id: string }> }
 
@@ -146,7 +146,7 @@ export default async function BookPage({ params }: Props) {
                 <div className="space-y-3 text-xl">
                   <p className="flex gap-3 text-blue-600">
                     <ShieldCheck className="text-blue-500 shrink-0" size={28} />
-                    Easy and safer payments via the JumiaPay App.
+                    Easy and safer payments via SunriseBookstore.
                   </p>
                   <a href="#product-details" className="block text-blue-600 mt-28">Report incorrect product information</a>
                 </div>
@@ -208,28 +208,6 @@ export default async function BookPage({ params }: Props) {
               </div>
             </div>
 
-            <div className="bg-white rounded shadow-sm">
-              <h2 className="text-2xl font-semibold uppercase text-ink p-4 border-b border-line flex items-center justify-between">
-                Seller Information
-                <ChevronRight size={26} />
-              </h2>
-              <div className="p-4">
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <p className="text-2xl font-semibold text-ink">The Sunrise BookStore</p>
-                    <p className="text-lg"><strong>90%</strong> Seller Score</p>
-                    <p className="text-lg"><strong>33</strong> Followers</p>
-                  </div>
-                  <button className="bg-rust text-white px-6 py-3 rounded font-bold shadow-sm">Follow</button>
-                </div>
-                <div className="border-t border-line mt-4 pt-4">
-                  <p className="text-2xl font-semibold mb-3">Seller Performance</p>
-                  <p className="text-lg">Shipping speed: <strong>Average</strong></p>
-                  <p className="text-lg">Customer Rating: <strong>Excellent</strong></p>
-                  <p className="text-lg">Cancellation Rate: <strong>Very Low</strong></p>
-                </div>
-              </div>
-            </div>
           </aside>
         </section>
 
@@ -240,7 +218,7 @@ export default async function BookPage({ params }: Props) {
               <div className="m-6 border border-line rounded p-4 flex items-center justify-between gap-4">
                 <div>
                   <p className="text-3xl font-bold text-rust">{comparePrice ? money(comparePrice) : 'KSh 0'}</p>
-                  <p className="text-lg text-muted mt-1">Sold by: The Sunrise BookStore | Seller Score: 90%</p>
+                  <p className="text-lg text-muted mt-1">Available from The Sunrise BookStore</p>
                 </div>
                 <button className="bg-rust text-white font-bold px-8 py-4 rounded">Buy now</button>
               </div>

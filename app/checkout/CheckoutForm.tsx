@@ -34,6 +34,7 @@ export default function CheckoutForm({ userId, defaultName, defaultPhone, defaul
       toast.error('Your cart is empty.')
       return
     }
+    const waTab = window.open('', '_blank')
     setSubmitting(true)
     try {
       const res = await fetch('/api/orders', {
@@ -52,11 +53,16 @@ export default function CheckoutForm({ userId, defaultName, defaultPhone, defaul
       if (!res.ok) throw new Error('Failed to save order')
 
       const waLink = waOrderLink({ name, phone, address }, cart, total)
-      window.open(waLink, '_blank')
+      if (waTab) {
+        waTab.location.href = waLink
+      } else {
+        window.location.href = waLink
+      }
       clearCart()
       toast.success('Order placed! Check WhatsApp — we\'ll confirm shortly. 📱')
       setTimeout(() => router.push('/account'), 2000)
     } catch {
+      waTab?.close()
       toast.error('Something went wrong. Please try again.')
     } finally {
       setSubmitting(false)

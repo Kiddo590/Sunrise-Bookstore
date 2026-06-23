@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Jumia-style color palette */
+  /* SunriseBookstore-style color palette */
   --color-paper: #ffffff;
   --color-paper2: #f1f1f1;
   --color-ink: #212121;
   --color-muted: #6d6d6d;
-  --color-rust: #f68b1e;        /* Jumia orange */
+  --color-rust: #f68b1e;        /* SunriseBookstore orange */
   --color-rust-d: #d97b18;      /* Darker orange */
   --color-grove: #1b1c2b;       /* Dark header */
   --color-line: #e0e0e0;
