@@ -10,6 +10,7 @@ export type Book = {
   cover_public_id: string | null
   is_deal: boolean
   is_featured: boolean
+  is_top_seller: boolean
   in_stock: boolean
   discount_pct?: number | null
   created_at: string

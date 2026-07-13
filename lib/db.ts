@@ -26,6 +26,15 @@ export async function getFeaturedBooks(): Promise<Book[]> {
   return (data as Book[]) ?? []
 }
 
+export async function getTopSellingBooks(): Promise<Book[]> {
+  if (!isConfigured()) {
+    return MOCK_BOOKS.filter(b => b.is_top_seller)
+  }
+  const sb = await getSupabase()
+  const { data } = await sb.from('books').select('*').eq('is_top_seller', true).order('created_at', { ascending: false })
+  return (data as Book[]) ?? []
+}
+
 export async function getEbookBooks(): Promise<Book[]> {
   if (!isConfigured()) {
     return MOCK_BOOKS.filter(b => b.price_ebook != null)

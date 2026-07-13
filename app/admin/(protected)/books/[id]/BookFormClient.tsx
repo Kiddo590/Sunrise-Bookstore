@@ -24,6 +24,7 @@ export default function BookFormClient({ book, isNew }: { book: Book | null; isN
     cover_public_id: book?.cover_public_id ?? '',
     is_featured: book?.is_featured ?? false,
     is_deal: book?.is_deal ?? false,
+    is_top_seller: book?.is_top_seller ?? false,
     in_stock: book?.in_stock ?? true,
     discount_pct: book?.discount_pct != null ? String(book.discount_pct) : '',
   })
@@ -77,6 +78,7 @@ export default function BookFormClient({ book, isNew }: { book: Book | null; isN
       cover_public_id: form.cover_public_id || null,
       is_featured: form.is_featured,
       is_deal: form.is_deal,
+      is_top_seller: form.is_top_seller,
       in_stock: form.in_stock,
       discount_pct: form.discount_pct ? parseInt(form.discount_pct) : null,
     }
@@ -168,7 +170,7 @@ export default function BookFormClient({ book, isNew }: { book: Book | null; isN
 
       {/* Toggles */}
       <div className="flex gap-6 flex-wrap">
-        {(['is_featured', 'is_deal', 'in_stock'] as const).map(key => (
+        {(['is_featured', 'is_deal', 'is_top_seller', 'in_stock'] as const).map(key => (
           <label key={key} className="flex items-center gap-2 cursor-pointer">
             <input
               type="checkbox"

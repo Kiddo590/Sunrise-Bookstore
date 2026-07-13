@@ -18,7 +18,7 @@ export default function AdminBooksClient({ books: initial }: { books: Book[] }) 
   const outOfStockCount = useMemo(() => books.filter(b => !b.in_stock).length, [books])
   const visible = tab === 'all' ? books : books.filter(b => !b.in_stock)
 
-  async function toggle(id: string, field: 'is_featured' | 'is_deal' | 'in_stock', value: boolean) {
+  async function toggle(id: string, field: 'is_featured' | 'is_deal' | 'is_top_seller' | 'in_stock', value: boolean) {
     const res = await fetch(`/api/books/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -79,6 +79,7 @@ export default function AdminBooksClient({ books: initial }: { books: Book[] }) 
                 <th className="text-left p-3 text-muted font-semibold">Formats</th>
                 <th className="text-center p-3 text-muted font-semibold">Featured</th>
                 <th className="text-center p-3 text-muted font-semibold">Deal</th>
+                <th className="text-center p-3 text-muted font-semibold">Top Seller</th>
                 <th className="text-center p-3 text-muted font-semibold">In Stock</th>
                 <th className="text-left p-3 text-muted font-semibold">Actions</th>
               </tr>
@@ -86,7 +87,7 @@ export default function AdminBooksClient({ books: initial }: { books: Book[] }) 
             <tbody>
               {visible.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="p-8 text-center text-muted">
+                  <td colSpan={8} className="p-8 text-center text-muted">
                     {tab === 'out_of_stock' ? 'All books are in stock.' : 'No books yet.'}
                   </td>
                 </tr>
@@ -120,6 +121,14 @@ export default function AdminBooksClient({ books: initial }: { books: Book[] }) 
                       type="checkbox"
                       checked={book.is_deal}
                       onChange={e => toggle(book.id, 'is_deal', e.target.checked)}
+                      className="accent-rust w-4 h-4 cursor-pointer"
+                    />
+                  </td>
+                  <td className="p-3 text-center">
+                    <input
+                      type="checkbox"
+                      checked={book.is_top_seller}
+                      onChange={e => toggle(book.id, 'is_top_seller', e.target.checked)}
                       className="accent-rust w-4 h-4 cursor-pointer"
                     />
                   </td>

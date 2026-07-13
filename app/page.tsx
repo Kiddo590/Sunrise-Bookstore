@@ -1,10 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import { getFeaturedBooks, getEbookBooks, getLatestBlogPosts, getOtherProducts, getHeroSlides } from '@/lib/db'
+import { getFeaturedBooks, getEbookBooks, getLatestBlogPosts, getOtherProducts, getTopSellingBooks } from '@/lib/db'
 import BookCard from '@/components/BookCard'
 import FlashCard from '@/components/FlashCard'
-import HeroBanner from '@/components/HeroBanner'
 import BannerStrip from '@/components/BannerStrip'
 import Countdown from '@/components/Countdown'
 import OtherProductCard from '@/components/OtherProductCard'
@@ -32,12 +31,12 @@ const categories = [
 ]
 
 export default async function HomePage() {
-  const [featuredBooks, ebookBooks, blogPosts, otherProducts, heroSlides] = await Promise.all([
+  const [featuredBooks, ebookBooks, blogPosts, otherProducts, topSellingBooks] = await Promise.all([
     getFeaturedBooks(),
     getEbookBooks(),
     getLatestBlogPosts(3),
     getOtherProducts(),
-    getHeroSlides(),
+    getTopSellingBooks(),
   ])
 
   return (
@@ -88,13 +87,7 @@ export default async function HomePage() {
           {/* ── Main content ── */}
           <div className="flex-1 min-w-0">
 
-            {/* 1. Hero banner */}
-            <div className="mt-2">
-              <HeroBanner slides={heroSlides.length ? heroSlides : undefined} />
-              <BannerStrip />
-            </div>
-
-            {/* 2. Category tiles — mobile/tablet only (sidebar handles desktop) */}
+            {/* 1. Category tiles — mobile/tablet only (sidebar handles desktop) */}
             <section className="mt-2 bg-white rounded lg:hidden">
               <div className="flex overflow-x-auto scrollbar-hide px-2 py-3 gap-1.5">
                 {categories.slice(0, 9).map(cat => (
@@ -116,6 +109,9 @@ export default async function HomePage() {
                 ))}
               </div>
             </section>
+
+            {/* 2. Banner */}
+            <BannerStrip />
 
             {/* 3. Flash Sales */}
             {featuredBooks && featuredBooks.length > 0 && (
@@ -258,6 +254,28 @@ export default async function HomePage() {
             )}
 
           </div>{/* end main */}
+
+          {/* ── Top Selling sidebar ── */}
+          {topSellingBooks && topSellingBooks.length > 0 && (
+            <aside className="hidden lg:block w-56 shrink-0 self-start mt-2 rounded-xl overflow-hidden bg-white shadow-sm">
+              <div className="px-4 py-3" style={{ background: 'linear-gradient(135deg, #1b1c2b 0%, #2d1f3d 100%)' }}>
+                <span className="text-white/50 text-[10px] font-black uppercase tracking-widest block mb-0.5">Trending</span>
+                <span className="text-white text-sm font-bold">Top Selling</span>
+              </div>
+              <nav className="py-1">
+                {(topSellingBooks as Book[]).map(book => (
+                  <Link
+                    key={book.id}
+                    href={`/book/${book.id}`}
+                    className="flex items-center gap-3 px-4 py-2 text-sm text-ink hover:bg-rust/10 hover:text-rust transition-colors group"
+                  >
+                    <span className="flex-1 font-medium line-clamp-1">{book.title}</span>
+                    <span className="text-muted text-xs group-hover:text-rust transition-colors">›</span>
+                  </Link>
+                ))}
+              </nav>
+            </aside>
+          )}
         </div>{/* end flex */}
       </div>{/* end container */}
     </div>

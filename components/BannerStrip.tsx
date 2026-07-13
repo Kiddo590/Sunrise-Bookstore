@@ -32,7 +32,7 @@ export default function BannerStrip() {
   if (!banners.length) return null
 
   return (
-    <div className="w-full overflow-hidden mt-2 rounded" style={{ height: 120 }}>
+    <div className="w-full overflow-hidden mt-2 rounded aspect-[920/720]">
       <div
         style={{
           transition: 'opacity 0.4s',

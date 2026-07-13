@@ -127,7 +127,7 @@ export default async function BookPage({ params }: Props) {
               <div className="py-5 border-b border-line">
                 <FormatSelector
                   book={book}
-                  showFormat={false}
+                  showFormat
                   showWhatsApp
                   showNote={false}
                   buttonClassName="h-[72px] text-2xl"
@@ -338,7 +338,7 @@ export default async function BookPage({ params }: Props) {
               <div className="mt-4">
                 <FormatSelector
                   book={book}
-                  showFormat={false}
+                  showFormat
                   showWhatsApp
                   showNote={false}
                   buttonClassName="h-[60px] text-xl"

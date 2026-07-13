@@ -65,19 +65,22 @@ export default function Navbar() {
       className="sticky top-0 z-40 transition-shadow duration-200"
       style={{ boxShadow: scrolled ? '0 2px 8px rgba(0,0,0,0.18)' : 'none' }}
     >
+      {/* ── Announcement bar ── */}
+      <AnnouncementBar />
+
       {/* ── Row 1: Dark header ── */}
       <div style={{ backgroundColor: '#1b1c2b' }}>
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 h-14 sm:h-16 flex items-center gap-3 sm:gap-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2 sm:py-3 flex items-center gap-3 sm:gap-4">
 
           {/* Logo */}
           <Link href="/" className="shrink-0 group">
-            <div className="bg-white rounded-lg px-2.5 py-1 transition-opacity duration-150 group-hover:opacity-90">
+            <div className="bg-white rounded-lg px-3 py-1.5 transition-opacity duration-150 group-hover:opacity-90">
               <Image
                 src="/logo.png"
                 alt="The SunRise BookStore"
-                width={120}
-                height={55}
-                className="h-9 w-auto object-contain"
+                width={360}
+                height={165}
+                className="h-24 w-auto object-contain"
                 priority
               />
             </div>
@@ -138,12 +141,9 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* ── Announcement bar ── */}
-      <AnnouncementBar />
-
       {/* ── Row 2: Category strip ── */}
       <div className="bg-white border-b border-line">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 flex overflow-x-auto scrollbar-hide">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 flex justify-center overflow-x-auto scrollbar-hide">
           {navLinks.map(l => {
             const active = pathname === l.href
             return (

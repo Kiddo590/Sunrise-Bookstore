@@ -15,6 +15,7 @@ create table books (
   cover_public_id  text,
   is_deal          boolean default false,
   is_featured      boolean default false,
+  is_top_seller    boolean default false,
   in_stock         boolean default true,
   created_at       timestamptz default now()
 );
