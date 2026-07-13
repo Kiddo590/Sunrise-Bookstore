@@ -5,6 +5,7 @@ import { getFeaturedBooks, getEbookBooks, getLatestBlogPosts, getOtherProducts, 
 import BookCard from '@/components/BookCard'
 import FlashCard from '@/components/FlashCard'
 import BannerStrip from '@/components/BannerStrip'
+import BookCover from '@/components/BookCover'
 import Countdown from '@/components/Countdown'
 import OtherProductCard from '@/components/OtherProductCard'
 import type { Book, BlogPost, OtherProduct } from '@/types'
@@ -269,6 +270,9 @@ export default async function HomePage() {
                     href={`/book/${book.id}`}
                     className="flex items-center gap-3 px-4 py-2 text-sm text-ink hover:bg-rust/10 hover:text-rust transition-colors group"
                   >
+                    <div className="w-9 h-9 rounded overflow-hidden shrink-0 border border-line">
+                      <BookCover book={book} height={36} />
+                    </div>
                     <span className="flex-1 font-medium line-clamp-1">{book.title}</span>
                     <span className="text-muted text-xs group-hover:text-rust transition-colors">›</span>
                   </Link>
