@@ -125,7 +125,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className="sticky top-0 z-40 transition-shadow duration-200"
+      className="sticky top-0 z-40 transition-shadow duration-200 [overflow-anchor:none]"
       style={{ boxShadow: scrolled ? '0 2px 8px rgba(0,0,0,0.18)' : 'none' }}
     >
       {/* ── Announcement bar ── */}
