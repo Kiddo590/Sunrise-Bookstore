@@ -260,7 +260,7 @@ export default function Navbar() {
         </div>
 
         {/* ── Nav links ── */}
-        <div className="flex justify-center gap-1 overflow-x-auto scrollbar-hide pb-2 sm:pb-3">
+        <div className="flex justify-start sm:justify-center gap-1 overflow-x-auto scrollbar-hide pb-2 sm:pb-3 [-webkit-overflow-scrolling:touch]">
           {navLinks.map(l => {
             const active = pathname === l.href
             return (
