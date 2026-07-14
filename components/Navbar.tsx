@@ -21,27 +21,58 @@ const navLinks = [
 
 const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL
 
+type BookSuggestion = { id: string; title: string; author: string; cover_url: string | null }
+
 export default function Navbar() {
   const pathname = usePathname()
   const router = useRouter()
   const { count } = useCart()
   const [query, setQuery] = useState('')
+  const [suggestions, setSuggestions] = useState<BookSuggestion[]>([])
+  const [showSuggestions, setShowSuggestions] = useState(false)
+  const searchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [scrolled, setScrolled] = useState(false)
+  const [collapsed, setCollapsed] = useState(false)
+  const lastScrollY = useRef(0)
   const prevCount = useRef(count)
   const [cartBounce, setCartBounce] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
+  const [userName, setUserName] = useState<string | null>(null)
 
   useEffect(() => {
-    if (!ADMIN_EMAIL) return
     const supabase = createClient()
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      setIsAdmin(session?.user?.email === ADMIN_EMAIL)
+      const email = session?.user?.email
+      setIsAdmin(!!ADMIN_EMAIL && email === ADMIN_EMAIL)
+      if (session?.user) {
+        const meta = session.user.user_metadata as { full_name?: string }
+        const fallback = email ? email.split('@')[0] : null
+        setUserName(meta.full_name?.trim().split(' ')[0] || fallback)
+      } else {
+        setUserName(null)
+      }
     })
     return () => subscription.unsubscribe()
   }, [])
 
+  function getGreeting() {
+    const hour = new Date().getHours()
+    if (hour < 12) return 'Good morning'
+    if (hour < 17) return 'Good afternoon'
+    return 'Good evening'
+  }
+
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 4)
+    const handler = () => {
+      const y = window.scrollY
+      setScrolled(y > 4)
+      if (y > lastScrollY.current && y > 80) {
+        setCollapsed(true)
+      } else if (y < lastScrollY.current) {
+        setCollapsed(false)
+      }
+      lastScrollY.current = y
+    }
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
   }, [])
@@ -55,9 +86,36 @@ export default function Navbar() {
     }
   }, [count])
 
+  useEffect(() => {
+    if (searchTimerRef.current) clearTimeout(searchTimerRef.current)
+    const q = query.trim()
+    if (q.length < 3) {
+      setSuggestions([])
+      return
+    }
+    searchTimerRef.current = setTimeout(() => {
+      fetch(`/api/books/search?q=${encodeURIComponent(q)}`)
+        .then(r => r.json())
+        .then((data: BookSuggestion[]) => {
+          if (Array.isArray(data)) {
+            setSuggestions(data)
+            setShowSuggestions(data.length > 0)
+          }
+        })
+        .catch(() => {})
+    }, 250)
+    return () => { if (searchTimerRef.current) clearTimeout(searchTimerRef.current) }
+  }, [query])
+
   function handleSearch(e: React.FormEvent) {
     e.preventDefault()
-    router.push('/shop')
+    setShowSuggestions(false)
+    router.push(`/shop?search=${encodeURIComponent(query.trim())}`)
+  }
+
+  function goToSuggestion(id: string) {
+    setShowSuggestions(false)
+    router.push(`/book/${id}`)
   }
 
   return (
@@ -66,47 +124,87 @@ export default function Navbar() {
       style={{ boxShadow: scrolled ? '0 2px 8px rgba(0,0,0,0.18)' : 'none' }}
     >
       {/* ── Announcement bar ── */}
-      <AnnouncementBar />
+      <div
+        className={`transition-[max-height,opacity] duration-300 overflow-hidden ${collapsed ? 'max-h-0 opacity-0' : 'max-h-20 opacity-100'}`}
+      >
+        <AnnouncementBar />
+      </div>
 
       {/* ── Row 1: Dark header ── */}
       <div style={{ backgroundColor: '#1b1c2b' }}>
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2 sm:py-3 flex items-center gap-3 sm:gap-4">
+        <div
+          className={`max-w-7xl mx-auto px-3 sm:px-6 flex items-center gap-3 sm:gap-4 transition-[padding] duration-300 ${
+            collapsed ? 'py-1' : 'py-2 sm:py-3'
+          }`}
+        >
 
           {/* Logo */}
-          <Link href="/" className="shrink-0 group">
-            <div className="bg-white rounded-lg px-3 py-1.5 transition-opacity duration-150 group-hover:opacity-90">
-              <Image
-                src="/logo.png"
-                alt="The SunRise BookStore"
-                width={360}
-                height={165}
-                className="h-24 w-auto object-contain"
-                priority
-              />
-            </div>
+          <Link href="/" className="shrink-0 transition-opacity duration-150 hover:opacity-90">
+            <Image
+              src="/logo.png"
+              alt="The SunRise BookStore"
+              width={360}
+              height={165}
+              className={`w-auto object-contain transition-[height] duration-300 ${collapsed ? 'h-10' : 'h-24'}`}
+              priority
+            />
           </Link>
 
           {/* ── Search bar ── */}
-          <form onSubmit={handleSearch} className="flex-1 flex min-w-0">
-            <input
-              type="search"
-              value={query}
-              onChange={e => setQuery(e.target.value)}
-              placeholder="Search books, authors, genres…"
-              className="flex-1 h-9 sm:h-10 px-3 sm:px-4 text-sm text-ink bg-white outline-none rounded-l min-w-0"
-            />
-            <button
-              type="submit"
-              className="h-9 sm:h-10 px-4 sm:px-5 rounded-r font-semibold text-white text-sm flex items-center gap-1.5 shrink-0 transition-opacity hover:opacity-90"
-              style={{ backgroundColor: '#f68b1e' }}
-            >
-              <Search size={16} />
-              <span className="hidden sm:inline">Search</span>
-            </button>
-          </form>
+          <div className="relative flex-1 min-w-0">
+            <form onSubmit={handleSearch} className="flex min-w-0">
+              <input
+                type="search"
+                value={query}
+                onChange={e => setQuery(e.target.value)}
+                onFocus={() => { if (suggestions.length > 0) setShowSuggestions(true) }}
+                onBlur={() => { setTimeout(() => setShowSuggestions(false), 150) }}
+                placeholder="Search books, authors, genres…"
+                className="flex-1 h-9 sm:h-10 px-3 sm:px-4 text-sm text-ink bg-white outline-none rounded-l min-w-0"
+              />
+              <button
+                type="submit"
+                className="h-9 sm:h-10 px-4 sm:px-5 rounded-r font-semibold text-white text-sm flex items-center gap-1.5 shrink-0 transition-opacity hover:opacity-90"
+                style={{ backgroundColor: '#f68b1e' }}
+              >
+                <Search size={16} />
+                <span className="hidden sm:inline">Search</span>
+              </button>
+            </form>
+
+            {showSuggestions && suggestions.length > 0 && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-white rounded shadow-lg overflow-hidden z-50">
+                {suggestions.map(s => (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onMouseDown={() => goToSuggestion(s.id)}
+                    className="w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-paper2 transition-colors border-b border-line last:border-0"
+                  >
+                    <span className="flex-1 min-w-0">
+                      <span className="block text-sm font-medium text-ink truncate">{s.title}</span>
+                      <span className="block text-xs text-muted truncate">{s.author}</span>
+                    </span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* Actions */}
           <div className="flex items-center gap-1 sm:gap-3 shrink-0">
+            {userName ? (
+              <span className="hidden sm:block text-white text-xs font-medium whitespace-nowrap px-1">
+                {getGreeting()}, {userName}
+              </span>
+            ) : (
+              <Link
+                href="/login"
+                className="hidden sm:block text-white hover:text-rust transition-colors text-xs font-medium whitespace-nowrap px-1"
+              >
+                Login
+              </Link>
+            )}
             <DarkModeToggle />
             {isAdmin && (
               <Link

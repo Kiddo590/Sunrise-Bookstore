@@ -7,8 +7,13 @@ export const metadata: Metadata = {
   description: 'Browse our full collection of hardcopy and ebook titles at The Sunrise BookStore.',
 }
 
-export default async function ShopPage() {
+type Props = {
+  searchParams: Promise<{ search?: string; format?: string; category?: string }>
+}
+
+export default async function ShopPage({ searchParams }: Props) {
   const books = await getAllBooks()
+  const params = await searchParams
 
   return (
     <div className="bg-paper2 min-h-screen">
@@ -22,7 +27,12 @@ export default async function ShopPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-3 sm:px-6 py-4">
-        <ShopGrid books={books} />
+        <ShopGrid
+          books={books}
+          initialSearch={params.search ?? ''}
+          initialFormat={params.format === 'hardcopy' || params.format === 'ebook' ? params.format : 'all'}
+          initialCategory={params.category ?? 'all'}
+        />
       </div>
     </div>
   )

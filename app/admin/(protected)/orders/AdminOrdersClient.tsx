@@ -5,6 +5,7 @@ import { toast } from 'sonner'
 import { MessageCircle } from 'lucide-react'
 import { money } from '@/lib/format'
 import { waHelpLink } from '@/lib/whatsapp'
+import FormatBadge from '@/components/FormatBadge'
 import type { Order } from '@/types'
 
 const statuses = ['pending', 'confirmed', 'delivered', 'cancelled']
@@ -101,7 +102,24 @@ export default function AdminOrdersClient({ orders: initial }: { orders: Order[]
                   <td className="p-3 text-muted font-mono text-xs">{order.id.slice(0, 8)}</td>
                   <td className="p-3 font-medium text-ink">{order.customer_name}</td>
                   <td className="p-3 text-muted">{order.customer_phone}</td>
-                  <td className="p-3 text-muted">{Array.isArray(order.items) ? order.items.length : '—'}</td>
+                  <td className="p-3 text-muted">
+                    {Array.isArray(order.items) && order.items.length > 0 ? (
+                      <div className="flex flex-col gap-1">
+                        {order.items.map(item => (
+                          <div key={item.uid} className="flex items-center gap-1.5">
+                            <span className="text-ink text-xs truncate max-w-[140px]">{item.title}</span>
+                            {item.format ? (
+                              <FormatBadge format={item.format} />
+                            ) : (
+                              <span className="inline-flex items-center text-[10px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded border bg-paper2 text-muted border-line">
+                                Add-on
+                              </span>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    ) : '—'}
+                  </td>
                   <td className="p-3 font-semibold text-rust">{money(order.total_kes)}</td>
                   <td className="p-3">
                     <select

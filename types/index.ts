@@ -53,9 +53,11 @@ export type Order = {
 
 export type CartItem = {
   uid: string
-  bookId: string
+  kind: 'book' | 'other'
+  bookId?: string
+  productId?: string
   title: string
-  format: 'hardcopy' | 'ebook'
+  format?: 'hardcopy' | 'ebook'
   price: number
   coverUrl?: string
 }

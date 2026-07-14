@@ -10,6 +10,7 @@ type Props = {
 }
 
 export default function BookCard({ book, onClick }: Props) {
+  const hasBoth = book.price_hard != null && book.price_ebook != null
   const price = book.price_hard ?? book.price_ebook ?? 0
   const isEbookOnly = book.price_hard == null && book.price_ebook != null
 
@@ -57,9 +58,20 @@ export default function BookCard({ book, onClick }: Props) {
           {book.title}
         </h3>
         <p className="text-[10px] text-muted truncate mt-0.5">{book.author}</p>
-        <p className="font-bold text-base sm:text-lg mt-1.5 leading-none" style={{ color: '#f68b1e' }}>
-          {money(price)}
-        </p>
+        {hasBoth ? (
+          <div className="flex flex-col mt-1.5 leading-tight">
+            <span className="font-bold text-sm sm:text-base" style={{ color: '#f68b1e' }}>
+              📕 {money(book.price_hard!)}
+            </span>
+            <span className="font-bold text-sm sm:text-base" style={{ color: '#f68b1e' }}>
+              ⚡ {money(book.price_ebook!)}
+            </span>
+          </div>
+        ) : (
+          <p className="font-bold text-base sm:text-lg mt-1.5 leading-none" style={{ color: '#f68b1e' }}>
+            {money(price)}
+          </p>
+        )}
         {book.price_hard && (
           <p className="text-[10px] font-medium mt-1" style={{ color: '#3bb77e' }}>
             ✓ Free Delivery in Nairobi

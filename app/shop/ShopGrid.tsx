@@ -6,14 +6,19 @@ import { Search, SlidersHorizontal } from 'lucide-react'
 import BookCard from '@/components/BookCard'
 import type { Book } from '@/types'
 
-type Props = { books: Book[] }
+type Props = {
+  books: Book[]
+  initialSearch?: string
+  initialFormat?: 'all' | 'hardcopy' | 'ebook'
+  initialCategory?: string
+}
 
-export default function ShopGrid({ books }: Props) {
+export default function ShopGrid({ books, initialSearch = '', initialFormat = 'all', initialCategory = 'all' }: Props) {
   const router = useRouter()
-  const [format, setFormat] = useState<'all' | 'hardcopy' | 'ebook'>('all')
-  const [category, setCategory] = useState<string>('all')
-  const [search, setSearch] = useState('')
-  const [debouncedSearch, setDebouncedSearch] = useState('')
+  const [format, setFormat] = useState<'all' | 'hardcopy' | 'ebook'>(initialFormat)
+  const [category, setCategory] = useState<string>(initialCategory)
+  const [search, setSearch] = useState(initialSearch)
+  const [debouncedSearch, setDebouncedSearch] = useState(initialSearch)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {

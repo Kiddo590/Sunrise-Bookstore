@@ -1,11 +1,12 @@
 'use client'
 
 import { createContext, useContext, useEffect, useState } from 'react'
-import type { Book, CartItem } from '@/types'
+import type { Book, CartItem, OtherProduct } from '@/types'
 
 type CartContextType = {
   cart: CartItem[]
   addItem: (book: Book, format: 'hardcopy' | 'ebook') => void
+  addOtherProduct: (product: OtherProduct) => void
   removeItem: (uid: string) => void
   clearCart: () => void
   total: number
@@ -21,7 +22,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     try {
       const stored = localStorage.getItem('sunrise_cart')
-      if (stored) setCart(JSON.parse(stored))
+      if (stored) {
+        const parsed = JSON.parse(stored) as CartItem[]
+        setCart(parsed.map(item => ({ kind: 'book', ...item })))
+      }
     } catch {}
     setHydrated(true)
   }, [])
@@ -36,11 +40,24 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const price = format === 'hardcopy' ? (book.price_hard ?? 0) : (book.price_ebook ?? 0)
     const item: CartItem = {
       uid: crypto.randomUUID(),
+      kind: 'book',
       bookId: book.id,
       title: book.title,
       format,
       price,
       coverUrl: book.cover_url ?? undefined,
+    }
+    setCart(prev => [...prev, item])
+  }
+
+  function addOtherProduct(product: OtherProduct) {
+    const item: CartItem = {
+      uid: crypto.randomUUID(),
+      kind: 'other',
+      productId: product.id,
+      title: product.name,
+      price: product.price_kes,
+      coverUrl: product.cover_url ?? undefined,
     }
     setCart(prev => [...prev, item])
   }
@@ -57,7 +74,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const count = cart.length
 
   return (
-    <CartContext.Provider value={{ cart, addItem, removeItem, clearCart, total, count }}>
+    <CartContext.Provider value={{ cart, addItem, addOtherProduct, removeItem, clearCart, total, count }}>
       {children}
     </CartContext.Provider>
   )

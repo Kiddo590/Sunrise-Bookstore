@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useCart } from '@/components/CartProvider'
 import BookCover from '@/components/BookCover'
 import FormatBadge from '@/components/FormatBadge'
@@ -52,29 +53,44 @@ export default function CartPage() {
                 key={item.uid}
                 className="flex gap-4 bg-white border border-line rounded-xl p-4 items-start hover:shadow-md transition-shadow"
               >
-                <div className="w-16 shrink-0 rounded-lg overflow-hidden shadow-sm">
-                  <BookCover
-                    book={{
-                      id: item.bookId,
-                      title: item.title,
-                      author: '',
-                      cover_url: item.coverUrl ?? null,
-                      cover_public_id: null,
-                      category: null,
-                      description: null,
-                      price_hard: null,
-                      price_ebook: null,
-                      is_deal: false,
-                      is_featured: false,
-                      in_stock: true,
-                      created_at: '',
-                    } as Book}
-                    height={80}
-                  />
+                <div className="w-16 h-20 shrink-0 rounded-lg overflow-hidden shadow-sm">
+                  {item.kind === 'other' ? (
+                    item.coverUrl ? (
+                      <div className="relative w-full h-full bg-paper2">
+                        <Image src={item.coverUrl} alt={item.title} fill className="object-cover" />
+                      </div>
+                    ) : (
+                      <div className="w-full h-full bg-paper2 flex items-center justify-center text-2xl">🛍️</div>
+                    )
+                  ) : (
+                    <BookCover
+                      book={{
+                        id: item.bookId ?? '',
+                        title: item.title,
+                        author: '',
+                        cover_url: item.coverUrl ?? null,
+                        cover_public_id: null,
+                        category: null,
+                        description: null,
+                        price_hard: null,
+                        price_ebook: null,
+                        is_deal: false,
+                        is_featured: false,
+                        is_top_seller: false,
+                        in_stock: true,
+                        created_at: '',
+                      } as Book}
+                      height={80}
+                    />
+                  )}
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold text-ink text-sm leading-tight mb-1.5 line-clamp-2">{item.title}</p>
-                  <FormatBadge format={item.format} />
+                  {item.format ? <FormatBadge format={item.format} /> : (
+                    <span className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-md border bg-paper2 text-muted border-line">
+                      🛍️ Add-on
+                    </span>
+                  )}
                   <p className="font-bold mt-2 text-base" style={{ color: '#f68b1e' }}>{money(item.price)}</p>
                 </div>
                 <button

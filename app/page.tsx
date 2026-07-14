@@ -145,28 +145,6 @@ export default async function HomePage() {
               </section>
             )}
 
-            {/* 4. Featured Books */}
-            {featuredBooks && featuredBooks.length > 0 && (
-              <section className="mt-2 bg-white rounded-xl overflow-hidden shadow-sm">
-                <div
-                  className="flex items-center justify-between px-4 py-3"
-                  style={{ background: 'linear-gradient(135deg, #f68b1e 0%, #d97b18 100%)' }}
-                >
-                  <h2 className="font-bold text-white text-base sm:text-lg">⭐ Featured Books</h2>
-                  <Link href="/shop" className="text-white/80 text-sm font-semibold hover:text-white transition-colors">
-                    See All →
-                  </Link>
-                </div>
-                <div className="p-3 sm:p-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                  {(featuredBooks as Book[]).map(book => (
-                    <Link key={book.id} href={`/book/${book.id}`} className="group">
-                      <BookCard book={book} />
-                    </Link>
-                  ))}
-                </div>
-              </section>
-            )}
-
             {/* 5. Ebooks */}
             {ebookBooks && ebookBooks.length > 0 && (
               <section className="mt-2 bg-white rounded-xl overflow-hidden shadow-sm">

@@ -7,17 +7,19 @@ import { useCart } from '@/components/CartProvider'
 import FormatBadge from '@/components/FormatBadge'
 import { money } from '@/lib/format'
 import { waOrderLink } from '@/lib/whatsapp'
+import type { OtherProduct } from '@/types'
 
 type Props = {
   userId: string
   defaultName: string
   defaultPhone: string
   defaultEmail: string
+  suggestedProducts: OtherProduct[]
 }
 
-export default function CheckoutForm({ userId, defaultName, defaultPhone, defaultEmail }: Props) {
+export default function CheckoutForm({ userId, defaultName, defaultPhone, defaultEmail, suggestedProducts }: Props) {
   const router = useRouter()
-  const { cart, total, clearCart } = useCart()
+  const { cart, total, clearCart, addOtherProduct } = useCart()
   const [name, setName] = useState(defaultName)
   const [phone, setPhone] = useState(defaultPhone)
   const [email, setEmail] = useState(defaultEmail)
@@ -146,6 +148,38 @@ export default function CheckoutForm({ userId, defaultName, defaultPhone, defaul
           </button>
         </form>
 
+        {/* Right column: upsell + order summary */}
+        <div className="flex flex-col gap-4 h-fit">
+        {suggestedProducts.length > 0 && (
+          <div className="bg-white border border-line rounded-xl p-5">
+            <h2 className="font-display font-semibold text-ink text-base mb-3">Would you like to add?</h2>
+            <div className="flex flex-col gap-2.5">
+              {suggestedProducts.map(product => {
+                const added = cart.some(i => i.productId === product.id)
+                return (
+                  <div key={product.id} className="flex items-center justify-between gap-3 text-sm">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-ink font-medium line-clamp-1">{product.name}</p>
+                      <p className="text-muted text-xs">{money(product.price_kes)}</p>
+                    </div>
+                    <button
+                      type="button"
+                      disabled={added}
+                      onClick={() => addOtherProduct(product)}
+                      className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors disabled:opacity-60 disabled:cursor-default"
+                      style={added
+                        ? { borderColor: '#3bb77e', color: '#3bb77e', backgroundColor: 'rgba(59,183,126,0.08)' }
+                        : { borderColor: '#f68b1e', color: '#f68b1e' }}
+                    >
+                      {added ? 'Added ✓' : '+ Add'}
+                    </button>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
         {/* Order summary */}
         <div className="bg-paper2 border border-line rounded-xl p-6 h-fit">
           <h2 className="font-display font-semibold text-ink text-xl mb-4">Order summary</h2>
@@ -157,7 +191,13 @@ export default function CheckoutForm({ userId, defaultName, defaultPhone, defaul
                 <div key={item.uid} className="flex justify-between items-start gap-2 text-sm">
                   <div className="flex-1 min-w-0">
                     <p className="text-ink font-medium line-clamp-1">{item.title}</p>
-                    <FormatBadge format={item.format} />
+                    {item.format ? (
+                      <FormatBadge format={item.format} />
+                    ) : (
+                      <span className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-md border bg-paper2 text-muted border-line">
+                        🛍️ Add-on
+                      </span>
+                    )}
                   </div>
                   <p className="text-rust font-semibold shrink-0">{money(item.price)}</p>
                 </div>
@@ -168,6 +208,7 @@ export default function CheckoutForm({ userId, defaultName, defaultPhone, defaul
               </div>
             </div>
           )}
+        </div>
         </div>
       </div>
     </div>

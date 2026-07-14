@@ -8,7 +8,7 @@ export function waOrderLink(
   total: number
 ) {
   const lines = cart
-    .map(i => `• ${i.title} (${i.format}) — KSh ${i.price.toLocaleString()}`)
+    .map(i => `• ${i.title}${i.format ? ` (${i.format})` : ''} — KSh ${i.price.toLocaleString()}`)
     .join('\n')
   const msg = [
     `Hi Sunrise Bookstore! I'd like to place an order:`,

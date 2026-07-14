@@ -62,6 +62,24 @@ export async function getDealBook(): Promise<Book | null> {
   return (data?.[0] as Book) ?? null
 }
 
+export async function searchBooks(query: string): Promise<Pick<Book, 'id' | 'title' | 'author' | 'cover_url'>[]> {
+  const q = query.trim().toLowerCase()
+  if (!q) return []
+  if (!isConfigured()) {
+    return MOCK_BOOKS
+      .filter(b => b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q))
+      .slice(0, 8)
+      .map(({ id, title, author, cover_url }) => ({ id, title, author, cover_url }))
+  }
+  const sb = await getSupabase()
+  const { data } = await sb
+    .from('books')
+    .select('id, title, author, cover_url')
+    .or(`title.ilike.%${q}%,author.ilike.%${q}%`)
+    .limit(8)
+  return (data as Pick<Book, 'id' | 'title' | 'author' | 'cover_url'>[]) ?? []
+}
+
 export async function getAllBooks(): Promise<Book[]> {
   if (!isConfigured()) {
     return MOCK_BOOKS
