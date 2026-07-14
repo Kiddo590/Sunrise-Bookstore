@@ -24,7 +24,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       const stored = localStorage.getItem('sunrise_cart')
       if (stored) {
         const parsed = JSON.parse(stored) as CartItem[]
-        setCart(parsed.map(item => ({ kind: 'book', ...item })))
+        setCart(parsed.map(item => ({ ...item, kind: item.kind ?? 'book' })))
       }
     } catch {}
     setHydrated(true)
