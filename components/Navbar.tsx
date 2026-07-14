@@ -246,6 +246,19 @@ export default function Navbar() {
           </div>
         </div>
 
+        {/* ── Mobile-only greeting/login line ── */}
+        <div className="sm:hidden pb-2 text-center">
+          {userName ? (
+            <span className="font-display italic text-sm" style={{ color: '#1e7a4d' }}>
+              {getGreeting()}, {userName}
+            </span>
+          ) : (
+            <Link href="/login" className="text-ink hover:text-rust transition-colors text-xs font-medium">
+              Login
+            </Link>
+          )}
+        </div>
+
         {/* ── Nav links ── */}
         <div className="flex justify-center gap-1 overflow-x-auto scrollbar-hide pb-2 sm:pb-3">
           {navLinks.map(l => {
