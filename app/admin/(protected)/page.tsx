@@ -1,5 +1,6 @@
 ﻿import { createServiceClient } from '@/lib/supabase/server'
 import { money } from '@/lib/format'
+import { getTotalStorageBytes } from '@/lib/cloudinary'
 
 export default async function AdminDashboard() {
   const supabase = createServiceClient()
@@ -15,6 +16,7 @@ export default async function AdminDashboard() {
     { data: recentOrders },
     { data: allRevData },
     { data: monthRevData },
+    storageBytes,
   ] = await Promise.all([
     supabase.from('books').select('*', { count: 'exact', head: true }),
     supabase.from('orders').select('*', { count: 'exact', head: true }).eq('status', 'pending'),
@@ -23,10 +25,12 @@ export default async function AdminDashboard() {
     supabase.from('orders').select('*').order('created_at', { ascending: false }).limit(10),
     supabase.from('orders').select('total_kes'),
     supabase.from('orders').select('total_kes').gte('created_at', startOfMonth),
+    getTotalStorageBytes(),
   ])
 
   const totalRevenue = (allRevData ?? []).reduce((s: number, o: any) => s + (o.total_kes ?? 0), 0)
   const monthRevenue = (monthRevData ?? []).reduce((s: number, o: any) => s + (o.total_kes ?? 0), 0)
+  const storageMb = storageBytes != null ? (storageBytes / (1024 * 1024)).toFixed(1) : null
 
   return (
     <div>
@@ -41,6 +45,7 @@ export default async function AdminDashboard() {
           { label: 'Orders This Month', value: monthOrders ?? 0, format: 'number' },
           { label: 'Revenue This Month', value: monthRevenue, format: 'money' },
           { label: 'Total Revenue', value: totalRevenue, format: 'money' },
+          ...(storageMb != null ? [{ label: 'Storage Used', value: `${storageMb} MB`, format: 'text' as const }] : []),
         ].map(({ label, value, format }) => (
           <div key={label} className="bg-paper2 border border-line rounded-xl p-5">
             <p className="text-muted text-xs font-semibold uppercase tracking-wide mb-1">{label}</p>

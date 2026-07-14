@@ -200,7 +200,10 @@ export default function Navbar() {
           {/* Actions */}
           <div className="flex items-center gap-1 sm:gap-3 shrink-0">
             {userName ? (
-              <span className="hidden sm:block text-ink text-xs font-medium whitespace-nowrap px-1">
+              <span
+                className="hidden sm:block font-display italic text-sm whitespace-nowrap px-1"
+                style={{ color: '#1e7a4d' }}
+              >
                 {getGreeting()}, {userName}
               </span>
             ) : (
