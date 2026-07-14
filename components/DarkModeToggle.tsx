@@ -25,7 +25,7 @@ export default function DarkModeToggle() {
     <button
       onClick={toggle}
       aria-label="Toggle dark mode"
-      className="flex flex-col items-center text-white hover:text-rust transition-colors text-xs gap-0.5 px-1"
+      className="flex flex-col items-center text-ink hover:text-rust transition-colors text-xs gap-0.5 px-1"
     >
       {dark ? <Sun size={22} /> : <Moon size={22} />}
       <span className="hidden sm:inline whitespace-nowrap">{dark ? 'Light' : 'Dark'}</span>

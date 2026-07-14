@@ -130,8 +130,8 @@ export default function Navbar() {
         <AnnouncementBar />
       </div>
 
-      {/* ── Row 1: Dark header ── */}
-      <div style={{ backgroundColor: '#1b1c2b' }}>
+      {/* ── Row 1: Header ── */}
+      <div className="bg-white border-b border-line">
         <div
           className={`max-w-7xl mx-auto px-3 sm:px-6 flex items-center gap-3 sm:gap-4 transition-[padding] duration-300 ${
             collapsed ? 'py-1' : 'py-2 sm:py-3'
@@ -160,7 +160,7 @@ export default function Navbar() {
                 onFocus={() => { if (suggestions.length > 0) setShowSuggestions(true) }}
                 onBlur={() => { setTimeout(() => setShowSuggestions(false), 150) }}
                 placeholder="Search books, authors, genres…"
-                className="flex-1 h-9 sm:h-10 px-3 sm:px-4 text-sm text-ink bg-white outline-none rounded-l min-w-0"
+                className="flex-1 h-9 sm:h-10 px-3 sm:px-4 text-sm text-ink bg-white border border-line rounded-l outline-none min-w-0"
               />
               <button
                 type="submit"
@@ -194,13 +194,13 @@ export default function Navbar() {
           {/* Actions */}
           <div className="flex items-center gap-1 sm:gap-3 shrink-0">
             {userName ? (
-              <span className="hidden sm:block text-white text-xs font-medium whitespace-nowrap px-1">
+              <span className="hidden sm:block text-ink text-xs font-medium whitespace-nowrap px-1">
                 {getGreeting()}, {userName}
               </span>
             ) : (
               <Link
                 href="/login"
-                className="hidden sm:block text-white hover:text-rust transition-colors text-xs font-medium whitespace-nowrap px-1"
+                className="hidden sm:block text-ink hover:text-rust transition-colors text-xs font-medium whitespace-nowrap px-1"
               >
                 Login
               </Link>
@@ -209,7 +209,7 @@ export default function Navbar() {
             {isAdmin && (
               <Link
                 href="/admin"
-                className="flex flex-col items-center text-white hover:text-rust transition-colors text-xs gap-0.5 px-1"
+                className="flex flex-col items-center text-ink hover:text-rust transition-colors text-xs gap-0.5 px-1"
               >
                 <LayoutDashboard size={24} />
                 <span className="whitespace-nowrap">Admin</span>
@@ -217,7 +217,7 @@ export default function Navbar() {
             )}
             <Link
               href="/cart"
-              className="relative flex flex-col items-center text-white hover:text-rust transition-colors text-xs gap-0.5 px-2 py-1 rounded"
+              className="relative flex flex-col items-center text-ink hover:text-rust transition-colors text-xs gap-0.5 px-2 py-1 rounded"
             >
               <div className="relative">
                 <ShoppingCart size={22} />
