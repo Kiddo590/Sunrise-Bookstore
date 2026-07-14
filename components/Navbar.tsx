@@ -61,15 +61,22 @@ export default function Navbar() {
   }
 
   useEffect(() => {
+    let ticking = false
     const handler = () => {
-      const y = window.scrollY
-      setScrolled(y > 4)
-      if (y > lastScrollY.current && y > 80) {
-        setCollapsed(true)
-      } else if (y < lastScrollY.current) {
-        setCollapsed(false)
-      }
-      lastScrollY.current = y
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        const y = window.scrollY
+        setScrolled(y > 4)
+        const goingDown = y > lastScrollY.current
+        if (goingDown && y > 140) {
+          setCollapsed(true)
+        } else if (!goingDown && y < 80) {
+          setCollapsed(false)
+        }
+        lastScrollY.current = y
+        ticking = false
+      })
     }
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
