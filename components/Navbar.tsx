@@ -7,16 +7,14 @@ import { ShoppingCart, Search, LayoutDashboard } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import { useCart } from './CartProvider'
 import AnnouncementBar from './AnnouncementBar'
-import DarkModeToggle from './DarkModeToggle'
 import { createClient } from '@/lib/supabase/client'
 
 const navLinks = [
   { href: '/shop', label: '📚 All Books' },
   { href: '/shop?format=hardcopy', label: '📕 Hardcopy' },
-  { href: '/shop?format=ebook', label: '⚡ Ebooks' },
-  { href: '/others', label: '🛍️ Other Products' },
-  { href: '/blog', label: '📝 Blog' },
+  { href: '/shop?format=ebook', label: '⚡ eBooks' },
   { href: '/request', label: '🔎 Request a Book' },
+  { href: '/others', label: '🛍️ Other Products' },
 ]
 
 const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL
@@ -132,8 +130,9 @@ export default function Navbar() {
 
       {/* ── Row 1: Header ── */}
       <div className="bg-white border-b border-line">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6">
         <div
-          className={`max-w-7xl mx-auto px-3 sm:px-6 flex items-center gap-3 sm:gap-4 transition-[padding] duration-300 ${
+          className={`flex items-center gap-3 sm:gap-4 transition-[padding] duration-300 ${
             collapsed ? 'py-1' : 'py-2 sm:py-3'
           }`}
         >
@@ -205,7 +204,6 @@ export default function Navbar() {
                 Login
               </Link>
             )}
-            <DarkModeToggle />
             {isAdmin && (
               <Link
                 href="/admin"
@@ -237,18 +235,16 @@ export default function Navbar() {
             </Link>
           </div>
         </div>
-      </div>
 
-      {/* ── Row 2: Category strip ── */}
-      <div className="bg-white border-b border-line">
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 flex justify-center overflow-x-auto scrollbar-hide">
+        {/* ── Nav links ── */}
+        <div className="flex justify-center gap-1 overflow-x-auto scrollbar-hide pb-2 sm:pb-3">
           {navLinks.map(l => {
             const active = pathname === l.href
             return (
               <Link
                 key={l.href + l.label}
                 href={l.href}
-                className={`shrink-0 whitespace-nowrap text-xs sm:text-sm font-medium px-3 sm:px-4 py-2.5 border-b-2 transition-colors ${
+                className={`shrink-0 whitespace-nowrap text-xs sm:text-sm font-medium px-3 py-1.5 rounded-full border-b-2 transition-colors ${
                   active
                     ? 'border-rust text-rust'
                     : 'border-transparent text-ink hover:text-rust hover:border-rust/40'
@@ -258,6 +254,7 @@ export default function Navbar() {
               </Link>
             )
           })}
+        </div>
         </div>
       </div>
     </nav>
