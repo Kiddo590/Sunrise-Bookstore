@@ -54,7 +54,8 @@ create table orders (
   total_kes        numeric(10,2) not null,
   payment_method   text default 'cod',
   status           text default 'pending',
-  created_at       timestamptz default now()
+  created_at       timestamptz default now(),
+  user_id          uuid references auth.users(id) on delete set null
 );
 
 -- BOOK REQUESTS

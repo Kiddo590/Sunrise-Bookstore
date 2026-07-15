@@ -27,7 +27,10 @@ export async function POST(request: Request) {
     .select('id')
     .single()
 
-  if (error) return Response.json({ error: error.message }, { status: 500 })
+  if (error) {
+    console.error('Failed to insert order:', error)
+    return Response.json({ error: error.message }, { status: 500 })
+  }
   return Response.json({ id: data.id })
 }
 
