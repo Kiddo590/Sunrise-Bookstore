@@ -48,6 +48,8 @@ export const KENYA_COUNTIES = [
   'West Pokot',
 ] as const
 
+const LOW_FEE_COUNTIES = ['Nairobi', 'Kiambu']
+
 export function getDeliveryFee(county: string): number {
-  return county === 'Nairobi' ? 200 : 300
+  return LOW_FEE_COUNTIES.includes(county) ? 200 : 300
 }

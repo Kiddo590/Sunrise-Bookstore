@@ -146,7 +146,7 @@ export default function CheckoutForm({ userId, defaultName, defaultPhone, defaul
             </select>
             {county && (
               <p className="text-muted text-xs mt-1">
-                Delivery fee: <strong className="text-ink">{money(deliveryFee)}</strong> {county === 'Nairobi' ? '(within Nairobi)' : '(outside Nairobi)'}
+                Delivery fee: <strong className="text-ink">{money(deliveryFee)}</strong> {deliveryFee === 200 ? '(Nairobi & Kiambu)' : '(outside Nairobi & Kiambu)'}
               </p>
             )}
           </div>

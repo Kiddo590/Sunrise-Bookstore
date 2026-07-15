@@ -180,7 +180,7 @@ export default async function BookPage({ params }: Props) {
                     <p className="text-2xl font-semibold text-ink">Door Delivery</p>
                     <span className="text-blue-600 text-base">Details</span>
                   </div>
-                  <p>Delivery Fees <strong>KSh 200</strong> within Nairobi, <strong>KSh 300</strong> outside</p>
+                  <p>Delivery Fees <strong>KSh 200</strong> within Nairobi & Kiambu, <strong>KSh 300</strong> outside</p>
                   <p>Ready for delivery within 1-2 business days after confirmation.</p>
                 </div>
               </div>

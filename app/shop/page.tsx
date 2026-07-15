@@ -28,6 +28,7 @@ export default async function ShopPage({ searchParams }: Props) {
 
       <div className="max-w-7xl mx-auto px-3 sm:px-6 py-4">
         <ShopGrid
+          key={`${params.format ?? ''}-${params.category ?? ''}-${params.search ?? ''}`}
           books={books}
           initialSearch={params.search ?? ''}
           initialFormat={params.format === 'hardcopy' || params.format === 'ebook' ? params.format : 'all'}
