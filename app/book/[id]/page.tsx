@@ -113,7 +113,7 @@ export default async function BookPage({ params }: Props) {
                 <p className={`text-lg mt-3 ${book.in_stock ? 'text-ink' : 'text-red-600'}`}>
                   {book.in_stock ? 'In stock' : 'Out of stock'}
                 </p>
-                <p className="text-lg text-ink mt-2">+ shipping from <strong>KSh 90</strong> to CBD - UON/Globe/Koja/River Road</p>
+                <p className="text-lg text-ink mt-2">📍 Collect at our Shop — Dynamic Mall, Shop ML95, The Sunrise Bookstore (Vavi Shelves)</p>
                 <div className="flex items-center gap-2 mt-3">
                   <StarRating rating={avgRating} />
                   <span className="text-xl text-muted">
@@ -157,30 +157,17 @@ export default async function BookPage({ params }: Props) {
           <aside className="space-y-6">
             <div className="bg-white rounded shadow-sm">
               <h2 className="text-2xl font-semibold uppercase text-ink p-4 border-b border-line">Delivery & Returns</h2>
-              <div className="p-4 border-b border-line">
-                <p className="text-2xl font-semibold text-ink">Choose your location</p>
-                <div className="grid grid-cols-1 gap-6 mt-6">
-                  <select className="border border-muted/60 rounded px-6 py-4 text-2xl bg-white text-ink">
-                    <option>Nairobi</option>
-                    <option>Kiambu</option>
-                  </select>
-                  <select className="border border-muted/60 rounded px-6 py-4 text-2xl bg-white text-ink">
-                    <option>CBD - UON/Globe/Koja/River Road</option>
-                    <option>Westlands</option>
-                    <option>Kilimani</option>
-                  </select>
-                </div>
-              </div>
               <div className="p-4 border-b border-line flex gap-3">
                 <div className="w-14 h-14 rounded border border-line flex items-center justify-center shrink-0">
                   <PackageCheck size={32} />
                 </div>
                 <div className="text-lg">
                   <div className="flex justify-between gap-4">
-                    <p className="text-2xl font-semibold text-ink">Pickup Station</p>
+                    <p className="text-2xl font-semibold text-ink">Collect at our Shop</p>
                     <span className="text-blue-600 text-base">Details</span>
                   </div>
-                  <p>Delivery Fees <strong>KSh 90</strong></p>
+                  <p>Dynamic Mall, Shop ML95</p>
+                  <p>The Sunrise Bookstore (Vavi Shelves)</p>
                   <p>Ready for pickup within 1-2 business days after confirmation.</p>
                 </div>
               </div>
@@ -193,7 +180,7 @@ export default async function BookPage({ params }: Props) {
                     <p className="text-2xl font-semibold text-ink">Door Delivery</p>
                     <span className="text-blue-600 text-base">Details</span>
                   </div>
-                  <p>Delivery Fees <strong>KSh 200</strong></p>
+                  <p>Delivery Fees <strong>KSh 200</strong> within Nairobi, <strong>KSh 300</strong> outside</p>
                   <p>Ready for delivery within 1-2 business days after confirmation.</p>
                 </div>
               </div>
