@@ -4,9 +4,9 @@ export const dynamic = 'force-dynamic'
 
 export async function POST(request: Request) {
   const body = await request.json()
-  const { customer_name, customer_phone, delivery_address, items, total_kes } = body
+  const { customer_name, customer_phone, delivery_address, county, items, total_kes } = body
 
-  if (!customer_name || !customer_phone || !delivery_address || !items || total_kes == null) {
+  if (!customer_name || !customer_phone || !delivery_address || !county || !items || total_kes == null) {
     return Response.json({ error: 'Missing required fields' }, { status: 400 })
   }
 
@@ -18,6 +18,8 @@ export async function POST(request: Request) {
       customer_phone,
       customer_email: body.customer_email ?? null,
       delivery_address,
+      county,
+      delivery_fee: body.delivery_fee ?? 0,
       items,
       total_kes,
       payment_method: 'cod',

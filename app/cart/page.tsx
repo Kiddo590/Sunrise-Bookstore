@@ -116,7 +116,7 @@ export default function CartPage() {
               </div>
               <div className="flex justify-between text-sm mb-5">
                 <span className="text-muted">Delivery</span>
-                <span className="text-ink font-medium">Confirmed on WhatsApp</span>
+                <span className="text-ink font-medium">Calculated at checkout</span>
               </div>
               <div className="border-t border-line pt-4 mb-5 flex justify-between items-baseline">
                 <span className="font-bold text-ink">Total</span>

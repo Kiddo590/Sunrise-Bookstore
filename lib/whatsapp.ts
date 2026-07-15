@@ -3,9 +3,10 @@ import type { CartItem, BookRequest } from '@/types'
 const BASE = 'https://wa.me/254143304460'
 
 export function waOrderLink(
-  form: { name: string; phone: string; address: string },
+  form: { name: string; phone: string; address: string; county: string },
   cart: CartItem[],
-  total: number
+  total: number,
+  deliveryFee: number
 ) {
   const lines = cart
     .map(i => `• ${i.title}${i.format ? ` (${i.format})` : ''} — KSh ${i.price.toLocaleString()}`)
@@ -13,9 +14,11 @@ export function waOrderLink(
   const msg = [
     `Hi Sunrise Bookstore! I'd like to place an order:`,
     lines,
+    `Delivery fee (${form.county}): KSh ${deliveryFee.toLocaleString()}`,
     `Total: KSh ${total.toLocaleString()}`,
     `Name: ${form.name}`,
     `Phone: ${form.phone}`,
+    `County: ${form.county}`,
     `Delivery address: ${form.address}`,
     `Payment: Cash on Delivery`,
   ].join('\n')

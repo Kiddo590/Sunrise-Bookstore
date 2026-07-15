@@ -43,6 +43,8 @@ export type Order = {
   customer_phone: string
   customer_email: string | null
   delivery_address: string
+  county: string
+  delivery_fee: number
   items: CartItem[]
   total_kes: number
   payment_method: string

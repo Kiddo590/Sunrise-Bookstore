@@ -50,6 +50,8 @@ create table orders (
   customer_phone   text not null,
   customer_email   text,
   delivery_address text not null,
+  county           text,
+  delivery_fee     numeric(10,2) default 0,
   items            jsonb not null,
   total_kes        numeric(10,2) not null,
   payment_method   text default 'cod',

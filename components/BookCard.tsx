@@ -61,10 +61,10 @@ export default function BookCard({ book, onClick }: Props) {
         {hasBoth ? (
           <div className="flex flex-col mt-1.5 leading-tight">
             <span className="font-bold text-sm sm:text-base" style={{ color: '#f68b1e' }}>
-              📕 {money(book.price_hard!)}
+              Hardcopy: {money(book.price_hard!)}
             </span>
             <span className="font-bold text-sm sm:text-base" style={{ color: '#f68b1e' }}>
-              ⚡ {money(book.price_ebook!)}
+              eBook: {money(book.price_ebook!)}
             </span>
           </div>
         ) : (

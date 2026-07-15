@@ -7,6 +7,7 @@ import { useCart } from '@/components/CartProvider'
 import FormatBadge from '@/components/FormatBadge'
 import { money } from '@/lib/format'
 import { waOrderLink } from '@/lib/whatsapp'
+import { KENYA_COUNTIES, getDeliveryFee } from '@/lib/kenyaCounties'
 import type { OtherProduct } from '@/types'
 
 type Props = {
@@ -24,11 +25,15 @@ export default function CheckoutForm({ userId, defaultName, defaultPhone, defaul
   const [phone, setPhone] = useState(defaultPhone)
   const [email, setEmail] = useState(defaultEmail)
   const [address, setAddress] = useState('')
+  const [county, setCounty] = useState('')
   const [submitting, setSubmitting] = useState(false)
+
+  const deliveryFee = county ? getDeliveryFee(county) : 0
+  const orderTotal = total + deliveryFee
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!name.trim() || !phone.trim() || !address.trim()) {
+    if (!name.trim() || !phone.trim() || !address.trim() || !county) {
       toast.error('Please fill in all required fields.')
       return
     }
@@ -46,8 +51,10 @@ export default function CheckoutForm({ userId, defaultName, defaultPhone, defaul
           customer_phone: phone,
           customer_email: email || null,
           delivery_address: address,
+          county,
+          delivery_fee: deliveryFee,
           items: cart,
-          total_kes: total,
+          total_kes: orderTotal,
           user_id: userId,
         }),
       })
@@ -56,7 +63,7 @@ export default function CheckoutForm({ userId, defaultName, defaultPhone, defaul
         throw new Error(data?.error || 'Failed to save order')
       }
 
-      const waLink = waOrderLink({ name, phone, address }, cart, total)
+      const waLink = waOrderLink({ name, phone, address, county }, cart, orderTotal, deliveryFee)
       const anchor = document.createElement('a')
       anchor.href = waLink
       anchor.target = '_blank'
@@ -124,6 +131,28 @@ export default function CheckoutForm({ userId, defaultName, defaultPhone, defaul
 
           <div>
             <label className="text-sm font-semibold text-ink block mb-1">
+              County <span className="text-rust">*</span>
+            </label>
+            <select
+              required
+              value={county}
+              onChange={e => setCounty(e.target.value)}
+              className="w-full border border-line rounded-xl px-4 py-2.5 text-sm bg-paper focus:outline-none focus:border-rust"
+            >
+              <option value="" disabled>Select your county</option>
+              {KENYA_COUNTIES.map(c => (
+                <option key={c} value={c}>{c}</option>
+              ))}
+            </select>
+            {county && (
+              <p className="text-muted text-xs mt-1">
+                Delivery fee: <strong className="text-ink">{money(deliveryFee)}</strong> {county === 'Nairobi' ? '(within Nairobi)' : '(outside Nairobi)'}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label className="text-sm font-semibold text-ink block mb-1">
               Delivery address <span className="text-rust">*</span>
             </label>
             <textarea
@@ -144,7 +173,7 @@ export default function CheckoutForm({ userId, defaultName, defaultPhone, defaul
 
           <button
             type="submit"
-            disabled={submitting || cart.length === 0}
+            disabled={submitting || cart.length === 0 || !county}
             className="text-white font-semibold py-3 rounded-full transition-colors disabled:opacity-50 text-base"
             style={{ backgroundColor: '#f68b1e' }}
           >
@@ -206,9 +235,19 @@ export default function CheckoutForm({ userId, defaultName, defaultPhone, defaul
                   <p className="text-rust font-semibold shrink-0">{money(item.price)}</p>
                 </div>
               ))}
-              <div className="border-t border-line pt-3 flex justify-between">
-                <span className="font-semibold text-ink">Total</span>
-                <span className="font-display font-bold text-rust text-xl">{money(total)}</span>
+              <div className="border-t border-line pt-3 flex flex-col gap-1.5">
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted">Subtotal</span>
+                  <span className="text-ink font-medium">{money(total)}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-muted">Delivery fee</span>
+                  <span className="text-ink font-medium">{county ? money(deliveryFee) : '—'}</span>
+                </div>
+                <div className="flex justify-between pt-1.5 border-t border-line">
+                  <span className="font-semibold text-ink">Total</span>
+                  <span className="font-display font-bold text-rust text-xl">{money(orderTotal)}</span>
+                </div>
               </div>
             </div>
           )}

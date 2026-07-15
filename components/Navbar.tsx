@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
-import { ShoppingCart, Search, LayoutDashboard } from 'lucide-react'
+import { ShoppingCart, Search, LayoutDashboard, LogIn } from 'lucide-react'
 import { useState, useEffect, useRef } from 'react'
 import { useCart } from './CartProvider'
 import AnnouncementBar from './AnnouncementBar'
@@ -201,7 +201,7 @@ export default function Navbar() {
           <div className="flex items-center gap-1 sm:gap-3 shrink-0">
             {userName ? (
               <span
-                className="hidden sm:block font-display italic text-sm whitespace-nowrap px-1"
+                className="hidden sm:block font-display font-bold italic text-sm whitespace-nowrap px-1"
                 style={{ color: '#1e7a4d' }}
               >
                 {getGreeting()}, {userName}
@@ -209,8 +209,9 @@ export default function Navbar() {
             ) : (
               <Link
                 href="/login"
-                className="hidden sm:block text-ink hover:text-rust transition-colors text-xs font-medium whitespace-nowrap px-1"
+                className="hidden sm:flex items-center gap-1 text-ink hover:text-rust transition-colors text-xs font-bold whitespace-nowrap px-1"
               >
+                <LogIn size={15} />
                 Login
               </Link>
             )}
@@ -249,11 +250,12 @@ export default function Navbar() {
         {/* ── Mobile-only greeting/login line ── */}
         <div className="sm:hidden pb-2 text-center">
           {userName ? (
-            <span className="font-display italic text-sm" style={{ color: '#1e7a4d' }}>
+            <span className="font-display font-bold italic text-sm" style={{ color: '#1e7a4d' }}>
               {getGreeting()}, {userName}
             </span>
           ) : (
-            <Link href="/login" className="text-ink hover:text-rust transition-colors text-xs font-medium">
+            <Link href="/login" className="inline-flex items-center gap-1 text-ink hover:text-rust transition-colors text-xs font-bold">
+              <LogIn size={15} />
               Login
             </Link>
           )}
