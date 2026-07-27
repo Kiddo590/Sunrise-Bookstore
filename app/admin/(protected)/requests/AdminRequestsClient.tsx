@@ -117,7 +117,7 @@ export default function AdminRequestsClient({ requests: initial }: { requests: B
                     <div className="flex items-center gap-2">
                       {/* WhatsApp the customer directly */}
                       <a
-                        href={`https://wa.me/${req.phone.replace(/\D/g, '')}?text=${encodeURIComponent(`Hi! About your request for "${req.title}" at Sunrise Bookstore:`)}`}
+                        href={`https://wa.me/${req.phone.replace(/\D/g, '')}?text=${encodeURIComponent(`Hi! About your request for "${req.title}" at Flemela Bookstore:`)}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-[#25D366] hover:opacity-80"

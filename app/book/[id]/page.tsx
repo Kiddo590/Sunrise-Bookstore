@@ -16,9 +16,9 @@ type Props = { params: Promise<{ id: string }> }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
   const book = await getBookById(id)
-  if (!book) return { title: 'Book not found — Sunrise Bookstore' }
+  if (!book) return { title: 'Book not found — Flemela Bookstore' }
   return {
-    title: `${book.title} by ${book.author} — Sunrise Bookstore`,
+    title: `${book.title} by ${book.author} — Flemela Bookstore`,
     description: book.description ?? undefined,
   }
 }
@@ -113,7 +113,7 @@ export default async function BookPage({ params }: Props) {
                 <p className={`text-lg mt-3 ${book.in_stock ? 'text-ink' : 'text-red-600'}`}>
                   {book.in_stock ? 'In stock' : 'Out of stock'}
                 </p>
-                <p className="text-lg text-ink mt-2">📍 Collect at our Shop — Dynamic Mall, Shop ML95, The Sunrise Bookstore (Vavi Shelves)</p>
+                <p className="text-lg text-ink mt-2">📍 Collect at our Shop — Dynamic Mall, Shop ML95, The Flemela Bookstore (Vavi Shelves)</p>
                 <div className="flex items-center gap-2 mt-3">
                   <StarRating rating={avgRating} />
                   <span className="text-xl text-muted">
@@ -146,7 +146,7 @@ export default async function BookPage({ params }: Props) {
                 <div className="space-y-3 text-xl">
                   <p className="flex gap-3 text-blue-600">
                     <ShieldCheck className="text-blue-500 shrink-0" size={28} />
-                    Easy and safer payments via SunriseBookstore.
+                    Easy and safer payments via Flemela Bookstore.
                   </p>
                   <a href="#product-details" className="block text-blue-600 mt-28">Report incorrect product information</a>
                 </div>
@@ -167,7 +167,7 @@ export default async function BookPage({ params }: Props) {
                     <span className="text-blue-600 text-base">Details</span>
                   </div>
                   <p>Dynamic Mall, Shop ML95</p>
-                  <p>The Sunrise Bookstore (Vavi Shelves)</p>
+                  <p>The Flemela Bookstore (Vavi Shelves)</p>
                   <p>Ready for pickup within 1-2 business days after confirmation.</p>
                 </div>
               </div>
@@ -205,7 +205,7 @@ export default async function BookPage({ params }: Props) {
               <div className="m-6 border border-line rounded p-4 flex items-center justify-between gap-4">
                 <div>
                   <p className="text-3xl font-bold text-rust">{comparePrice ? money(comparePrice) : 'KSh 0'}</p>
-                  <p className="text-lg text-muted mt-1">Available from The Sunrise BookStore</p>
+                  <p className="text-lg text-muted mt-1">Available from The Flemela Bookstore</p>
                 </div>
                 <button className="bg-rust text-white font-bold px-8 py-4 rounded">Buy now</button>
               </div>
@@ -241,10 +241,10 @@ export default async function BookPage({ params }: Props) {
                 <div className="border border-line rounded md:col-span-1">
                   <h3 className="font-semibold uppercase text-ink p-6 border-b border-line">Specifications</h3>
                   <ul className="p-6 space-y-3 text-ink">
-                    <li><strong>SKU:</strong> SUN-{book.id.slice(0, 8).toUpperCase()}</li>
+                    <li><strong>SKU:</strong> FLM-{book.id.slice(0, 8).toUpperCase()}</li>
                     <li><strong>Weight (kg):</strong> 0.8</li>
                     <li><strong>Main Material:</strong> paper</li>
-                    <li><strong>Shop Type:</strong> Sunrise Mall</li>
+                    <li><strong>Shop Type:</strong> Flemela Bookstore</li>
                   </ul>
                 </div>
               </div>

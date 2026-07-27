@@ -9,9 +9,9 @@ type Props = { params: Promise<{ slug: string }> }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const post = await getBlogPostBySlug(slug)
-  if (!post) return { title: 'Post not found — Sunrise Bookstore' }
+  if (!post) return { title: 'Post not found — Flemela Bookstore' }
   return {
-    title: `${post.title} — Sunrise Bookstore`,
+    title: `${post.title} — Flemela Bookstore`,
     description: post.excerpt ?? undefined,
   }
 }

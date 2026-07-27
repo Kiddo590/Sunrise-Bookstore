@@ -82,10 +82,10 @@ export default function SignupForm() {
             className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3"
             style={{ backgroundColor: '#f68b1e' }}
           >
-            <span className="text-white font-bold text-2xl font-display">S</span>
+            <span className="text-white font-bold text-2xl font-display">F</span>
           </div>
           <h1 className="font-display font-bold text-ink text-2xl">Create account</h1>
-          <p className="text-muted text-sm mt-1">Join The Sunrise BookStore</p>
+          <p className="text-muted text-sm mt-1">Join The Flemela Bookstore</p>
         </div>
 
         <div className="bg-paper rounded-2xl border border-line p-7 shadow-card">

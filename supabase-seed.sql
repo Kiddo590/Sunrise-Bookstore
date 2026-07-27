@@ -1,5 +1,5 @@
 -- ============================================================
--- SUNRISE BOOKSTORE — Seed data
+-- FLEMELA BOOKSTORE — Seed data
 -- Run AFTER schema is created in Supabase SQL Editor
 -- ============================================================
 
@@ -75,7 +75,7 @@ insert into blog_posts (title, slug, excerpt, body, published) values
   'Why Ebooks Are Perfect for the Nairobi Commute',
   'ebooks-perfect-for-nairobi-commute',
   'Matatu rides, traffic jams and lunch breaks are better with a book in your pocket — here''s why ebooks make sense for Nairobi readers.',
-  E'Anyone who has spent an hour in Nairobi traffic knows the feeling: you''re stuck, you''re frustrated, and your phone is the only thing standing between you and boredom.\n\nHere''s our case for ebooks:\n\nInstant delivery. Order an ebook and we send it to your WhatsApp within minutes. No waiting, no delivery fee.\n\nZero weight. A phone weighs nothing. Five hardcopy books? Ask your back.\n\nPrivacy. Commuting with a self-help book in your bag? Nobody needs to know.\n\nNight reading. Backlit screen, dark mode, 11pm on your bed. Perfect.\n\nAt Sunrise Bookstore we price our ebooks 30–40% below the hardcopy price. Cheaper to buy, free to carry.',
+  E'Anyone who has spent an hour in Nairobi traffic knows the feeling: you''re stuck, you''re frustrated, and your phone is the only thing standing between you and boredom.\n\nHere''s our case for ebooks:\n\nInstant delivery. Order an ebook and we send it to your WhatsApp within minutes. No waiting, no delivery fee.\n\nZero weight. A phone weighs nothing. Five hardcopy books? Ask your back.\n\nPrivacy. Commuting with a self-help book in your bag? Nobody needs to know.\n\nNight reading. Backlit screen, dark mode, 11pm on your bed. Perfect.\n\nAt Flemela Bookstore we price our ebooks 30–40% below the hardcopy price. Cheaper to buy, free to carry.',
   true
 ),
 (

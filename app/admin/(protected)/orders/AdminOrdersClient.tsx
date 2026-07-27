@@ -135,7 +135,7 @@ export default function AdminOrdersClient({ orders: initial }: { orders: Order[]
                   </td>
                   <td className="p-3">
                     <a
-                      href={waHelpLink(`Hi ${order.customer_name}, your Sunrise Bookstore order is ready!`)}
+                      href={waHelpLink(`Hi ${order.customer_name}, your Flemela Bookstore order is ready!`)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-[#25D366] hover:opacity-80"

@@ -5,8 +5,8 @@ import { getAllPublishedPosts } from '@/lib/db'
 import type { BlogPost } from '@/types'
 
 export const metadata: Metadata = {
-  title: 'The Reading List — Sunrise Bookstore',
-  description: 'Reviews, recommendations and bookish thoughts from Sunrise Bookstore in Nairobi.',
+  title: 'The Reading List — Flemela Bookstore',
+  description: 'Reviews, recommendations and bookish thoughts from Flemela Bookstore in Nairobi.',
 }
 
 export default async function BlogPage() {

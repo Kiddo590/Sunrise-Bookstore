@@ -4,8 +4,8 @@ import { waHelpLink } from '@/lib/whatsapp'
 import ReviewCard from '@/components/ReviewCard'
 
 export const metadata: Metadata = {
-  title: 'What readers say — Sunrise Bookstore',
-  description: 'Read reviews from our customers at Sunrise Bookstore, Nairobi.',
+  title: 'What readers say — Flemela Bookstore',
+  description: 'Read reviews from our customers at Flemela Bookstore, Nairobi.',
 }
 
 export default async function ReviewsPage() {

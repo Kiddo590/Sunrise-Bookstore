@@ -3,8 +3,8 @@ import { getOtherProducts } from '@/lib/db'
 import OtherProductCard from '@/components/OtherProductCard'
 
 export const metadata: Metadata = {
-  title: 'Other Products — The Sunrise BookStore',
-  description: 'Stationery, electronics, and other products at The Sunrise BookStore.',
+  title: 'Other Products — The Flemela Bookstore',
+  description: 'Stationery, electronics, and other products at The Flemela Bookstore.',
 }
 
 export default async function OthersPage() {
@@ -14,7 +14,7 @@ export default async function OthersPage() {
     <div className="bg-paper2 min-h-screen">
       <div className="py-6 px-4 sm:px-6" style={{ background: 'linear-gradient(135deg, #0d6e4b 0%, #0a5238 100%)' }}>
         <div className="max-w-7xl mx-auto">
-          <p className="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">The Sunrise BookStore</p>
+          <p className="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">The Flemela Bookstore</p>
           <h1 className="font-bold text-white text-2xl sm:text-3xl">🛍️ Other Products</h1>
           <p className="text-white/60 text-sm mt-1">Stationery, electronics &amp; more</p>
         </div>

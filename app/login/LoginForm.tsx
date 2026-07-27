@@ -41,10 +41,10 @@ export default function LoginForm() {
             className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3"
             style={{ backgroundColor: '#f68b1e' }}
           >
-            <span className="text-white font-bold text-2xl font-display">S</span>
+            <span className="text-white font-bold text-2xl font-display">F</span>
           </div>
           <h1 className="font-display font-bold text-ink text-2xl">Welcome back</h1>
-          <p className="text-muted text-sm mt-1">Sign in to your Sunrise account</p>
+          <p className="text-muted text-sm mt-1">Sign in to your Flemela account</p>
         </div>
 
         <div className="bg-paper rounded-2xl border border-line p-7 shadow-card">

@@ -148,7 +148,7 @@ export default function Navbar() {
           <Link href="/" className="shrink-0 transition-opacity duration-150 hover:opacity-90">
             <Image
               src="/logo.png"
-              alt="The SunRise BookStore"
+              alt="The Flemela Bookstore"
               width={360}
               height={165}
               className={`w-auto object-contain transition-[height] duration-300 ${collapsed ? 'h-10' : 'h-24'}`}

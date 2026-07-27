@@ -1,5 +1,5 @@
 -- ============================================================
--- SUNRISE BOOKSTORE — Run this in the Supabase SQL Editor
+-- FLEMELA BOOKSTORE — Run this in the Supabase SQL Editor
 -- ============================================================
 
 -- BOOKS

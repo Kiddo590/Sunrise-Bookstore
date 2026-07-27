@@ -12,7 +12,7 @@ export function waOrderLink(
     .map(i => `• ${i.title}${i.format ? ` (${i.format})` : ''} — KSh ${i.price.toLocaleString()}`)
     .join('\n')
   const msg = [
-    `Hi Sunrise Bookstore! I'd like to place an order:`,
+    `Hi Flemela Bookstore! I'd like to place an order:`,
     lines,
     `Delivery fee (${form.county}): KSh ${deliveryFee.toLocaleString()}`,
     `Total: KSh ${total.toLocaleString()}`,
@@ -25,7 +25,7 @@ export function waOrderLink(
   return `${BASE}?text=${encodeURIComponent(msg)}`
 }
 
-export function waHelpLink(msg = 'Hi Sunrise Bookstore, I need help with an order.') {
+export function waHelpLink(msg = 'Hi Flemela Bookstore, I need help with an order.') {
   return `${BASE}?text=${encodeURIComponent(msg)}`
 }
 

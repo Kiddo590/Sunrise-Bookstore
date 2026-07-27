@@ -3,8 +3,8 @@ import { getAllBooks } from '@/lib/db'
 import ShopGrid from './ShopGrid'
 
 export const metadata: Metadata = {
-  title: 'Shop — The Sunrise BookStore',
-  description: 'Browse our full collection of hardcopy and ebook titles at The Sunrise BookStore.',
+  title: 'Shop — The Flemela Bookstore',
+  description: 'Browse our full collection of hardcopy and ebook titles at The Flemela Bookstore.',
 }
 
 type Props = {
@@ -20,7 +20,7 @@ export default async function ShopPage({ searchParams }: Props) {
       {/* Page header */}
       <div className="py-6 px-4 sm:px-6" style={{ background: 'linear-gradient(135deg, #1b1c2b 0%, #2d1f3d 100%)' }}>
         <div className="max-w-7xl mx-auto">
-          <p className="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">The Sunrise BookStore</p>
+          <p className="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">The Flemela Bookstore</p>
           <h1 className="font-bold text-white text-2xl sm:text-3xl">📚 All Books</h1>
           <p className="text-white/50 text-sm mt-1">{books.length} titles available</p>
         </div>

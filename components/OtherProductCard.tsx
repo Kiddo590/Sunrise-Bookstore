@@ -6,7 +6,7 @@ const waNumber = '254143304460'
 
 export default function OtherProductCard({ product }: { product: OtherProduct }) {
   const waLink = `https://wa.me/${waNumber}?text=${encodeURIComponent(
-    `Hi Sunrise Bookstore! I'd like to order: ${product.name} — ${money(product.price_kes)}`
+    `Hi Flemela Bookstore! I'd like to order: ${product.name} — ${money(product.price_kes)}`
   )}`
 
   return (

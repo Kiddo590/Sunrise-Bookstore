@@ -42,7 +42,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
           >
             <Menu size={22} />
           </button>
-          <span className="text-white font-bold text-sm tracking-tight">Sunrise Admin</span>
+          <span className="text-white font-bold text-sm tracking-tight">Flemela Admin</span>
         </div>
 
         <main className="flex-1 p-4 sm:p-6 overflow-y-auto min-w-0">

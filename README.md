@@ -1,4 +1,4 @@
-# Sunrise Bookstore
+# Flemela Bookstore
 
 A warm, editorial online bookshop for Nairobi, Kenya. Built with Next.js 16, Tailwind CSS v4, Supabase, and Cloudinary. Orders placed via WhatsApp — no payment gateway required.
 

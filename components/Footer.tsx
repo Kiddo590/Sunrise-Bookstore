@@ -13,7 +13,7 @@ export default function Footer() {
             <div className="bg-white rounded-lg px-3 py-2 inline-block mb-2">
               <Image
                 src="/logo.png"
-                alt="The SunRise BookStore"
+                alt="The Flemela Bookstore"
                 width={140}
                 height={65}
                 className="h-12 w-auto object-contain"
@@ -35,13 +35,13 @@ export default function Footer() {
               💬 WhatsApp: 0143304460
             </a>
             <a
-              href={`https://instagram.com/${process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE ?? 'thesunrisebookstore'}`}
+              href={`https://instagram.com/${process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE ?? 'flemelabookstore'}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded transition-opacity hover:opacity-90 w-fit"
               style={{ background: 'linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)', color: 'white' }}
             >
-              📸 IG: @{process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE ?? 'thesunrisebookstore'}
+              📸 IG: @{process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE ?? 'flemelabookstore'}
             </a>
           </div>
         </div>
@@ -100,7 +100,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-white/30 text-xs">
-          <p>© 2026 The Sunrise BookStore. All rights reserved.</p>
+          <p>© 2026 The Flemela Bookstore. All rights reserved.</p>
           <p>Built with ♥ in Nairobi</p>
         </div>
       </div>

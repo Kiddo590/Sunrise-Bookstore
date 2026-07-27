@@ -11,8 +11,8 @@ import OtherProductCard from '@/components/OtherProductCard'
 import type { Book, BlogPost, OtherProduct } from '@/types'
 
 export const metadata: Metadata = {
-  title: 'The Sunrise BookStore — Good books. Great prices. Delivered across Nairobi.',
-  description: 'Browse our collection of hardcopy and ebook titles at The Sunrise BookStore. Order via WhatsApp with cash on delivery anywhere in Nairobi.',
+  title: 'The Flemela Bookstore — Good books. Great prices. Delivered across Nairobi.',
+  description: 'Browse our collection of hardcopy and ebook titles at The Flemela Bookstore. Order via WhatsApp with cash on delivery anywhere in Nairobi.',
 }
 
 const categories = [

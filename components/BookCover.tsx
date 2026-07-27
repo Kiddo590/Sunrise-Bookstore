@@ -183,7 +183,7 @@ export default function BookCover({ book, height = 200, fit = 'cover' }: Props) 
             className="text-[8px] opacity-30 mt-1 tracking-widest font-bold uppercase"
             style={{ color: 'white', fontFamily: 'var(--font-body)' }}
           >
-            Sunrise
+            Flemela
           </p>
         </div>
       </div>
