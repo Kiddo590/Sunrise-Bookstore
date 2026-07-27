@@ -15,7 +15,7 @@ export default function Footer() {
                 src="/logo.png"
                 alt="The Flemela Bookstore"
                 width={140}
-                height={65}
+                height={140}
                 className="h-12 w-auto object-contain"
               />
             </div>

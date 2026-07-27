@@ -149,8 +149,8 @@ export default function Navbar() {
             <Image
               src="/logo.png"
               alt="The Flemela Bookstore"
-              width={360}
-              height={165}
+              width={220}
+              height={220}
               className={`w-auto object-contain transition-[height] duration-300 ${collapsed ? 'h-10' : 'h-24'}`}
               priority
             />
