@@ -22,7 +22,7 @@ export default async function AccountPage() {
           <div className="flex items-center gap-3">
             <div
               className="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-lg font-display"
-              style={{ backgroundColor: '#f68b1e' }}
+              style={{ backgroundColor: '#074C17' }}
             >
               {(meta.full_name?.[0] ?? user.email?.[0] ?? 'U').toUpperCase()}
             </div>
@@ -55,7 +55,7 @@ export default async function AccountPage() {
       {/* Order history */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="font-display font-bold text-ink text-xl">Order History</h2>
-        <Link href="/shop" className="text-sm font-semibold" style={{ color: '#f68b1e' }}>
+        <Link href="/shop" className="text-sm font-semibold" style={{ color: '#074C17' }}>
           Shop more →
         </Link>
       </div>
@@ -68,7 +68,7 @@ export default async function AccountPage() {
           <Link
             href="/shop"
             className="inline-block text-sm font-semibold text-white px-5 py-2 rounded-full"
-            style={{ backgroundColor: '#f68b1e' }}
+            style={{ backgroundColor: '#074C17' }}
           >
             Browse books
           </Link>
@@ -94,7 +94,7 @@ export default async function AccountPage() {
                   </p>
                 </div>
                 <div className="text-right shrink-0">
-                  <p className="font-bold text-sm" style={{ color: '#f68b1e' }}>{money(order.total_kes)}</p>
+                  <p className="font-bold text-sm" style={{ color: '#074C17' }}>{money(order.total_kes)}</p>
                   <span
                     className={`inline-block text-[11px] font-bold px-2 py-0.5 rounded-full mt-1 ${
                       order.status === 'completed'

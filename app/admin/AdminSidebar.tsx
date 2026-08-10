@@ -32,9 +32,9 @@ export default function AdminSidebar({ onClose }: { onClose?: () => void }) {
   }
 
   return (
-    <aside className="w-56 h-screen sticky top-0 flex flex-col shrink-0 overflow-hidden" style={{ backgroundColor: '#12131f' }}>
+    <aside className="w-56 h-screen sticky top-0 flex flex-col shrink-0 overflow-hidden" style={{ backgroundColor: '#013909' }}>
       {/* Brand header */}
-      <div className="px-5 py-4 shrink-0 flex items-center justify-between" style={{ background: 'linear-gradient(135deg, #f68b1e 0%, #c05000 100%)' }}>
+      <div className="px-5 py-4 shrink-0 flex items-center justify-between" style={{ background: 'linear-gradient(135deg, #074C17 0%, #013909 100%)' }}>
         <div>
           <p className="font-display font-black text-white text-sm tracking-tight">Flemela Admin</p>
           <p className="text-white/70 text-[11px] mt-0.5">Bookstore dashboard</p>
@@ -67,9 +67,9 @@ export default function AdminSidebar({ onClose }: { onClose?: () => void }) {
                         ? 'text-white'
                         : 'text-white/50 hover:text-white/80 hover:bg-white/5'
                     }`}
-                    style={active ? { background: 'linear-gradient(135deg, #f68b1e22, #f68b1e11)', borderLeft: '3px solid #f68b1e', paddingLeft: '9px' } : {}}
+                    style={active ? { background: 'linear-gradient(135deg, #E9A21822, #E9A21811)', borderLeft: '3px solid #E9A218', paddingLeft: '9px' } : {}}
                   >
-                    <Icon size={15} style={{ color: active ? '#f68b1e' : undefined }} />
+                    <Icon size={15} style={{ color: active ? '#E9A218' : undefined }} />
                     {label}
                   </Link>
                 )

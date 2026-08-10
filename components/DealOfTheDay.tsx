@@ -16,7 +16,7 @@ export default async function DealOfTheDay() {
       {/* Flash sale header */}
       <div
         className="flex items-center justify-between px-4 py-3"
-        style={{ borderBottom: '3px solid #f68b1e' }}
+        style={{ borderBottom: '3px solid #074C17' }}
       >
         <div className="flex items-center gap-3">
           <h2 className="font-bold text-ink text-base sm:text-lg">⚡ Deal of the Day</h2>
@@ -51,7 +51,7 @@ export default async function DealOfTheDay() {
           </div>
 
           <div className="flex items-baseline gap-3 flex-wrap">
-            <span className="font-bold text-3xl" style={{ color: '#f68b1e' }}>{money(price)}</span>
+            <span className="font-bold text-3xl" style={{ color: '#074C17' }}>{money(price)}</span>
             <span className="text-muted line-through text-base">{money(original)}</span>
             <span
               className="text-white text-xs font-bold px-2 py-0.5 rounded"
@@ -68,7 +68,7 @@ export default async function DealOfTheDay() {
           <Link
             href={`/book/${book.id}`}
             className="inline-block text-white font-bold text-sm px-6 py-3 rounded text-center w-fit transition-opacity hover:opacity-90"
-            style={{ backgroundColor: '#f68b1e' }}
+            style={{ backgroundColor: '#074C17' }}
           >
             Grab the Deal →
           </Link>

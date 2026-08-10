@@ -39,7 +39,7 @@ export default function OtherProductCard({ product }: { product: OtherProduct })
         <h3 className="text-xs sm:text-sm font-medium text-ink leading-snug line-clamp-2 mt-0.5 min-h-[2.5em]">
           {product.name}
         </h3>
-        <p className="font-bold text-base sm:text-lg mt-1 leading-none" style={{ color: '#f68b1e' }}>
+        <p className="font-bold text-base sm:text-lg mt-1 leading-none" style={{ color: '#074C17' }}>
           {money(product.price_kes)}
         </p>
         {product.in_stock && (

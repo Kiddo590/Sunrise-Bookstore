@@ -18,7 +18,7 @@ export default function AdBanner({
         className="absolute inset-0"
         style={{
           background: '#ece2d0',
-          backgroundImage: 'repeating-linear-gradient(-45deg, transparent, transparent 8px, rgba(192,92,32,0.05) 8px, rgba(192,92,32,0.05) 16px)',
+          backgroundImage: 'repeating-linear-gradient(-45deg, transparent, transparent 8px, rgba(7,76,23,0.05) 8px, rgba(7,76,23,0.05) 16px)',
         }}
       />
 
@@ -35,7 +35,7 @@ export default function AdBanner({
           <a
             href={ctaUrl}
             className="inline-block bg-rust text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:bg-rust-d transition-colors"
-            style={{ boxShadow: '0 4px 12px rgba(192,92,32,0.3)' }}
+            style={{ boxShadow: '0 4px 12px rgba(7,76,23,0.3)' }}
           >
             {ctaLabel}
           </a>

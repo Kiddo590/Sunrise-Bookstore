@@ -66,7 +66,7 @@ export default function BottomNav() {
                 {item.isCart && count > 0 && (
                   <span
                     className="absolute -top-1.5 -right-1.5 text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none"
-                    style={{ backgroundColor: '#f68b1e' }}
+                    style={{ backgroundColor: '#074C17' }}
                   >
                     {count > 9 ? '9+' : count}
                   </span>

@@ -49,7 +49,7 @@ export default async function HomePage() {
 
           {/* ── Desktop sidebar ── */}
           <aside className="hidden lg:block w-56 shrink-0 self-start mt-2 rounded-xl overflow-hidden bg-white shadow-sm">
-            <div className="px-4 py-3" style={{ background: 'linear-gradient(135deg, #1b1c2b 0%, #2d1f3d 100%)' }}>
+            <div className="px-4 py-3" style={{ background: 'linear-gradient(135deg, #013909 0%, #074C17 100%)' }}>
               <span className="text-white/50 text-[10px] font-black uppercase tracking-widest block mb-0.5">Browse</span>
               <span className="text-white text-sm font-bold">All Categories</span>
             </div>
@@ -69,7 +69,7 @@ export default async function HomePage() {
                 <Link
                   href="/shop"
                   className="flex items-center gap-3 px-4 py-2.5 text-sm font-bold hover:bg-rust/10 transition-colors"
-                  style={{ color: '#f68b1e' }}
+                  style={{ color: '#074C17' }}
                 >
                   <span className="flex-1">See All Books</span>
                   <span>›</span>
@@ -150,7 +150,7 @@ export default async function HomePage() {
               <section className="mt-2 bg-white rounded-xl overflow-hidden shadow-sm">
                 <div
                   className="flex items-center justify-between px-4 py-3"
-                  style={{ background: 'linear-gradient(135deg, #1b1c2b 0%, #2d1f3d 100%)' }}
+                  style={{ background: 'linear-gradient(135deg, #013909 0%, #074C17 100%)' }}
                 >
                   <h2 className="font-bold text-white text-base sm:text-lg">⚡ Instant Ebooks</h2>
                   <Link href="/shop?format=ebook" className="text-white/80 text-sm font-semibold hover:text-white transition-colors">
@@ -214,14 +214,14 @@ export default async function HomePage() {
                             />
                           </div>
                         ) : (
-                          <div className="h-32" style={{ background: 'linear-gradient(135deg, #1b1c2b, #2d2040)' }} />
+                          <div className="h-32" style={{ background: 'linear-gradient(135deg, #013909, #074C17)' }} />
                         )}
                         <div className="p-3">
                           <p className="text-muted text-[11px] mb-1">
                             {new Date(post.created_at).toLocaleDateString('en-KE', { day: 'numeric', month: 'short', year: 'numeric' })}
                           </p>
                           <h3 className="font-semibold text-ink text-sm leading-snug line-clamp-2">{post.title}</h3>
-                          <p className="text-xs font-semibold mt-2 group-hover:underline" style={{ color: '#f68b1e' }}>
+                          <p className="text-xs font-semibold mt-2 group-hover:underline" style={{ color: '#074C17' }}>
                             Read more →
                           </p>
                         </div>
@@ -237,7 +237,7 @@ export default async function HomePage() {
           {/* ── Top Selling sidebar ── */}
           {topSellingBooks && topSellingBooks.length > 0 && (
             <aside className="hidden lg:block w-56 shrink-0 self-start mt-2 rounded-xl overflow-hidden bg-white shadow-sm">
-              <div className="px-4 py-3" style={{ background: 'linear-gradient(135deg, #1b1c2b 0%, #2d1f3d 100%)' }}>
+              <div className="px-4 py-3" style={{ background: 'linear-gradient(135deg, #013909 0%, #074C17 100%)' }}>
                 <span className="text-white/50 text-[10px] font-black uppercase tracking-widest block mb-0.5">Trending</span>
                 <span className="text-white text-sm font-bold">Top Selling</span>
               </div>

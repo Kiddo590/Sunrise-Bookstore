@@ -11,12 +11,13 @@ const BLANK = {
   sub: '',
   cta: 'Shop Now',
   href: '/shop',
-  bg: 'linear-gradient(120deg, #1b1c2b 0%, #2a1f3d 100%)',
+  bg: 'linear-gradient(120deg, #013909 0%, #074C17 100%)',
   emoji: '📚',
   is_active: true,
 }
 
 const BG_PRESETS = [
+  { label: 'Brand green', value: 'linear-gradient(120deg, #013909 0%, #074C17 100%)' },
   { label: 'Dark navy', value: 'linear-gradient(120deg, #1b1c2b 0%, #2a1f3d 100%)' },
   { label: 'Orange', value: 'linear-gradient(120deg, #d97b18 0%, #f68b1e 100%)' },
   { label: 'Dark green', value: 'linear-gradient(120deg, #0d2018 0%, #1a3a2b 100%)' },
@@ -213,8 +214,8 @@ export default function HeroSlidesClient({ slides: initial }: { slides: HeroSlid
                     style={{
                       background: p.value,
                       color: '#fff',
-                      borderColor: form.bg === p.value ? '#f68b1e' : 'transparent',
-                      boxShadow: form.bg === p.value ? '0 0 0 2px #f68b1e' : 'none',
+                      borderColor: form.bg === p.value ? '#074C17' : 'transparent',
+                      boxShadow: form.bg === p.value ? '0 0 0 2px #074C17' : 'none',
                     }}
                   >
                     {p.label}
