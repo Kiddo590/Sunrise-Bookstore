@@ -198,7 +198,7 @@ export default function Navbar() {
               alt="The Flemela Bookstore"
               width={280}
               height={280}
-              className={`w-auto object-contain transition-[height] duration-300 ${collapsed ? 'h-12' : 'h-32'}`}
+              className={`w-auto object-contain transition-[height] duration-300 ${collapsed ? 'h-16' : 'h-32'}`}
               priority
             />
           </Link>
