@@ -153,7 +153,7 @@ export default function RichTextEditor({
           margin: 0.5rem 0;
         }
         .rich-editor blockquote {
-          border-left: 3px solid #074C17;
+          border-left: 3px solid #f68b1e;
           padding-left: 0.75rem;
           margin: 0.75rem 0;
           color: #6d6d6d;

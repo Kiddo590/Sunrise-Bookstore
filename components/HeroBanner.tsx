@@ -6,7 +6,7 @@ import type { HeroSlide } from '@/types'
 
 const DEFAULT_SLIDES: Omit<HeroSlide, 'id' | 'position' | 'is_active'>[] = [
   {
-    bg: 'linear-gradient(120deg, #013909 0%, #074C17 100%)',
+    bg: 'linear-gradient(120deg, #1b1c2b 0%, #2a1f3d 100%)',
     eyebrow: 'New Arrivals',
     heading: 'Fresh titles in\nstock this week',
     sub: 'Hardcopy & Ebook formats available',
@@ -15,7 +15,7 @@ const DEFAULT_SLIDES: Omit<HeroSlide, 'id' | 'position' | 'is_active'>[] = [
     emoji: '📚',
   },
   {
-    bg: 'linear-gradient(120deg, #074C17 0%, #013909 100%)',
+    bg: 'linear-gradient(120deg, #d97b18 0%, #f68b1e 100%)',
     eyebrow: 'Instant Access',
     heading: 'Ebooks ready\nto download',
     sub: 'Read on any device, delivered in minutes',
@@ -86,10 +86,10 @@ export default function HeroBanner({ slides: initialSlides }: { slides?: Slide[]
   }, [slides.length])
 
   const s = slides[index] ?? DEFAULT_SLIDES[0]
-  // Accent for badge/button: sale-red bg → white, dark green bg → gold
-  const accentColor = s.bg.includes('#e31837') || s.bg.includes('#a81020')
+  // Determine accent color for badge/button: light bg → dark text, dark bg → orange accent
+  const accentColor = s.bg.includes('#f68b1e') || s.bg.includes('#d97b18') || s.bg.includes('#e31837') || s.bg.includes('#a81020')
     ? '#ffffff'
-    : '#E9A218'
+    : '#f68b1e'
 
   return (
     <div
@@ -124,7 +124,7 @@ export default function HeroBanner({ slides: initialSlides }: { slides?: Slide[]
                 className="inline-block text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded mb-2"
                 style={{
                   backgroundColor: accentColor === '#ffffff' ? 'rgba(255,255,255,0.25)' : accentColor,
-                  color: accentColor === '#ffffff' ? '#fff' : '#013909',
+                  color: '#fff',
                 }}
               >
                 {sl.eyebrow}
@@ -138,7 +138,7 @@ export default function HeroBanner({ slides: initialSlides }: { slides?: Slide[]
                 className="inline-block text-xs font-bold px-4 py-1.5 rounded transition-opacity hover:opacity-90"
                 style={{
                   backgroundColor: accentColor === '#ffffff' ? 'white' : accentColor,
-                  color: '#013909',
+                  color: accentColor === '#ffffff' ? '#1b1c2b' : '#fff',
                 }}
               >
                 {sl.cta} →
@@ -157,7 +157,7 @@ export default function HeroBanner({ slides: initialSlides }: { slides?: Slide[]
             style={{
               width: i === index ? 20 : 6,
               height: 6,
-              backgroundColor: i === index ? '#E9A218' : 'rgba(255,255,255,0.5)',
+              backgroundColor: i === index ? '#f68b1e' : 'rgba(255,255,255,0.5)',
             }}
             aria-label={`Go to slide ${i + 1}`}
           />

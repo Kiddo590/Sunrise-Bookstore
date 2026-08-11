@@ -36,7 +36,7 @@ export default function FlashCard({ book }: Props) {
           {book.title}
         </p>
         <div className="flex items-baseline gap-1.5 flex-wrap">
-          <p className="font-bold text-sm" style={{ color: '#074C17' }}>
+          <p className="font-bold text-sm" style={{ color: '#f68b1e' }}>
             {money(salePrice)}
           </p>
           {originalPrice > 0 && (

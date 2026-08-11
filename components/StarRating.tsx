@@ -24,7 +24,7 @@ export default function StarRating({ rating, max = 5, interactive = false, onCha
             className={`text-base leading-none select-none ${
               interactive ? 'cursor-pointer' : ''
             }`}
-            style={{ color: filled ? '#E9A218' : '#91B199' }}
+            style={{ color: filled ? '#c05c20' : '#ddd0bc' }}
             onMouseEnter={() => interactive && setHovered(i + 1)}
             onMouseLeave={() => interactive && setHovered(0)}
             onClick={() => interactive && onChange?.(i + 1)}

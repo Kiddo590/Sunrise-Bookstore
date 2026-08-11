@@ -18,7 +18,7 @@ export default async function ShopPage({ searchParams }: Props) {
   return (
     <div className="bg-paper2 min-h-screen">
       {/* Page header */}
-      <div className="py-6 px-4 sm:px-6" style={{ background: 'linear-gradient(135deg, #013909 0%, #074C17 100%)' }}>
+      <div className="py-6 px-4 sm:px-6" style={{ background: 'linear-gradient(135deg, #1b1c2b 0%, #2d1f3d 100%)' }}>
         <div className="max-w-7xl mx-auto">
           <p className="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1">The Flemela Bookstore</p>
           <h1 className="font-bold text-white text-2xl sm:text-3xl">📚 All Books</h1>

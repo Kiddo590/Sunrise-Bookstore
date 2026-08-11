@@ -14,14 +14,14 @@ export default function Spinner({ size = 48 }: Props) {
         className="absolute inset-0 rounded-full animate-spin"
         style={{
           border: `${thickness}px solid transparent`,
-          borderTopColor: '#074C17',
+          borderTopColor: '#f68b1e',
           borderRightColor: 'rgba(246,139,30,0.4)',
         }}
       />
       {/* Brand letter */}
       <span
         className="font-black select-none"
-        style={{ fontSize: size * 0.36, color: '#074C17', lineHeight: 1 }}
+        style={{ fontSize: size * 0.36, color: '#f68b1e', lineHeight: 1 }}
       >
         S
       </span>

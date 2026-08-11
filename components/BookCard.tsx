@@ -26,7 +26,7 @@ export default function BookCard({ book, onClick }: Props) {
         {isEbookOnly && (
           <span
             className="absolute top-2 left-2 text-white text-[9px] font-black px-2 py-0.5 rounded-full tracking-wide uppercase"
-            style={{ background: 'linear-gradient(135deg, #074C17, #013909)' }}
+            style={{ background: 'linear-gradient(135deg, #f68b1e, #d97b18)' }}
           >
             Ebook
           </span>
@@ -42,7 +42,7 @@ export default function BookCard({ book, onClick }: Props) {
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-end pointer-events-none">
           <div
             className="w-full py-2.5 text-white text-xs font-bold text-center"
-            style={{ background: 'linear-gradient(0deg, rgba(7,76,23,0.95) 0%, rgba(7,76,23,0) 100%)' }}
+            style={{ background: 'linear-gradient(0deg, rgba(246,139,30,0.95) 0%, rgba(246,139,30,0) 100%)' }}
           >
             View Book →
           </div>
@@ -60,15 +60,15 @@ export default function BookCard({ book, onClick }: Props) {
         <p className="text-[10px] text-muted truncate mt-0.5">{book.author}</p>
         {hasBoth ? (
           <div className="flex flex-col mt-1.5 leading-tight">
-            <span className="font-bold text-sm sm:text-base" style={{ color: '#074C17' }}>
+            <span className="font-bold text-sm sm:text-base" style={{ color: '#f68b1e' }}>
               Hardcopy: {money(book.price_hard!)}
             </span>
-            <span className="font-bold text-sm sm:text-base" style={{ color: '#074C17' }}>
+            <span className="font-bold text-sm sm:text-base" style={{ color: '#f68b1e' }}>
               eBook: {money(book.price_ebook!)}
             </span>
           </div>
         ) : (
-          <p className="font-bold text-base sm:text-lg mt-1.5 leading-none" style={{ color: '#074C17' }}>
+          <p className="font-bold text-base sm:text-lg mt-1.5 leading-none" style={{ color: '#f68b1e' }}>
             {money(price)}
           </p>
         )}

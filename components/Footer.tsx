@@ -4,7 +4,7 @@ import { waHelpLink } from '@/lib/whatsapp'
 
 export default function Footer() {
   return (
-    <footer style={{ backgroundColor: '#013909', color: 'white' }}>
+    <footer style={{ backgroundColor: '#1b1c2b', color: 'white' }}>
       {/* Main footer columns */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-8">
         {/* Brand */}
@@ -19,7 +19,7 @@ export default function Footer() {
                 className="h-12 w-auto object-contain"
               />
             </div>
-            <p className="text-xs" style={{ color: '#E9A218' }}>Nairobi, Kenya</p>
+            <p className="text-xs" style={{ color: '#f68b1e' }}>Nairobi, Kenya</p>
           </div>
           <p className="text-white/50 text-sm leading-relaxed mb-4">
             {process.env.NEXT_PUBLIC_STORE_TAGLINE ?? 'Good books. Great prices. Delivered across Nairobi.'}
@@ -89,9 +89,9 @@ export default function Footer() {
           </p>
           <div
             className="rounded p-3 text-center"
-            style={{ backgroundColor: 'rgba(233,162,24,0.12)', border: '1px solid rgba(233,162,24,0.25)' }}
+            style={{ backgroundColor: 'rgba(246,139,30,0.12)', border: '1px solid rgba(246,139,30,0.25)' }}
           >
-            <p className="text-xs font-bold mb-0.5" style={{ color: '#E9A218' }}>★★★★★</p>
+            <p className="text-xs font-bold mb-0.5" style={{ color: '#f68b1e' }}>★★★★★</p>
             <p className="text-white/60 text-xs">Trusted by 500+ Nairobi readers</p>
           </div>
         </div>

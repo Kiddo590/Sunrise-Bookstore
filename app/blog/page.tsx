@@ -37,7 +37,7 @@ export default async function BlogPage() {
                 ) : (
                   <div
                     className="h-52"
-                    style={{ background: 'linear-gradient(135deg, #013909 0%, #074C17 100%)' }}
+                    style={{ background: 'linear-gradient(135deg, #c05c20 0%, #9e4616 100%)' }}
                   />
                 )}
                 <div className="p-5">

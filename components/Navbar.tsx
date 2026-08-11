@@ -151,7 +151,7 @@ export default function Navbar() {
               alt="The Flemela Bookstore"
               width={220}
               height={220}
-              className={`w-auto object-contain transition-[height] duration-300 ${collapsed ? 'h-8 sm:h-10' : 'h-11 sm:h-14'}`}
+              className={`w-auto object-contain transition-[height] duration-300 ${collapsed ? 'h-10' : 'h-24'}`}
               priority
             />
           </Link>
@@ -171,7 +171,7 @@ export default function Navbar() {
               <button
                 type="submit"
                 className="h-9 sm:h-10 px-4 sm:px-5 rounded-r font-semibold text-white text-sm flex items-center gap-1.5 shrink-0 transition-opacity hover:opacity-90"
-                style={{ backgroundColor: '#074C17' }}
+                style={{ backgroundColor: '#f68b1e' }}
               >
                 <Search size={16} />
                 <span className="hidden sm:inline">Search</span>
@@ -201,18 +201,18 @@ export default function Navbar() {
           <div className="flex items-center gap-1 sm:gap-3 shrink-0">
             {userName ? (
               <span
-                className="font-display font-bold italic text-xs sm:text-sm whitespace-nowrap px-1 max-w-[6rem] sm:max-w-none truncate"
+                className="hidden sm:block font-display font-bold italic text-sm whitespace-nowrap px-1"
                 style={{ color: '#1e7a4d' }}
               >
-                <span className="hidden sm:inline">{getGreeting()}, </span>{userName}
+                {getGreeting()}, {userName}
               </span>
             ) : (
               <Link
                 href="/login"
-                className="flex flex-col items-center gap-0.5 text-ink hover:text-rust transition-colors text-xs font-bold px-1"
+                className="hidden sm:flex items-center gap-1 text-ink hover:text-rust transition-colors text-xs font-bold whitespace-nowrap px-1"
               >
-                <LogIn size={22} />
-                <span className="hidden sm:inline whitespace-nowrap">Login</span>
+                <LogIn size={15} />
+                Login
               </Link>
             )}
             {isAdmin && (
@@ -236,7 +236,7 @@ export default function Navbar() {
                     className={`absolute -top-1.5 -right-1.5 text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none ${
                       cartBounce ? 'animate-badge-pop' : ''
                     }`}
-                    style={{ backgroundColor: '#074C17' }}
+                    style={{ backgroundColor: '#f68b1e' }}
                   >
                     {count > 9 ? '9+' : count}
                   </span>
@@ -245,6 +245,20 @@ export default function Navbar() {
               <span className="hidden sm:inline whitespace-nowrap">Cart</span>
             </Link>
           </div>
+        </div>
+
+        {/* ── Mobile-only greeting/login line ── */}
+        <div className="sm:hidden pb-2 text-center">
+          {userName ? (
+            <span className="font-display font-bold italic text-sm" style={{ color: '#1e7a4d' }}>
+              {getGreeting()}, {userName}
+            </span>
+          ) : (
+            <Link href="/login" className="inline-flex items-center gap-1 text-ink hover:text-rust transition-colors text-xs font-bold">
+              <LogIn size={15} />
+              Login
+            </Link>
+          )}
         </div>
 
         {/* ── Nav links ── */}

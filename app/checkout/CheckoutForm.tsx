@@ -175,7 +175,7 @@ export default function CheckoutForm({ userId, defaultName, defaultPhone, defaul
             type="submit"
             disabled={submitting || cart.length === 0 || !county}
             className="text-white font-semibold py-3 rounded-full transition-colors disabled:opacity-50 text-base"
-            style={{ backgroundColor: '#074C17' }}
+            style={{ backgroundColor: '#f68b1e' }}
           >
             {submitting ? 'Placing order…' : 'Place order & open WhatsApp →'}
           </button>
@@ -202,7 +202,7 @@ export default function CheckoutForm({ userId, defaultName, defaultPhone, defaul
                       className="shrink-0 text-xs font-semibold px-3 py-1.5 rounded-full border transition-colors disabled:opacity-60 disabled:cursor-default"
                       style={added
                         ? { borderColor: '#3bb77e', color: '#3bb77e', backgroundColor: 'rgba(59,183,126,0.08)' }
-                        : { borderColor: '#074C17', color: '#074C17' }}
+                        : { borderColor: '#f68b1e', color: '#f68b1e' }}
                     >
                       {added ? 'Added ✓' : '+ Add'}
                     </button>

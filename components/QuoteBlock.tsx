@@ -25,7 +25,7 @@ export default function QuoteBlock() {
   return (
     <div
       className="relative my-12 rounded-2xl overflow-hidden py-14 px-6"
-      style={{ background: 'rgba(7,76,23,0.05)', borderLeft: '4px solid #013909' }}
+      style={{ background: 'rgba(192,92,32,0.05)', borderLeft: '4px solid #c05c20' }}
     >
       {/* Oversized decorative quote mark */}
       <div

@@ -16,7 +16,7 @@ export default function ShopLoading() {
   return (
     <div className="bg-paper2 min-h-screen">
       {/* Header */}
-      <div className="py-6 px-4 sm:px-6" style={{ background: 'linear-gradient(135deg, #013909 0%, #074C17 100%)' }}>
+      <div className="py-6 px-4 sm:px-6" style={{ background: 'linear-gradient(135deg, #1b1c2b 0%, #2d1f3d 100%)' }}>
         <div className="max-w-7xl mx-auto animate-pulse">
           <div className="h-2 bg-white/10 rounded w-36 mb-2" />
           <div className="h-7 bg-white/20 rounded w-44" />

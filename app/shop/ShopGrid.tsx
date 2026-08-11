@@ -81,7 +81,7 @@ export default function ShopGrid({ books, initialSearch = '', initialFormat = 'a
                   ? 'text-white border-rust'
                   : 'bg-paper2 text-ink border-line hover:border-rust/50'
               }`}
-              style={format === f ? { backgroundColor: '#074C17', borderColor: '#074C17' } : {}}
+              style={format === f ? { backgroundColor: '#f68b1e', borderColor: '#f68b1e' } : {}}
             >
               {f === 'all' ? 'All Formats' : f === 'hardcopy' ? '📕 Hardcopy' : '⚡ Ebook'}
             </button>
@@ -98,7 +98,7 @@ export default function ShopGrid({ books, initialSearch = '', initialFormat = 'a
                   ? 'text-white border-grove'
                   : 'bg-paper2 text-ink border-line hover:border-grove/50'
               }`}
-              style={category === 'all' ? { backgroundColor: '#013909', borderColor: '#013909' } : {}}
+              style={category === 'all' ? { backgroundColor: '#1b1c2b', borderColor: '#1b1c2b' } : {}}
             >
               All
             </button>
@@ -111,7 +111,7 @@ export default function ShopGrid({ books, initialSearch = '', initialFormat = 'a
                     ? 'text-white'
                     : 'bg-paper2 text-ink border-line hover:border-grove/50'
                 }`}
-                style={category === c ? { backgroundColor: '#013909', borderColor: '#013909' } : {}}
+                style={category === c ? { backgroundColor: '#1b1c2b', borderColor: '#1b1c2b' } : {}}
               >
                 {c}
               </button>

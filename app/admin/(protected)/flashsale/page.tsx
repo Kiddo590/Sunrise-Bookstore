@@ -57,11 +57,11 @@ export default async function FlashSalePage() {
                       </td>
                       <td className="p-3 text-muted">{orig ? money(orig) : '—'}</td>
                       <td className="p-3">
-                        <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: '#fff3dc', color: '#013909' }}>
+                        <span className="text-xs font-bold px-2 py-0.5 rounded-full" style={{ backgroundColor: '#fff3dc', color: '#c05000' }}>
                           -{disc}%
                         </span>
                       </td>
-                      <td className="p-3 font-bold" style={{ color: '#074C17' }}>{orig ? money(sale) : '—'}</td>
+                      <td className="p-3 font-bold" style={{ color: '#f68b1e' }}>{orig ? money(sale) : '—'}</td>
                       <td className="p-3">
                         <Link href={`/admin/books/${b.id}`} className="text-xs text-rust hover:underline">Edit</Link>
                       </td>

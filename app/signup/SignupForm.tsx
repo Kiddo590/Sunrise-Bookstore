@@ -65,7 +65,7 @@ export default function SignupForm() {
           <Link
             href="/login"
             className="inline-block mt-6 text-sm font-semibold text-white px-5 py-2.5 rounded-full"
-            style={{ backgroundColor: '#074C17' }}
+            style={{ backgroundColor: '#f68b1e' }}
           >
             Go to sign in
           </Link>
@@ -80,7 +80,7 @@ export default function SignupForm() {
         <div className="text-center mb-8">
           <div
             className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3"
-            style={{ backgroundColor: '#074C17' }}
+            style={{ backgroundColor: '#f68b1e' }}
           >
             <span className="text-white font-bold text-2xl font-display">F</span>
           </div>
@@ -160,7 +160,7 @@ export default function SignupForm() {
               type="submit"
               disabled={loading}
               className="text-white font-semibold py-2.5 rounded-full transition-colors disabled:opacity-50"
-              style={{ backgroundColor: '#074C17' }}
+              style={{ backgroundColor: '#f68b1e' }}
             >
               {loading ? 'Creating account…' : 'Create account'}
             </button>
@@ -168,7 +168,7 @@ export default function SignupForm() {
 
           <p className="text-center text-sm text-muted mt-5">
             Already have an account?{' '}
-            <Link href="/login" className="font-semibold" style={{ color: '#074C17' }}>
+            <Link href="/login" className="font-semibold" style={{ color: '#f68b1e' }}>
               Sign in
             </Link>
           </p>

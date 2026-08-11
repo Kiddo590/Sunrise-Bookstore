@@ -42,7 +42,7 @@ export default function AnnouncementBar() {
   return (
     <div
       className="text-white text-sm sm:text-base py-3 text-center font-semibold overflow-hidden tracking-wide"
-      style={{ background: 'linear-gradient(90deg, #013909 0%, #074C17 40%, #074C17 60%, #013909 100%)' }}
+      style={{ background: 'linear-gradient(90deg, #c05000 0%, #f68b1e 40%, #f09a35 60%, #c05000 100%)' }}
     >
       <span
         style={{

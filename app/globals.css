@@ -1,18 +1,16 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Flemela Bookstore brand palette */
-  --color-paper: #FDFDFD;         /* White */
-  --color-paper2: #FDFDFD;
+  /* FlemelaBookstore-style color palette */
+  --color-paper: #ffffff;
+  --color-paper2: #ffffff;
   --color-ink: #212121;
   --color-muted: #6d6d6d;
-  --color-rust: #074C17;          /* Green — primary brand */
-  --color-rust-d: #013909;        /* Dark green — hover/darker */
-  --color-grove: #013909;         /* Dark green — headers, footer */
-  --color-gold: #E9A218;          /* Gold — accent on dark surfaces */
-  --color-sage: #91B199;          /* Light sage — soft accents */
+  --color-rust: #f68b1e;        /* FlemelaBookstore orange */
+  --color-rust-d: #d97b18;      /* Darker orange */
+  --color-grove: #1b1c2b;       /* Dark header */
   --color-line: #e0e0e0;
-  --color-sale: #e31837;          /* Sale red — functional, not brand */
+  --color-sale: #e31837;        /* Sale badge red */
 
   /* Font families */
   --font-display: var(--font-display-var), sans-serif;
@@ -28,7 +26,7 @@ html {
 }
 
 body {
-  background-color: #FDFDFD;
+  background-color: #ffffff;
   color: #212121;
   font-family: var(--font-body);
 }
@@ -53,8 +51,8 @@ html.dark .bg-white {
 }
 
 ::selection {
-  background-color: #91B199;
-  color: #013909;
+  background-color: #f68b1e;
+  color: #ffffff;
 }
 
 /* ── Keyframes ── */
@@ -65,8 +63,8 @@ html.dark .bg-white {
 }
 
 @keyframes pulse-soft {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(7,76,23,0.5); }
-  50%       { box-shadow: 0 0 0 8px rgba(7,76,23,0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(246,139,30,0.5); }
+  50%       { box-shadow: 0 0 0 8px rgba(246,139,30,0); }
 }
 
 @keyframes badge-pop {

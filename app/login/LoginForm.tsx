@@ -39,7 +39,7 @@ export default function LoginForm() {
         <div className="text-center mb-8">
           <div
             className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3"
-            style={{ backgroundColor: '#074C17' }}
+            style={{ backgroundColor: '#f68b1e' }}
           >
             <span className="text-white font-bold text-2xl font-display">F</span>
           </div>
@@ -76,7 +76,7 @@ export default function LoginForm() {
               type="submit"
               disabled={loading}
               className="text-white font-semibold py-2.5 rounded-full transition-colors disabled:opacity-50"
-              style={{ backgroundColor: '#074C17' }}
+              style={{ backgroundColor: '#f68b1e' }}
             >
               {loading ? 'Signing in…' : 'Sign in'}
             </button>
@@ -84,7 +84,7 @@ export default function LoginForm() {
 
           <p className="text-center text-sm text-muted mt-5">
             Don&apos;t have an account?{' '}
-            <Link href="/signup" className="font-semibold" style={{ color: '#074C17' }}>
+            <Link href="/signup" className="font-semibold" style={{ color: '#f68b1e' }}>
               Create one
             </Link>
           </p>

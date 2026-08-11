@@ -16,7 +16,7 @@ export default function CartPage() {
       <div className="min-h-[60vh] flex flex-col items-center justify-center px-4 py-20 text-center">
         <div
           className="w-20 h-20 rounded-full flex items-center justify-center text-4xl mb-5"
-          style={{ background: 'linear-gradient(135deg, rgba(7,76,23,0.15), rgba(7,76,23,0.05))' }}
+          style={{ background: 'linear-gradient(135deg, rgba(246,139,30,0.15), rgba(246,139,30,0.05))' }}
         >
           🛒
         </div>
@@ -25,7 +25,7 @@ export default function CartPage() {
         <Link
           href="/shop"
           className="inline-block text-white font-bold px-8 py-3 rounded-full transition-opacity hover:opacity-90"
-          style={{ background: 'linear-gradient(135deg, #074C17, #013909)' }}
+          style={{ background: 'linear-gradient(135deg, #f68b1e, #d97b18)' }}
         >
           Browse books →
         </Link>
@@ -36,7 +36,7 @@ export default function CartPage() {
   return (
     <div className="bg-paper2 min-h-screen">
       {/* Header */}
-      <div className="py-5 px-4 sm:px-6" style={{ background: 'linear-gradient(135deg, #013909 0%, #074C17 100%)' }}>
+      <div className="py-5 px-4 sm:px-6" style={{ background: 'linear-gradient(135deg, #1b1c2b 0%, #2d1f3d 100%)' }}>
         <div className="max-w-7xl mx-auto">
           <h1 className="font-bold text-white text-xl sm:text-2xl">Your Cart</h1>
           <p className="text-white/50 text-sm mt-1">{cart.length} {cart.length === 1 ? 'item' : 'items'}</p>
@@ -91,7 +91,7 @@ export default function CartPage() {
                       🛍️ Add-on
                     </span>
                   )}
-                  <p className="font-bold mt-2 text-base" style={{ color: '#074C17' }}>{money(item.price)}</p>
+                  <p className="font-bold mt-2 text-base" style={{ color: '#f68b1e' }}>{money(item.price)}</p>
                 </div>
                 <button
                   onClick={() => removeItem(item.uid)}
@@ -106,7 +106,7 @@ export default function CartPage() {
 
           {/* Summary */}
           <div className="bg-white border border-line rounded-xl overflow-hidden h-fit sticky top-20 shadow-sm">
-            <div className="px-5 py-4" style={{ background: 'linear-gradient(135deg, #013909 0%, #074C17 100%)' }}>
+            <div className="px-5 py-4" style={{ background: 'linear-gradient(135deg, #1b1c2b 0%, #2d1f3d 100%)' }}>
               <h2 className="font-bold text-white text-base">Order Summary</h2>
             </div>
             <div className="p-5">
@@ -120,12 +120,12 @@ export default function CartPage() {
               </div>
               <div className="border-t border-line pt-4 mb-5 flex justify-between items-baseline">
                 <span className="font-bold text-ink">Total</span>
-                <span className="font-display font-bold text-2xl" style={{ color: '#074C17' }}>{money(total)}</span>
+                <span className="font-display font-bold text-2xl" style={{ color: '#f68b1e' }}>{money(total)}</span>
               </div>
               <Link
                 href="/checkout"
                 className="block w-full text-white font-bold text-center py-3 rounded-full transition-opacity hover:opacity-90"
-                style={{ background: 'linear-gradient(135deg, #074C17, #013909)' }}
+                style={{ background: 'linear-gradient(135deg, #f68b1e, #d97b18)' }}
               >
                 Proceed to Checkout →
               </Link>
