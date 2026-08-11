@@ -8,6 +8,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useCart } from './CartProvider'
 import AnnouncementBar from './AnnouncementBar'
 import { createClient } from '@/lib/supabase/client'
+import { waHelpLink } from '@/lib/whatsapp'
 
 const navLinks = [
   { href: '/shop', label: '📚 All Books' },
@@ -15,6 +16,8 @@ const navLinks = [
   { href: '/shop?format=ebook', label: '⚡ eBooks' },
   { href: '/request', label: '🔎 Request a Book' },
   { href: '/others', label: '🛍️ Other Products' },
+  { href: '/blog', label: '📝 Blog' },
+  { href: waHelpLink(), label: '☎️ Contact Us', external: true },
 ]
 
 const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL
@@ -131,6 +134,7 @@ export default function Navbar() {
       {/* ── Announcement bar ── */}
       <div
         className={`transition-[max-height,opacity] duration-300 overflow-hidden ${collapsed ? 'max-h-0 opacity-0' : 'max-h-20 opacity-100'}`}
+        style={{ boxShadow: 'inset 0 0 0 3px #1e7a4d' }}
       >
         <AnnouncementBar />
       </div>
@@ -149,9 +153,9 @@ export default function Navbar() {
             <Image
               src="/logo.png"
               alt="The Flemela Bookstore"
-              width={220}
-              height={220}
-              className={`w-auto object-contain transition-[height] duration-300 ${collapsed ? 'h-10' : 'h-24'}`}
+              width={280}
+              height={280}
+              className={`w-auto object-contain transition-[height] duration-300 ${collapsed ? 'h-12' : 'h-32'}`}
               priority
             />
           </Link>
@@ -201,7 +205,7 @@ export default function Navbar() {
           <div className="flex items-center gap-1 sm:gap-3 shrink-0">
             {userName ? (
               <span
-                className="hidden sm:block font-display font-bold italic text-sm whitespace-nowrap px-1"
+                className="hidden sm:block font-display font-bold text-sm whitespace-nowrap px-1"
                 style={{ color: '#1e7a4d' }}
               >
                 {getGreeting()}, {userName}
@@ -211,7 +215,7 @@ export default function Navbar() {
                 href="/login"
                 className="hidden sm:flex items-center gap-1 text-ink hover:text-rust transition-colors text-xs font-bold whitespace-nowrap px-1"
               >
-                <LogIn size={15} />
+                <LogIn size={15} color="#1e7a4d" />
                 Login
               </Link>
             )}
@@ -220,7 +224,7 @@ export default function Navbar() {
                 href="/admin"
                 className="flex flex-col items-center text-ink hover:text-rust transition-colors text-xs gap-0.5 px-1"
               >
-                <LayoutDashboard size={24} />
+                <LayoutDashboard size={24} color="#1e7a4d" />
                 <span className="whitespace-nowrap">Admin</span>
               </Link>
             )}
@@ -229,7 +233,7 @@ export default function Navbar() {
               className="relative flex flex-col items-center text-ink hover:text-rust transition-colors text-xs gap-0.5 px-2 py-1 rounded"
             >
               <div className="relative">
-                <ShoppingCart size={22} />
+                <ShoppingCart size={22} color="#1e7a4d" />
                 {count > 0 && (
                   <span
                     key={count}
@@ -250,12 +254,12 @@ export default function Navbar() {
         {/* ── Mobile-only greeting/login line ── */}
         <div className="sm:hidden pb-2 text-center">
           {userName ? (
-            <span className="font-display font-bold italic text-sm" style={{ color: '#1e7a4d' }}>
+            <span className="font-display font-bold text-sm" style={{ color: '#1e7a4d' }}>
               {getGreeting()}, {userName}
             </span>
           ) : (
             <Link href="/login" className="inline-flex items-center gap-1 text-ink hover:text-rust transition-colors text-xs font-bold">
-              <LogIn size={15} />
+              <LogIn size={15} color="#1e7a4d" />
               Login
             </Link>
           )}
@@ -265,16 +269,20 @@ export default function Navbar() {
         <div className="flex justify-start sm:justify-center gap-1 overflow-x-auto scrollbar-hide pb-2 sm:pb-3 [-webkit-overflow-scrolling:touch]">
           {navLinks.map(l => {
             const active = pathname === l.href
+            const linkClass = `shrink-0 whitespace-nowrap text-xs sm:text-sm font-medium px-3 py-1.5 rounded-full border-b-2 transition-colors ${
+              active
+                ? 'border-rust text-rust'
+                : 'border-transparent text-ink hover:text-rust hover:border-rust/40'
+            }`
+            if (l.external) {
+              return (
+                <a key={l.href + l.label} href={l.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                  {l.label}
+                </a>
+              )
+            }
             return (
-              <Link
-                key={l.href + l.label}
-                href={l.href}
-                className={`shrink-0 whitespace-nowrap text-xs sm:text-sm font-medium px-3 py-1.5 rounded-full border-b-2 transition-colors ${
-                  active
-                    ? 'border-rust text-rust'
-                    : 'border-transparent text-ink hover:text-rust hover:border-rust/40'
-                }`}
-              >
+              <Link key={l.href + l.label} href={l.href} className={linkClass}>
                 {l.label}
               </Link>
             )

@@ -109,9 +109,9 @@ export default function ShopGrid({ books, initialSearch = '', initialFormat = 'a
                 className={`px-3 py-1 rounded-full text-xs font-medium border transition-all ${
                   category === c
                     ? 'text-white'
-                    : 'bg-paper2 text-ink border-line hover:border-grove/50'
+                    : 'bg-paper2 border-line hover:border-[#1e7a4d]/50'
                 }`}
-                style={category === c ? { backgroundColor: '#1b1c2b', borderColor: '#1b1c2b' } : {}}
+                style={category === c ? { backgroundColor: '#1e7a4d', borderColor: '#1e7a4d' } : { color: '#1e7a4d' }}
               >
                 {c}
               </button>

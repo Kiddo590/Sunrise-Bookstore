@@ -52,7 +52,7 @@ export default function BookCard({ book, onClick }: Props) {
       {/* Info */}
       <div className="p-2 sm:p-3">
         {book.category && (
-          <span className="text-[9px] font-black uppercase tracking-widest text-muted">{book.category}</span>
+          <span className="text-[9px] font-black uppercase tracking-widest" style={{ color: '#1e7a4d' }}>{book.category}</span>
         )}
         <h3 className="text-xs sm:text-sm text-ink font-semibold leading-snug line-clamp-2 mt-0.5 min-h-[2.5em]">
           {book.title}

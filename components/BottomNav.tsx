@@ -62,7 +62,7 @@ export default function BottomNav() {
               }`}
             >
               <div className="relative">
-                <item.icon size={22} />
+                <item.icon size={22} color="#1e7a4d" />
                 {item.isCart && count > 0 && (
                   <span
                     className="absolute -top-1.5 -right-1.5 text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none"
@@ -83,7 +83,7 @@ export default function BottomNav() {
               pathname.startsWith('/admin') ? 'text-rust' : 'text-muted'
             }`}
           >
-            <LayoutDashboard size={22} />
+            <LayoutDashboard size={22} color="#1e7a4d" />
             <span className="text-[10px] font-medium">Admin</span>
           </Link>
         )}
