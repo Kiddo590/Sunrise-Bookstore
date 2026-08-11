@@ -28,12 +28,14 @@
 
 html {
   scroll-behavior: smooth;
+  overscroll-behavior-y: none;
 }
 
 body {
   background-color: #ffffff;
   color: #212121;
   font-family: var(--font-body);
+  overscroll-behavior-y: none;
 }
 
 /* ── Dark mode ── */
