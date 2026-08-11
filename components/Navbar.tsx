@@ -133,8 +133,8 @@ export default function Navbar() {
     >
       {/* ── Announcement bar ── */}
       <div
-        className={`transition-[max-height,opacity] duration-300 overflow-hidden ${collapsed ? 'max-h-0 opacity-0' : 'max-h-20 opacity-100'}`}
-        style={{ boxShadow: 'inset 0 0 0 3px #1e7a4d' }}
+        className={`transition-[max-height,opacity] duration-300 overflow-hidden ${collapsed ? 'max-h-0 opacity-0' : 'max-h-24 opacity-100'}`}
+        style={{ backgroundColor: '#1e7a4d', padding: '4px' }}
       >
         <AnnouncementBar />
       </div>
