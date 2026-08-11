@@ -187,7 +187,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-3 sm:px-6">
         <div
           className={`flex items-center gap-3 sm:gap-4 transition-[padding] duration-300 ${
-            collapsed ? 'py-1' : 'py-2 sm:py-3'
+            collapsed ? 'py-1' : 'py-1 sm:py-1.5'
           }`}
         >
 
@@ -198,7 +198,7 @@ export default function Navbar() {
               alt="The Flemela Bookstore"
               width={280}
               height={280}
-              className={`w-auto object-contain transition-[height] duration-300 ${collapsed ? 'h-24' : 'h-32'}`}
+              className={`w-auto object-contain transition-[height] duration-300 ${collapsed ? 'h-24' : 'h-36'}`}
               priority
             />
           </Link>
@@ -295,7 +295,7 @@ export default function Navbar() {
         </div>
 
         {/* ── Mobile-only greeting/login line ── */}
-        <div className="sm:hidden pb-2 text-center">
+        <div className="sm:hidden pb-1 text-center">
           {userName ? (
             <span className="font-display font-bold text-sm" style={{ color: '#1e7a4d' }}>
               {getGreeting()}, {userName}
@@ -309,10 +309,10 @@ export default function Navbar() {
         </div>
 
         {/* ── Nav links ── */}
-        <div className="flex justify-start sm:justify-center gap-1 overflow-x-auto scrollbar-hide pb-2 sm:pb-3 [-webkit-overflow-scrolling:touch]">
+        <div className="flex justify-start sm:justify-center gap-1 overflow-x-auto scrollbar-hide pb-1.5 sm:pb-2 [-webkit-overflow-scrolling:touch]">
           {navLinks.map(l => {
             const active = pathname === l.href
-            const linkClass = 'shrink-0 whitespace-nowrap text-xs sm:text-sm font-semibold px-3 py-1.5 rounded-full text-white transition-opacity hover:opacity-85'
+            const linkClass = 'shrink-0 whitespace-nowrap text-xs sm:text-sm font-semibold px-3 py-1 rounded-full text-white transition-opacity hover:opacity-85'
             const linkStyle = { backgroundColor: active ? '#145c39' : '#1e7a4d' }
             if (l.external) {
               return (
