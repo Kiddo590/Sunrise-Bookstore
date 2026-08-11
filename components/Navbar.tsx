@@ -60,9 +60,9 @@ export default function Navbar() {
 
   function getGreeting() {
     const hour = new Date().getHours()
-    if (hour < 12) return 'Good morning'
-    if (hour < 17) return 'Good afternoon'
-    return 'Good evening'
+    if (hour < 12) return 'Good Morning'
+    if (hour < 17) return 'Good Afternoon'
+    return 'Good Evening'
   }
 
   useEffect(() => {
@@ -312,20 +312,17 @@ export default function Navbar() {
         <div className="flex justify-start sm:justify-center gap-1 overflow-x-auto scrollbar-hide pb-2 sm:pb-3 [-webkit-overflow-scrolling:touch]">
           {navLinks.map(l => {
             const active = pathname === l.href
-            const linkClass = `shrink-0 whitespace-nowrap text-xs sm:text-sm font-medium px-3 py-1.5 rounded-full border-b-2 transition-colors ${
-              active
-                ? 'border-rust text-rust'
-                : 'border-transparent text-ink hover:text-rust hover:border-rust/40'
-            }`
+            const linkClass = 'shrink-0 whitespace-nowrap text-xs sm:text-sm font-semibold px-3 py-1.5 rounded-full text-white transition-opacity hover:opacity-85'
+            const linkStyle = { backgroundColor: active ? '#145c39' : '#1e7a4d' }
             if (l.external) {
               return (
-                <a key={l.href + l.label} href={l.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                <a key={l.href + l.label} href={l.href} target="_blank" rel="noopener noreferrer" className={linkClass} style={linkStyle}>
                   {l.label}
                 </a>
               )
             }
             return (
-              <Link key={l.href + l.label} href={l.href} className={linkClass}>
+              <Link key={l.href + l.label} href={l.href} className={linkClass} style={linkStyle}>
                 {l.label}
               </Link>
             )
