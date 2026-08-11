@@ -102,13 +102,8 @@ export default function Navbar() {
       document.documentElement.style.setProperty('--nav-height', `${h}px`)
     }
 
-    if (collapsed) {
-      const t = setTimeout(applyMeasuredHeight, 320) // wait out the 300ms shrink transition
-      return () => clearTimeout(t)
-    }
-
-    if (spacerHeight === null) {
-      applyMeasuredHeight() // first paint fallback so content isn't hidden under the nav
+    if (collapsed || spacerHeight === null) {
+      applyMeasuredHeight() // heights now snap instantly, so measure right away
     }
     // spacerHeight intentionally omitted: this only needs to re-run when `collapsed`
     // flips, and each run already sees the current spacerHeight via closure.
@@ -176,7 +171,7 @@ export default function Navbar() {
     >
       {/* ── Announcement bar ── */}
       <div
-        className={`transition-[max-height,opacity] duration-300 overflow-hidden ${collapsed ? 'max-h-0 opacity-0' : 'max-h-24 opacity-100'}`}
+        className={`transition-opacity duration-200 overflow-hidden ${collapsed ? 'max-h-0 opacity-0' : 'max-h-24 opacity-100'}`}
         style={{ backgroundColor: '#1e7a4d', padding: '4px' }}
       >
         <AnnouncementBar />
@@ -186,7 +181,7 @@ export default function Navbar() {
       <div className="bg-white border-b border-line">
         <div className="max-w-7xl mx-auto px-3 sm:px-6">
         <div
-          className={`flex items-center gap-2 sm:gap-3 transition-[padding] duration-300 ${
+          className={`flex items-center gap-2 sm:gap-3 ${
             collapsed ? 'py-0.5' : 'py-0.5 sm:py-1'
           }`}
         >
@@ -198,7 +193,7 @@ export default function Navbar() {
               alt="The Flemela Bookstore"
               width={280}
               height={280}
-              className={`w-auto object-contain transition-[height] duration-300 ${collapsed ? 'h-24' : 'h-36'}`}
+              className={`w-auto object-contain ${collapsed ? 'h-24' : 'h-36'}`}
               priority
             />
           </Link>
