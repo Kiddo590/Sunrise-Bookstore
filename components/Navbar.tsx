@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { ShoppingCart, Search, LayoutDashboard, LogIn } from 'lucide-react'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { useCart } from './CartProvider'
 import AnnouncementBar from './AnnouncementBar'
 import { createClient } from '@/lib/supabase/client'
@@ -34,6 +34,8 @@ export default function Navbar() {
   const searchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [scrolled, setScrolled] = useState(false)
   const [collapsed, setCollapsed] = useState(false)
+  const navRef = useRef<HTMLElement>(null)
+  const [spacerHeight, setSpacerHeight] = useState<number | null>(null)
   const lastScrollY = useRef(0)
   const prevCount = useRef(count)
   const [cartBounce, setCartBounce] = useState(false)
@@ -85,6 +87,45 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
+  // Keeps the page-flow spacer (and dependent pages' sticky offsets) pinned to the
+  // navbar's *collapsed* height, since the nav itself is `position: fixed` and no
+  // longer pushes content around. The taller, announcement-bar-visible state is only
+  // ever shown near the top of the page, where it's fine for it to briefly overlay
+  // content instead of shoving it down — that overlay is what used to read as a jump/bounce.
+  useLayoutEffect(() => {
+    const el = navRef.current
+    if (!el) return
+
+    function applyMeasuredHeight() {
+      const h = el!.offsetHeight
+      setSpacerHeight(h)
+      document.documentElement.style.setProperty('--nav-height', `${h}px`)
+    }
+
+    if (collapsed) {
+      const t = setTimeout(applyMeasuredHeight, 320) // wait out the 300ms shrink transition
+      return () => clearTimeout(t)
+    }
+
+    if (spacerHeight === null) {
+      applyMeasuredHeight() // first paint fallback so content isn't hidden under the nav
+    }
+    // spacerHeight intentionally omitted: this only needs to re-run when `collapsed`
+    // flips, and each run already sees the current spacerHeight via closure.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [collapsed])
+
+  useEffect(() => {
+    function onResize() {
+      if (!collapsed || !navRef.current) return
+      const h = navRef.current.offsetHeight
+      setSpacerHeight(h)
+      document.documentElement.style.setProperty('--nav-height', `${h}px`)
+    }
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [collapsed])
+
   useEffect(() => {
     if (count !== prevCount.current) {
       prevCount.current = count
@@ -127,8 +168,10 @@ export default function Navbar() {
   }
 
   return (
+    <>
     <nav
-      className="sticky top-0 z-40 transition-shadow duration-200 [overflow-anchor:none]"
+      ref={navRef}
+      className="fixed top-0 inset-x-0 z-40 transition-shadow duration-200 [overflow-anchor:none]"
       style={{ boxShadow: scrolled ? '0 2px 8px rgba(0,0,0,0.18)' : 'none' }}
     >
       {/* ── Announcement bar ── */}
@@ -291,5 +334,7 @@ export default function Navbar() {
         </div>
       </div>
     </nav>
+    <div aria-hidden style={{ height: spacerHeight ?? undefined }} />
+    </>
   )
 }

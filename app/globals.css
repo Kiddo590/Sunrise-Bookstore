@@ -21,6 +21,11 @@
   --shadow-lift: 0 4px 16px rgba(0,0,0,0.14);
 }
 
+:root {
+  /* Collapsed navbar height, kept in sync at runtime by Navbar.tsx */
+  --nav-height: 108px;
+}
+
 html {
   scroll-behavior: smooth;
 }

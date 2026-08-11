@@ -49,8 +49,8 @@ export default function ShopGrid({ books, initialSearch = '', initialFormat = 'a
     <div>
       {/* Sticky filter bar */}
       <div
-        className="sticky top-[108px] z-30 bg-white rounded mb-4 p-3 sm:p-4"
-        style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}
+        className="sticky z-30 bg-white rounded mb-4 p-3 sm:p-4"
+        style={{ top: 'var(--nav-height)', boxShadow: '0 1px 4px rgba(0,0,0,0.08)' }}
       >
         {/* Search */}
         <div className="flex gap-2 mb-3">
