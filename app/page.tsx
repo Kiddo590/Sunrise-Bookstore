@@ -1,6 +1,21 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import {
+  BookOpen,
+  BarChart3,
+  Sprout,
+  Baby,
+  Landmark,
+  FlaskConical,
+  Feather,
+  Zap,
+  Package,
+  Heart,
+  Church,
+  User,
+  Pill,
+} from 'lucide-react'
 import { getFeaturedBooks, getEbookBooks, getLatestBlogPosts, getOtherProducts, getTopSellingBooks } from '@/lib/db'
 import BookCard from '@/components/BookCard'
 import FlashCard from '@/components/FlashCard'
@@ -16,19 +31,19 @@ export const metadata: Metadata = {
 }
 
 const categories = [
-  { label: 'Fiction',   emoji: '📖', href: '/shop?category=Fiction' },
-  { label: 'Business',  emoji: '💼', href: '/shop?category=Business' },
-  { label: 'Self-Help', emoji: '🌱', href: '/shop?category=Self-Help' },
-  { label: 'Children',  emoji: '🎨', href: '/shop?category=Children' },
-  { label: 'History',   emoji: '🏛️',  href: '/shop?category=History' },
-  { label: 'Science',   emoji: '🔬', href: '/shop?category=Science' },
-  { label: 'Poetry',    emoji: '✍️',  href: '/shop?category=Poetry' },
-  { label: 'Ebooks',    emoji: '⚡', href: '/shop?format=ebook' },
-  { label: 'Other',     emoji: '📦', href: '/shop?category=Other' },
-  { label: 'Romance',   emoji: '💕', href: '/shop?category=Romance' },
-  { label: 'Religion',  emoji: '✝️',  href: '/shop?category=Religion' },
-  { label: 'Biography', emoji: '👤', href: '/shop?category=Biography' },
-  { label: 'Health',    emoji: '💊', href: '/shop?category=Health' },
+  { label: 'Fiction',   icon: BookOpen,     href: '/shop?category=Fiction' },
+  { label: 'Business',  icon: BarChart3,    href: '/shop?category=Business' },
+  { label: 'Self-Help', icon: Sprout,       href: '/shop?category=Self-Help' },
+  { label: 'Children',  icon: Baby,         href: '/shop?category=Children' },
+  { label: 'History',   icon: Landmark,     href: '/shop?category=History' },
+  { label: 'Science',   icon: FlaskConical, href: '/shop?category=Science' },
+  { label: 'Poetry',    icon: Feather,      href: '/shop?category=Poetry' },
+  { label: 'Ebooks',    icon: Zap,          href: '/shop?format=ebook' },
+  { label: 'Other',     icon: Package,      href: '/shop?category=Other' },
+  { label: 'Romance',   icon: Heart,        href: '/shop?category=Romance' },
+  { label: 'Religion',  icon: Church,       href: '/shop?category=Religion' },
+  { label: 'Biography', icon: User,         href: '/shop?category=Biography' },
+  { label: 'Health',    icon: Pill,         href: '/shop?category=Health' },
 ]
 
 export default async function HomePage() {
@@ -60,7 +75,9 @@ export default async function HomePage() {
                   href={cat.href}
                   className="flex items-center gap-3 px-4 py-2 text-sm text-ink hover:bg-rust/10 hover:text-rust transition-colors group"
                 >
-                  <span className="w-5 text-center text-base">{cat.emoji}</span>
+                  <span className="w-5 flex items-center justify-center shrink-0">
+                    <cat.icon size={16} color="#1e7a4d" />
+                  </span>
                   <span className="flex-1 font-medium">{cat.label}</span>
                   <span className="text-muted text-xs group-hover:text-rust transition-colors">›</span>
                 </Link>
@@ -98,10 +115,10 @@ export default async function HomePage() {
                     className="flex flex-col items-center gap-1 shrink-0 group"
                   >
                     <div
-                      className="w-12 h-12 rounded-lg flex items-center justify-center text-xl transition-colors group-hover:bg-rust/10 border border-line group-hover:border-rust/30"
+                      className="w-12 h-12 rounded-lg flex items-center justify-center transition-colors group-hover:bg-rust/10 border border-line group-hover:border-rust/30"
                       style={{ backgroundColor: '#f9f9f9' }}
                     >
-                      {cat.emoji}
+                      <cat.icon size={22} color="#1e7a4d" />
                     </div>
                     <span className="text-[9px] sm:text-[10px] text-ink font-medium text-center w-14 leading-tight">
                       {cat.label}
