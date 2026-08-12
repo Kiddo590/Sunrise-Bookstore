@@ -1,4 +1,4 @@
-﻿import { createClient, createServiceClient } from '@/lib/supabase/server'
+﻿import { createServiceClient, requireAdmin } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
 
@@ -37,10 +37,10 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const user = await requireAdmin()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
+  const supabase = createServiceClient()
   const { data, error } = await supabase
     .from('orders')
     .select('*')

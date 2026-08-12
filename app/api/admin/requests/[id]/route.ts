@@ -1,7 +1,10 @@
-import { createServiceClient } from '@/lib/supabase/server'
+import { createServiceClient, requireAdmin } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function PATCH(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const user = await requireAdmin()
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
   const { id } = await params
   const body = await request.json()
   const supabase = createServiceClient()
@@ -11,6 +14,9 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
 }
 
 export async function DELETE(_: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const user = await requireAdmin()
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
   const { id } = await params
   const supabase = createServiceClient()
   const { error } = await supabase.from('book_requests').delete().eq('id', id)

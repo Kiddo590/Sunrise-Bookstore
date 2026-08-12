@@ -1,10 +1,9 @@
-﻿import { createClient, createServiceClient } from '@/lib/supabase/server'
+﻿import { createServiceClient, requireAdmin } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const user = await requireAdmin()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
   const serviceClient = createServiceClient()
@@ -17,8 +16,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const user = await requireAdmin()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
   const body = await request.json()
@@ -29,8 +27,7 @@ export async function POST(request: Request) {
 }
 
 export async function PATCH(request: Request) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const user = await requireAdmin()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
   const body = await request.json()
@@ -42,8 +39,7 @@ export async function PATCH(request: Request) {
 }
 
 export async function DELETE(request: Request) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const user = await requireAdmin()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
   const { id } = await request.json()

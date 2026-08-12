@@ -98,3 +98,56 @@ create policy "Public insert reviews"
 
 -- Admin full-access policies (for service role key usage in API routes)
 -- The service role bypasses RLS, so no additional policies needed for admin ops.
+
+-- ============================================================
+-- MIGRATIONS
+-- ============================================================
+-- NOTE: the `hero_slides` table itself predates this schema file and isn't
+-- defined above — it already exists live in Supabase with columns
+-- (id, eyebrow, heading, sub, cta, href, bg, emoji, position, is_active).
+-- This migration just adds the slide-image fields on top of it.
+
+alter table hero_slides add column if not exists image_url text;
+alter table hero_slides add column if not exists image_public_id text;
+
+-- NOTE (found during a full route/schema audit): several more tables and
+-- columns are used live by the API routes and admin panel but were never
+-- added to this file. Documenting them here so a fresh `supabase-schema.sql`
+-- run actually produces a working app. Run once against the live DB.
+
+create table if not exists banners (
+  id          uuid primary key default gen_random_uuid(),
+  image_url   text not null,
+  public_id   text,
+  position    integer not null default 1,
+  is_active   boolean default true,
+  created_at  timestamptz default now()
+);
+
+create table if not exists announcements (
+  id          uuid primary key default gen_random_uuid(),
+  message     text not null,
+  position    integer not null default 1,
+  is_active   boolean default true,
+  created_at  timestamptz default now()
+);
+
+create table if not exists other_products (
+  id               uuid primary key default gen_random_uuid(),
+  name             text not null,
+  description      text,
+  price_kes        numeric(10,2) not null,
+  cover_url        text,
+  cover_public_id  text,
+  category         text,
+  in_stock         boolean default true,
+  created_at       timestamptz default now()
+);
+
+create table if not exists site_settings (
+  key    text primary key,
+  value  text
+);
+
+alter table book_requests add column if not exists status text default 'pending';
+alter table books add column if not exists discount_pct numeric(5,2);

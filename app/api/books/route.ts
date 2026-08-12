@@ -1,9 +1,12 @@
-﻿import { createClient, createServiceClient } from '@/lib/supabase/server'
+﻿import { createServiceClient, requireAdmin } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
 
 export async function GET() {
-  const supabase = await createClient()
+  const user = await requireAdmin()
+  if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
+
+  const supabase = createServiceClient()
   const { data, error } = await supabase
     .from('books')
     .select('*')
@@ -13,8 +16,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const user = await requireAdmin()
   if (!user) return Response.json({ error: 'Unauthorized' }, { status: 401 })
 
   const body = await request.json()

@@ -1,7 +1,10 @@
-﻿import { createServiceClient } from '@/lib/supabase/server'
+﻿import { createServiceClient, requireAdmin } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET() {
+  const user = await requireAdmin()
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
   const supabase = createServiceClient()
   const { data, error } = await supabase
     .from('other_products')
@@ -12,6 +15,9 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  const user = await requireAdmin()
+  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
   const body = await request.json()
   const supabase = createServiceClient()
   const { data, error } = await supabase

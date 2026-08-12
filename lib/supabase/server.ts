@@ -29,3 +29,13 @@ export function createServiceClient() {
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   )
 }
+
+// Admin-only API routes use the service role client to bypass RLS, so this check
+// is the *only* gate standing between a mutation and the database — it must confirm
+// the caller is specifically the admin account, not just any logged-in user.
+export async function requireAdmin() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user || user.email !== process.env.ADMIN_EMAIL) return null
+  return user
+}
