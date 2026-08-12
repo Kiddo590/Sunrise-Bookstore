@@ -1,9 +1,15 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import Image from 'next/image'
 import { toast } from 'sonner'
-import { Plus, Trash2, ArrowUp, ArrowDown, ChevronDown, ChevronUp } from 'lucide-react'
+import { Plus, Trash2, ArrowUp, ArrowDown, ChevronDown, ChevronUp, ImagePlus, X } from 'lucide-react'
+import RichTextEditor from '@/components/RichTextEditor'
 import type { HeroSlide } from '@/types'
+
+function stripHtml(html: string) {
+  return html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
+}
 
 const BLANK = {
   eyebrow: '',
@@ -13,6 +19,8 @@ const BLANK = {
   href: '/shop',
   bg: 'linear-gradient(120deg, #1b1c2b 0%, #2a1f3d 100%)',
   emoji: '📚',
+  image_url: null as string | null,
+  image_public_id: null as string | null,
   is_active: true,
 }
 
@@ -31,7 +39,9 @@ export default function HeroSlidesClient({ slides: initial }: { slides: HeroSlid
   const [editing, setEditing] = useState<HeroSlide | null>(null)
   const [form, setForm] = useState({ ...BLANK })
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const [expanded, setExpanded] = useState<string | null>(null)
+  const fileRef = useRef<HTMLInputElement>(null)
 
   function openNew() {
     setEditing(null)
@@ -49,6 +59,8 @@ export default function HeroSlidesClient({ slides: initial }: { slides: HeroSlid
       href: s.href,
       bg: s.bg,
       emoji: s.emoji ?? '📚',
+      image_url: s.image_url,
+      image_public_id: s.image_public_id,
       is_active: s.is_active,
     })
     setFormOpen(true)
@@ -59,6 +71,28 @@ export default function HeroSlidesClient({ slides: initial }: { slides: HeroSlid
     setFormOpen(false)
     setEditing(null)
     setForm({ ...BLANK })
+  }
+
+  async function handleUpload(file: File) {
+    setUploading(true)
+    try {
+      const fd = new FormData()
+      fd.append('file', file)
+      const res = await fetch('/api/upload', { method: 'POST', body: fd })
+      const data = await res.json()
+      if (!data.url) {
+        toast.error(data.error || 'Upload failed')
+        return
+      }
+      setForm(f => ({ ...f, image_url: data.url, image_public_id: data.public_id }))
+    } finally {
+      setUploading(false)
+      if (fileRef.current) fileRef.current.value = ''
+    }
+  }
+
+  function removeImage() {
+    setForm(f => ({ ...f, image_url: null, image_public_id: null }))
   }
 
   async function handleSave() {
@@ -75,6 +109,8 @@ export default function HeroSlidesClient({ slides: initial }: { slides: HeroSlid
       href: form.href.trim() || '/shop',
       bg: form.bg,
       emoji: form.emoji.trim() || null,
+      image_url: form.image_url,
+      image_public_id: form.image_public_id,
       is_active: form.is_active,
     }
 
@@ -187,20 +223,61 @@ export default function HeroSlidesClient({ slides: initial }: { slides: HeroSlid
             {input('Emoji', 'emoji', 'e.g. 📚')}
             <div className="sm:col-span-2">
               <label className="text-xs font-semibold text-muted uppercase tracking-wide block mb-1">Heading *</label>
-              <textarea
+              <RichTextEditor
+                compact
+                minHeight={56}
                 value={form.heading}
-                onChange={e => setForm(f => ({ ...f, heading: e.target.value }))}
-                placeholder={'e.g. Fresh titles in\nstock this week'}
-                rows={2}
-                className="w-full border border-line rounded-xl px-3 py-2 text-sm bg-paper focus:outline-none focus:border-rust resize-none"
+                onChange={html => setForm(f => ({ ...f, heading: html }))}
+                placeholder="e.g. Fresh titles in stock this week"
               />
-              <p className="text-xs text-muted mt-0.5">Use a new line to break the heading into two lines</p>
             </div>
             <div className="sm:col-span-2">
-              {input('Subtext', 'sub', 'e.g. Hardcopy & Ebook formats available')}
+              <label className="text-xs font-semibold text-muted uppercase tracking-wide block mb-1">Subtext</label>
+              <RichTextEditor
+                compact
+                minHeight={44}
+                value={form.sub}
+                onChange={html => setForm(f => ({ ...f, sub: html }))}
+                placeholder="e.g. Hardcopy & Ebook formats available"
+              />
             </div>
             {input('Button text', 'cta', 'e.g. Shop Now')}
             {input('Button link', 'href', 'e.g. /shop')}
+            <div className="sm:col-span-2">
+              <label className="text-xs font-semibold text-muted uppercase tracking-wide block mb-1">Slide image</label>
+              {form.image_url ? (
+                <div className="flex items-center gap-3">
+                  <div className="relative w-28 h-16 rounded-lg overflow-hidden shrink-0 border border-line bg-paper">
+                    <Image src={form.image_url} alt="Slide" fill className="object-cover" />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={removeImage}
+                    className="flex items-center gap-1.5 text-xs font-semibold text-red-500 border border-line px-3 py-1.5 rounded-full hover:bg-red-50 transition-colors"
+                  >
+                    <X size={13} /> Remove image
+                  </button>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => fileRef.current?.click()}
+                  disabled={uploading}
+                  className="flex items-center gap-2 text-xs font-semibold text-ink border border-line px-3 py-2 rounded-full hover:bg-paper transition-colors disabled:opacity-50"
+                >
+                  <ImagePlus size={15} />
+                  {uploading ? 'Uploading…' : 'Upload image'}
+                </button>
+              )}
+              <input
+                ref={fileRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={e => e.target.files?.[0] && handleUpload(e.target.files[0])}
+              />
+              <p className="text-xs text-muted mt-1">If set, this photo replaces the gradient background below.</p>
+            </div>
             <div className="sm:col-span-2">
               <label className="text-xs font-semibold text-muted uppercase tracking-wide block mb-1">Background</label>
               <div className="flex flex-wrap gap-2">
@@ -234,13 +311,26 @@ export default function HeroSlidesClient({ slides: initial }: { slides: HeroSlid
           </div>
 
           {/* Preview */}
-          <div className="mt-4 rounded-xl overflow-hidden" style={{ height: 100, background: form.bg }}>
+          <div
+            className="mt-4 rounded-xl overflow-hidden bg-cover bg-center"
+            style={
+              form.image_url
+                ? { height: 100, backgroundImage: `linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.35)), url(${form.image_url})` }
+                : { height: 100, background: form.bg }
+            }
+          >
             <div className="relative h-full flex items-center px-5">
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 text-5xl opacity-20 select-none">{form.emoji}</div>
+              {!form.image_url && (
+                <div className="absolute right-4 top-1/2 -translate-y-1/2 text-5xl opacity-20 select-none">{form.emoji}</div>
+              )}
               <div className="relative z-10">
                 <span className="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-white/20 text-white">{form.eyebrow || 'Label'}</span>
-                <p className="font-bold text-white text-base mt-1 leading-tight whitespace-pre-line">{form.heading || 'Heading'}</p>
-                {form.sub && <p className="text-white/60 text-xs mt-0.5">{form.sub}</p>}
+                {form.heading ? (
+                  <p className="font-bold text-white text-base mt-1 leading-tight" dangerouslySetInnerHTML={{ __html: form.heading }} />
+                ) : (
+                  <p className="font-bold text-white/50 text-base mt-1 leading-tight">Heading</p>
+                )}
+                {form.sub && <p className="text-white/60 text-xs mt-0.5" dangerouslySetInnerHTML={{ __html: form.sub }} />}
               </div>
             </div>
           </div>
@@ -269,14 +359,20 @@ export default function HeroSlidesClient({ slides: initial }: { slides: HeroSlid
             <div key={s.id} className="bg-paper2 border border-line rounded-xl overflow-hidden">
               <div className="flex items-center gap-3 p-3">
                 {/* Mini preview swatch */}
-                <div
-                  className="w-12 h-10 rounded-lg shrink-0 flex items-center justify-center text-xl"
-                  style={{ background: s.bg }}
-                >
-                  {s.emoji}
-                </div>
+                {s.image_url ? (
+                  <div className="relative w-12 h-10 rounded-lg shrink-0 overflow-hidden border border-line">
+                    <Image src={s.image_url} alt="" fill className="object-cover" />
+                  </div>
+                ) : (
+                  <div
+                    className="w-12 h-10 rounded-lg shrink-0 flex items-center justify-center text-xl"
+                    style={{ background: s.bg }}
+                  >
+                    {s.emoji}
+                  </div>
+                )}
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-ink truncate">{s.heading.replace('\n', ' ')}</p>
+                  <p className="text-sm font-semibold text-ink truncate">{stripHtml(s.heading)}</p>
                   <p className="text-xs text-muted">{s.eyebrow} · {s.cta}</p>
                 </div>
                 <div className="flex items-center gap-1.5 shrink-0">

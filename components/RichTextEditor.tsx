@@ -23,6 +23,8 @@ type Props = {
   onChange: (value: string) => void
   placeholder?: string
   minHeight?: number
+  /** Bold/Italic/Undo/Redo only — for short fields like a hero slide heading. */
+  compact?: boolean
 }
 
 type CommandButton = {
@@ -30,11 +32,13 @@ type CommandButton = {
   icon: React.ComponentType<{ size?: number }>
   command: string
   value?: string
+  /** Also shown in compact mode. */
+  compact?: boolean
 }
 
 const commands: CommandButton[] = [
-  { label: 'Bold', icon: Bold, command: 'bold' },
-  { label: 'Italic', icon: Italic, command: 'italic' },
+  { label: 'Bold', icon: Bold, command: 'bold', compact: true },
+  { label: 'Italic', icon: Italic, command: 'italic', compact: true },
   { label: 'Link', icon: Link, command: 'createLink' },
   { label: 'Bulleted list', icon: List, command: 'insertUnorderedList' },
   { label: 'Numbered list', icon: ListOrdered, command: 'insertOrderedList' },
@@ -42,8 +46,8 @@ const commands: CommandButton[] = [
   { label: 'Indent', icon: Indent, command: 'indent' },
   { label: 'Quote', icon: Quote, command: 'formatBlock', value: 'blockquote' },
   { label: 'Code block', icon: Code2, command: 'formatBlock', value: 'pre' },
-  { label: 'Undo', icon: Undo2, command: 'undo' },
-  { label: 'Redo', icon: Redo2, command: 'redo' },
+  { label: 'Undo', icon: Undo2, command: 'undo', compact: true },
+  { label: 'Redo', icon: Redo2, command: 'redo', compact: true },
 ]
 
 export default function RichTextEditor({
@@ -51,7 +55,9 @@ export default function RichTextEditor({
   onChange,
   placeholder = 'Write a detailed description...',
   minHeight = 180,
+  compact = false,
 }: Props) {
+  const visibleCommands = compact ? commands.filter(c => c.compact) : commands
   const editorRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -91,33 +97,37 @@ export default function RichTextEditor({
   return (
     <div className="border border-line rounded-xl overflow-hidden bg-paper focus-within:border-rust">
       <div className="flex flex-wrap items-center gap-1 border-b border-line bg-paper2 px-2 py-2">
-        <button
-          type="button"
-          title="Paragraph"
-          onClick={() => formatBlock('p')}
-          className="h-8 px-2 rounded border border-line bg-paper text-xs font-semibold text-ink hover:bg-white flex items-center gap-1"
-        >
-          <Pilcrow size={15} />
-          Paragraph
-        </button>
-        <button
-          type="button"
-          title="Heading 1"
-          onClick={() => formatBlock('h2')}
-          className="h-8 w-8 rounded border border-line bg-paper text-ink hover:bg-white flex items-center justify-center"
-        >
-          <Heading1 size={16} />
-        </button>
-        <button
-          type="button"
-          title="Heading 2"
-          onClick={() => formatBlock('h3')}
-          className="h-8 w-8 rounded border border-line bg-paper text-ink hover:bg-white flex items-center justify-center"
-        >
-          <Heading2 size={16} />
-        </button>
-        <span className="h-8 w-px bg-line mx-1" />
-        {commands.map(({ label, icon: Icon, command, value: commandValue }) => (
+        {!compact && (
+          <>
+            <button
+              type="button"
+              title="Paragraph"
+              onClick={() => formatBlock('p')}
+              className="h-8 px-2 rounded border border-line bg-paper text-xs font-semibold text-ink hover:bg-white flex items-center gap-1"
+            >
+              <Pilcrow size={15} />
+              Paragraph
+            </button>
+            <button
+              type="button"
+              title="Heading 1"
+              onClick={() => formatBlock('h2')}
+              className="h-8 w-8 rounded border border-line bg-paper text-ink hover:bg-white flex items-center justify-center"
+            >
+              <Heading1 size={16} />
+            </button>
+            <button
+              type="button"
+              title="Heading 2"
+              onClick={() => formatBlock('h3')}
+              className="h-8 w-8 rounded border border-line bg-paper text-ink hover:bg-white flex items-center justify-center"
+            >
+              <Heading2 size={16} />
+            </button>
+            <span className="h-8 w-px bg-line mx-1" />
+          </>
+        )}
+        {visibleCommands.map(({ label, icon: Icon, command, value: commandValue }) => (
           <button
             key={label}
             type="button"

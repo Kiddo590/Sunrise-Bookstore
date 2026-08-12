@@ -93,6 +93,8 @@ export type HeroSlide = {
   href: string
   bg: string
   emoji: string | null
+  image_url: string | null
+  image_public_id: string | null
   position: number
   is_active: boolean
 }

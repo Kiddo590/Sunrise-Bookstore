@@ -8,51 +8,70 @@ const DEFAULT_SLIDES: Omit<HeroSlide, 'id' | 'position' | 'is_active'>[] = [
   {
     bg: 'linear-gradient(120deg, #1b1c2b 0%, #2a1f3d 100%)',
     eyebrow: 'New Arrivals',
-    heading: 'Fresh titles in\nstock this week',
+    heading: 'Fresh titles in<br />stock this week',
     sub: 'Hardcopy & Ebook formats available',
     cta: 'Shop Now',
     href: '/shop',
     emoji: '📚',
+    image_url: null,
+    image_public_id: null,
   },
   {
     bg: 'linear-gradient(120deg, #d97b18 0%, #f68b1e 100%)',
     eyebrow: 'Instant Access',
-    heading: 'Ebooks ready\nto download',
+    heading: 'Ebooks ready<br />to download',
     sub: 'Read on any device, delivered in minutes',
     cta: 'Browse Ebooks',
     href: '/shop',
     emoji: '⚡',
+    image_url: null,
+    image_public_id: null,
   },
   {
     bg: 'linear-gradient(120deg, #0d2018 0%, #1a3a2b 100%)',
     eyebrow: 'Free Delivery',
-    heading: 'Orders over\nKSh 2,000',
+    heading: 'Orders over<br />KSh 2,000',
     sub: 'Free delivery anywhere in Nairobi CBD',
     cta: 'Order Now',
     href: '/shop',
     emoji: '🚚',
+    image_url: null,
+    image_public_id: null,
   },
   {
     bg: 'linear-gradient(120deg, #a81020 0%, #e31837 100%)',
     eyebrow: 'Flash Deals',
-    heading: 'Up to 30% off\nselected titles',
+    heading: 'Up to 30% off<br />selected titles',
     sub: 'Limited time — while stocks last',
     cta: 'See Deals',
     href: '/shop',
     emoji: '🔥',
+    image_url: null,
+    image_public_id: null,
   },
   {
     bg: 'linear-gradient(120deg, #0a1230 0%, #1a2050 100%)',
     eyebrow: "Can't find it?",
-    heading: 'Request any\nbook you want',
+    heading: 'Request any<br />book you want',
     sub: "We'll source it and deliver to you",
     cta: 'Request a Book',
     href: '/request',
     emoji: '🔍',
+    image_url: null,
+    image_public_id: null,
   },
 ]
 
-type Slide = { eyebrow: string; heading: string; sub: string | null; cta: string; href: string; bg: string; emoji: string | null }
+type Slide = {
+  eyebrow: string
+  heading: string
+  sub: string | null
+  cta: string
+  href: string
+  bg: string
+  emoji: string | null
+  image_url: string | null
+}
 
 export default function HeroBanner({ slides: initialSlides }: { slides?: Slide[] }) {
   const [slides, setSlides] = useState<Slide[]>(initialSlides ?? DEFAULT_SLIDES)
@@ -109,16 +128,22 @@ export default function HeroBanner({ slides: initialSlides }: { slides?: Slide[]
         {slides.map((sl, i) => (
           <div
             key={i}
-            className="relative flex items-center"
-            style={{ width: `${100 / slides.length}%`, background: sl.bg, flexShrink: 0 }}
+            className="relative flex items-center bg-cover bg-center"
+            style={
+              sl.image_url
+                ? { width: `${100 / slides.length}%`, backgroundImage: `linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.35)), url(${sl.image_url})`, flexShrink: 0 }
+                : { width: `${100 / slides.length}%`, background: sl.bg, flexShrink: 0 }
+            }
           >
-            <div
-              className="absolute right-4 top-1/2 -translate-y-1/2 select-none pointer-events-none"
-              style={{ fontSize: 80, opacity: 0.15 }}
-              aria-hidden="true"
-            >
-              {sl.emoji}
-            </div>
+            {!sl.image_url && (
+              <div
+                className="absolute right-4 top-1/2 -translate-y-1/2 select-none pointer-events-none"
+                style={{ fontSize: 80, opacity: 0.15 }}
+                aria-hidden="true"
+              >
+                {sl.emoji}
+              </div>
+            )}
             <div className="relative z-10 px-5 py-4">
               <span
                 className="inline-block text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded mb-2"
@@ -129,10 +154,11 @@ export default function HeroBanner({ slides: initialSlides }: { slides?: Slide[]
               >
                 {sl.eyebrow}
               </span>
-              <h2 className="font-bold text-white text-lg sm:text-2xl leading-tight mb-1.5 whitespace-pre-line">
-                {sl.heading}
-              </h2>
-              {sl.sub && <p className="text-white/60 text-xs mb-3 max-w-[200px] leading-snug">{sl.sub}</p>}
+              <h2
+                className="font-bold text-white text-lg sm:text-2xl leading-tight mb-1.5"
+                dangerouslySetInnerHTML={{ __html: sl.heading }}
+              />
+              {sl.sub && <p className="text-white/60 text-xs mb-3 max-w-[200px] leading-snug" dangerouslySetInnerHTML={{ __html: sl.sub }} />}
               <Link
                 href={sl.href}
                 className="inline-block text-xs font-bold px-4 py-1.5 rounded transition-opacity hover:opacity-90"
