@@ -34,7 +34,7 @@ export default function OtherProductCard({ product }: { product: OtherProduct })
       {/* Info */}
       <div className="p-2 sm:p-3">
         {product.category && (
-          <span className="text-[10px] font-bold uppercase tracking-wide text-muted">{product.category}</span>
+          <span className="block truncate text-[10px] font-bold uppercase tracking-wide text-muted">{product.category}</span>
         )}
         <h3 className="text-xs sm:text-sm font-medium text-ink leading-snug line-clamp-2 mt-0.5 min-h-[2.5em]">
           {product.name}
