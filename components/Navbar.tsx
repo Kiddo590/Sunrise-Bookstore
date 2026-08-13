@@ -160,7 +160,7 @@ export default function Navbar() {
               alt="The Flemela Bookstore"
               width={280}
               height={280}
-              className="w-auto h-36 object-contain"
+              className="w-auto h-[108px] object-contain"
               priority
             />
           </Link>
