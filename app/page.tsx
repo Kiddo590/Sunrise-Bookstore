@@ -65,7 +65,7 @@ export default async function HomePage() {
 
           {/* ── Desktop sidebar ── */}
           <aside className="hidden lg:block w-56 shrink-0 self-start mt-2 rounded-xl overflow-hidden bg-white shadow-sm">
-            <div className="px-4 py-3" style={{ background: 'linear-gradient(135deg, #1b1c2b 0%, #2d1f3d 100%)' }}>
+            <div className="shine px-4 py-3" style={{ background: 'linear-gradient(135deg, #1b1c2b 0%, #2d1f3d 100%)' }}>
               <span className="text-white/50 text-[10px] font-black uppercase tracking-widest block mb-0.5">Browse</span>
               <span className="text-white text-sm font-bold">All Categories</span>
             </div>
@@ -86,8 +86,7 @@ export default async function HomePage() {
               <div className="border-t border-line mt-1 pt-1">
                 <Link
                   href="/shop"
-                  className="flex items-center gap-3 px-4 py-2.5 text-sm font-bold hover:bg-rust/10 transition-colors"
-                  style={{ color: '#f68b1e' }}
+                  className="text-rust flex items-center gap-3 px-4 py-2.5 text-sm font-bold hover:bg-rust/10 transition-colors"
                 >
                   <span className="flex-1">See All Books</span>
                   <span>›</span>
@@ -115,10 +114,7 @@ export default async function HomePage() {
                     href={cat.href}
                     className="flex flex-col items-center gap-1 shrink-0 group"
                   >
-                    <div
-                      className="w-12 h-12 rounded-lg flex items-center justify-center transition-colors group-hover:bg-rust/10 border border-line group-hover:border-rust/30"
-                      style={{ backgroundColor: '#f9f9f9' }}
-                    >
+                    <div className="w-12 h-12 rounded-lg flex items-center justify-center transition-colors bg-white shadow-card group-hover:bg-rust/10 border border-line group-hover:border-rust/30">
                       <cat.icon size={22} color="#1e7a4d" />
                     </div>
                     <span className="text-[9px] sm:text-[10px] text-ink font-medium text-center w-14 leading-tight">
@@ -136,7 +132,7 @@ export default async function HomePage() {
             {featuredBooks && featuredBooks.length > 0 && (
               <section className="mt-2">
                 <div
-                  className="flex items-center justify-between px-4 py-3 rounded-t"
+                  className="shine flex items-center justify-between px-4 py-3 rounded-t"
                   style={{ background: 'linear-gradient(135deg, #e31837 0%, #b01020 100%)' }}
                 >
                   <div className="flex items-center gap-2">
@@ -167,7 +163,7 @@ export default async function HomePage() {
             {ebookBooks && ebookBooks.length > 0 && (
               <section className="mt-2 bg-white rounded-xl overflow-hidden shadow-sm">
                 <div
-                  className="flex items-center justify-between px-4 py-3"
+                  className="shine flex items-center justify-between px-4 py-3"
                   style={{ background: 'linear-gradient(135deg, #1b1c2b 0%, #2d1f3d 100%)' }}
                 >
                   <h2 className="font-bold text-white text-base sm:text-lg">⚡ Instant Ebooks</h2>
@@ -189,7 +185,7 @@ export default async function HomePage() {
             {otherProducts && otherProducts.length > 0 && (
               <section className="mt-2 bg-white rounded-xl overflow-hidden shadow-sm">
                 <div
-                  className="flex items-center justify-between px-4 py-3"
+                  className="shine flex items-center justify-between px-4 py-3"
                   style={{ background: 'linear-gradient(135deg, #0d6e4b 0%, #0a5238 100%)' }}
                 >
                   <h2 className="font-bold text-white text-base sm:text-lg">🛍️ Other Products</h2>
@@ -209,7 +205,7 @@ export default async function HomePage() {
             {blogPosts && blogPosts.length > 0 && (
               <section className="mt-2 bg-white rounded-xl overflow-hidden shadow-sm mb-4">
                 <div
-                  className="flex items-center justify-between px-4 py-3"
+                  className="shine flex items-center justify-between px-4 py-3"
                   style={{ background: 'linear-gradient(135deg, #1a2810 0%, #2d3a1a 100%)' }}
                 >
                   <h2 className="font-bold text-white text-base sm:text-lg">📝 Reading List</h2>
@@ -256,7 +252,7 @@ export default async function HomePage() {
           <div className="hidden lg:flex lg:flex-col lg:gap-2 w-56 shrink-0 self-start mt-2">
             {topSellingBooks && topSellingBooks.length > 0 && (
               <aside className="rounded-xl overflow-hidden bg-white shadow-sm">
-                <div className="px-4 py-3" style={{ background: 'linear-gradient(135deg, #1b1c2b 0%, #2d1f3d 100%)' }}>
+                <div className="shine px-4 py-3" style={{ background: 'linear-gradient(135deg, #1b1c2b 0%, #2d1f3d 100%)' }}>
                   <span className="text-white/50 text-[10px] font-black uppercase tracking-widest block mb-0.5">Trending</span>
                   <span className="text-white text-sm font-bold">Top Selling</span>
                 </div>

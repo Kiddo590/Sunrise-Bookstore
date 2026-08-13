@@ -65,8 +65,7 @@ export default function BottomNav() {
                 <item.icon size={22} color="#1e7a4d" />
                 {item.isCart && count > 0 && (
                   <span
-                    className="absolute -top-1.5 -right-1.5 text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none"
-                    style={{ backgroundColor: '#f68b1e' }}
+                    className="bg-rust absolute -top-1.5 -right-1.5 text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none"
                   >
                     {count > 9 ? '9+' : count}
                   </span>

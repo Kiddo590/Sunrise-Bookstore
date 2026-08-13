@@ -33,10 +33,7 @@ export default function Navbar() {
   const [showSuggestions, setShowSuggestions] = useState(false)
   const searchTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [scrolled, setScrolled] = useState(false)
-  const [collapsed, setCollapsed] = useState(false)
-  const navRef = useRef<HTMLElement>(null)
-  const [spacerHeight, setSpacerHeight] = useState<number | null>(null)
-  const lastScrollY = useRef(0)
+  const headerRef = useRef<HTMLElement>(null)
   const prevCount = useRef(count)
   const [cartBounce, setCartBounce] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
@@ -65,21 +62,16 @@ export default function Navbar() {
     return 'Good Evening'
   }
 
+  // Purely cosmetic (paint-only box-shadow once the header is stuck to the top) —
+  // never involved in any of this bar's past scroll-position bugs, so it's kept
+  // as-is aside from dropping the old collapse hysteresis.
   useEffect(() => {
     let ticking = false
     const handler = () => {
       if (ticking) return
       ticking = true
       requestAnimationFrame(() => {
-        const y = window.scrollY
-        setScrolled(y > 4)
-        const goingDown = y > lastScrollY.current
-        if (goingDown && y > 140) {
-          setCollapsed(true)
-        } else if (!goingDown && y < 80) {
-          setCollapsed(false)
-        }
-        lastScrollY.current = y
+        setScrolled(window.scrollY > 4)
         ticking = false
       })
     }
@@ -87,30 +79,18 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
-  // Keeps the page-flow spacer (and dependent pages' sticky offsets) matched to the
-  // navbar's actual height, since the nav itself is `position: fixed` and no longer
-  // pushes content around. Re-measures on every collapse/expand (not just collapse)
-  // so the spacer never drifts out of sync with the real nav — a prior version only
-  // resynced on collapse, letting the spacer get stuck short after the announcement
-  // bar re-expanded near the top, which let the fixed nav silently cover the first
-  // ~100px of page content instead of sitting flush above it.
+  // Publishes the sticky header's real height as --nav-height for ShopGrid's own
+  // sticky filter bar to stack directly beneath it. Deliberately mount/resize-only
+  // — never scroll-driven — since the header's height no longer changes on scroll
+  // (position: sticky reserves its own flow space natively, no spacer needed).
   useLayoutEffect(() => {
-    const el = navRef.current
-    if (!el) return
-    const h = el.offsetHeight // heights snap instantly (only opacity transitions), so measure right away
-    setSpacerHeight(h)
-    document.documentElement.style.setProperty('--nav-height', `${h}px`)
-  }, [collapsed])
-
-  useEffect(() => {
-    function onResize() {
-      if (!navRef.current) return
-      const h = navRef.current.offsetHeight
-      setSpacerHeight(h)
-      document.documentElement.style.setProperty('--nav-height', `${h}px`)
+    function measure() {
+      if (!headerRef.current) return
+      document.documentElement.style.setProperty('--nav-height', `${headerRef.current.offsetHeight}px`)
     }
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
   }, [])
 
   useEffect(() => {
@@ -156,27 +136,22 @@ export default function Navbar() {
 
   return (
     <>
-    <nav
-      ref={navRef}
-      className="fixed top-0 inset-x-0 z-40 transition-shadow duration-200 [overflow-anchor:none]"
-      style={{ boxShadow: scrolled ? '0 2px 8px rgba(0,0,0,0.18)' : 'none' }}
-    >
-      {/* ── Announcement bar ── */}
-      <div
-        className={`transition-opacity duration-200 overflow-hidden ${collapsed ? 'max-h-0 opacity-0' : 'max-h-24 opacity-100'}`}
-        style={{ backgroundColor: '#1e7a4d', padding: '4px' }}
-      >
+      {/* ── Announcement bar — normal in-flow content, scrolls away naturally ── */}
+      <div className="bg-green p-1">
         <AnnouncementBar />
       </div>
 
-      {/* ── Row 1: Header ── */}
-      <div className="bg-white border-b border-line">
+      {/* ── Header — `nav` itself is the sticky element, a direct child of `body`
+          (Navbar's only ancestor, CartProvider, renders no DOM node), so its
+          containing block spans the whole page and it can stay stuck all the
+          way down instead of running out of room a few hundred px in. ── */}
+      <nav
+        ref={headerRef}
+        className="sticky top-0 z-40 bg-white border-b border-line transition-shadow duration-200 [overflow-anchor:none]"
+        style={{ boxShadow: scrolled ? '0 2px 8px rgba(0,0,0,0.18)' : 'none' }}
+      >
         <div className="max-w-7xl mx-auto px-3 sm:px-6">
-        <div
-          className={`flex items-center gap-2 sm:gap-3 ${
-            collapsed ? 'py-0.5' : 'py-0.5 sm:py-1'
-          }`}
-        >
+        <div className="flex items-center gap-2 sm:gap-3 py-0.5 sm:py-1">
 
           {/* Logo */}
           <Link href="/" className="shrink-0 transition-opacity duration-150 hover:opacity-90">
@@ -185,7 +160,7 @@ export default function Navbar() {
               alt="The Flemela Bookstore"
               width={280}
               height={280}
-              className={`w-auto object-contain ${collapsed ? 'h-24' : 'h-36'}`}
+              className="w-auto h-36 object-contain"
               priority
             />
           </Link>
@@ -204,8 +179,7 @@ export default function Navbar() {
               />
               <button
                 type="submit"
-                className="h-9 sm:h-10 px-4 sm:px-5 rounded-r font-semibold text-white text-sm flex items-center gap-1.5 shrink-0 transition-opacity hover:opacity-90"
-                style={{ backgroundColor: '#f68b1e' }}
+                className="bg-rust h-9 sm:h-10 px-4 sm:px-5 rounded-r font-semibold text-white text-sm flex items-center gap-1.5 shrink-0 transition-opacity hover:opacity-90"
               >
                 <Search size={16} />
                 <span className="hidden sm:inline">Search</span>
@@ -267,10 +241,9 @@ export default function Navbar() {
                 {count > 0 && (
                   <span
                     key={count}
-                    className={`absolute -top-1.5 -right-1.5 text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none ${
+                    className={`bg-rust absolute -top-1.5 -right-1.5 text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center leading-none ${
                       cartBounce ? 'animate-badge-pop' : ''
                     }`}
-                    style={{ backgroundColor: '#f68b1e' }}
                   >
                     {count > 9 ? '9+' : count}
                   </span>
@@ -299,26 +272,23 @@ export default function Navbar() {
         <div className="flex justify-start sm:justify-center gap-1 overflow-x-auto scrollbar-hide pb-1 sm:pb-1.5 [-webkit-overflow-scrolling:touch]">
           {navLinks.map(l => {
             const active = pathname === l.href
-            const linkClass = 'shrink-0 whitespace-nowrap text-xs sm:text-sm font-semibold px-2.5 py-0.5 rounded-full text-white transition-opacity hover:opacity-85'
-            const linkStyle = { backgroundColor: active ? '#145c39' : '#1e7a4d' }
+            const linkClass = `${active ? 'bg-green-d' : 'bg-green'} shrink-0 whitespace-nowrap text-xs sm:text-sm font-semibold px-2.5 py-0.5 rounded-full text-white transition-opacity hover:opacity-85`
             if (l.external) {
               return (
-                <a key={l.href + l.label} href={l.href} target="_blank" rel="noopener noreferrer" className={linkClass} style={linkStyle}>
+                <a key={l.href + l.label} href={l.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
                   {l.label}
                 </a>
               )
             }
             return (
-              <Link key={l.href + l.label} href={l.href} className={linkClass} style={linkStyle}>
+              <Link key={l.href + l.label} href={l.href} className={linkClass}>
                 {l.label}
               </Link>
             )
           })}
         </div>
         </div>
-      </div>
-    </nav>
-    <div aria-hidden style={{ height: spacerHeight ?? undefined }} />
+      </nav>
     </>
   )
 }

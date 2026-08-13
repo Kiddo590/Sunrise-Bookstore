@@ -8,6 +8,8 @@
   --color-muted: #6d6d6d;
   --color-rust: #f68b1e;        /* FlemelaBookstore orange */
   --color-rust-d: #d97b18;      /* Darker orange */
+  --color-green: #1e7a4d;       /* FlemelaBookstore green */
+  --color-green-d: #145c39;     /* Darker green */
   --color-grove: #1b1c2b;       /* Dark header */
   --color-line: #e0e0e0;
   --color-sale: #e31837;        /* Sale badge red */
@@ -22,7 +24,8 @@
 }
 
 :root {
-  /* Collapsed navbar height, kept in sync at runtime by Navbar.tsx */
+  /* Sticky header height (announcement bar excluded — it scrolls away, not sticky).
+     Fallback for first paint; kept in sync on mount/resize by Navbar.tsx. */
   --nav-height: 108px;
 }
 
@@ -114,4 +117,30 @@ html.dark .bg-white {
 }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* ── Glossy brand surfaces ──
+   A light catch near the top fading to a soft shade at the bottom, plus a
+   crisp inset highlight — reads as glass/enamel rather than flat paint.
+   Layers on top of Tailwind's own background-color utility (different
+   CSS properties, so no specificity fight), and follows border-radius
+   automatically since it's box-shadow + background-image, not a shape. */
+.bg-rust,
+.bg-rust-d,
+.bg-green,
+.bg-green-d,
+.bg-grove {
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.32) 0%, rgba(255, 255, 255, 0) 45%, rgba(0, 0, 0, 0.07) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.09);
+}
+
+/* Same treatment for elements that already carry their own inline gradient
+   (badges, section headers, hero banners) — adds the highlight/shade without
+   touching their existing background-image. */
+.shine {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.09);
 }

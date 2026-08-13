@@ -21,8 +21,7 @@ export default async function AccountPage() {
         <div className="flex items-center justify-between mb-5">
           <div className="flex items-center gap-3">
             <div
-              className="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-lg font-display"
-              style={{ backgroundColor: '#f68b1e' }}
+              className="bg-rust w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-lg font-display"
             >
               {(meta.full_name?.[0] ?? user.email?.[0] ?? 'U').toUpperCase()}
             </div>
@@ -55,7 +54,7 @@ export default async function AccountPage() {
       {/* Order history */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="font-display font-bold text-ink text-xl">Order History</h2>
-        <Link href="/shop" className="text-sm font-semibold" style={{ color: '#f68b1e' }}>
+        <Link href="/shop" className="text-rust text-sm font-semibold">
           Shop more →
         </Link>
       </div>
@@ -67,8 +66,7 @@ export default async function AccountPage() {
           <p className="text-muted text-sm mb-4">Your order history will appear here.</p>
           <Link
             href="/shop"
-            className="inline-block text-sm font-semibold text-white px-5 py-2 rounded-full"
-            style={{ backgroundColor: '#f68b1e' }}
+            className="bg-rust inline-block text-sm font-semibold text-white px-5 py-2 rounded-full"
           >
             Browse books
           </Link>

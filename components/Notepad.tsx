@@ -25,7 +25,7 @@ export default function Notepad() {
   return (
     <div className="rounded-xl overflow-hidden bg-white shadow-sm">
       <div
-        className="px-4 py-3 flex items-center gap-2"
+        className="shine px-4 py-3 flex items-center gap-2"
         style={{ background: 'linear-gradient(135deg, #f68b1e 0%, #c05000 100%)' }}
       >
         <StickyNote size={15} color="#fff" />

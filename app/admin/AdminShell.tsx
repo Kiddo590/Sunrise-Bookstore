@@ -32,7 +32,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
 
         {/* Mobile top bar */}
         <div
-          className="lg:hidden sticky top-0 z-30 flex items-center gap-3 px-4 h-12 shrink-0"
+          className="shine lg:hidden sticky top-0 z-30 flex items-center gap-3 px-4 h-12 shrink-0"
           style={{ background: 'linear-gradient(135deg, #f68b1e 0%, #c05000 100%)' }}
         >
           <button

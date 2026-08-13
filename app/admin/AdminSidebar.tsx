@@ -35,7 +35,7 @@ export default function AdminSidebar({ onClose }: { onClose?: () => void }) {
   return (
     <aside className="w-56 h-screen sticky top-0 flex flex-col shrink-0 overflow-hidden" style={{ backgroundColor: '#12131f' }}>
       {/* Brand header */}
-      <div className="px-5 py-4 shrink-0 flex items-center justify-between" style={{ background: 'linear-gradient(135deg, #f68b1e 0%, #c05000 100%)' }}>
+      <div className="shine px-5 py-4 shrink-0 flex items-center justify-between" style={{ background: 'linear-gradient(135deg, #f68b1e 0%, #c05000 100%)' }}>
         <div>
           <p className="font-display font-black text-white text-sm tracking-tight">Flemela Admin</p>
           <p className="text-white/70 text-[11px] mt-0.5">Bookstore dashboard</p>

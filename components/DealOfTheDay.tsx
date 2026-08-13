@@ -67,8 +67,7 @@ export default async function DealOfTheDay() {
 
           <Link
             href={`/book/${book.id}`}
-            className="inline-block text-white font-bold text-sm px-6 py-3 rounded text-center w-fit transition-opacity hover:opacity-90"
-            style={{ backgroundColor: '#f68b1e' }}
+            className="bg-rust inline-block text-white font-bold text-sm px-6 py-3 rounded text-center w-fit transition-opacity hover:opacity-90"
           >
             Grab the Deal →
           </Link>

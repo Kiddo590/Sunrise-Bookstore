@@ -174,8 +174,7 @@ export default function CheckoutForm({ userId, defaultName, defaultPhone, defaul
           <button
             type="submit"
             disabled={submitting || cart.length === 0 || !county}
-            className="text-white font-semibold py-3 rounded-full transition-colors disabled:opacity-50 text-base"
-            style={{ backgroundColor: '#f68b1e' }}
+            className="bg-rust text-white font-semibold py-3 rounded-full transition-colors disabled:opacity-50 text-base"
           >
             {submitting ? 'Placing order…' : 'Place order & open WhatsApp →'}
           </button>

@@ -78,10 +78,9 @@ export default function ShopGrid({ books, initialSearch = '', initialFormat = 'a
               onClick={() => setFormat(f)}
               className={`px-3 py-1.5 rounded text-xs font-semibold border transition-all ${
                 format === f
-                  ? 'text-white border-rust'
+                  ? 'bg-rust text-white border-rust'
                   : 'bg-paper2 text-ink border-line hover:border-rust/50'
               }`}
-              style={format === f ? { backgroundColor: '#f68b1e', borderColor: '#f68b1e' } : {}}
             >
               {f === 'all' ? 'All Formats' : f === 'hardcopy' ? '📕 Hardcopy' : '⚡ Ebook'}
             </button>
@@ -95,10 +94,9 @@ export default function ShopGrid({ books, initialSearch = '', initialFormat = 'a
               onClick={() => setCategory('all')}
               className={`px-3 py-1 rounded-full text-xs font-medium border transition-all ${
                 category === 'all'
-                  ? 'text-white border-grove'
+                  ? 'bg-grove text-white border-grove'
                   : 'bg-paper2 text-ink border-line hover:border-grove/50'
               }`}
-              style={category === 'all' ? { backgroundColor: '#1b1c2b', borderColor: '#1b1c2b' } : {}}
             >
               All
             </button>
@@ -108,10 +106,9 @@ export default function ShopGrid({ books, initialSearch = '', initialFormat = 'a
                 onClick={() => setCategory(c)}
                 className={`px-3 py-1 rounded-full text-xs font-medium border transition-all ${
                   category === c
-                    ? 'text-white'
-                    : 'bg-paper2 border-line hover:border-[#1e7a4d]/50'
+                    ? 'bg-green text-white border-green'
+                    : 'bg-paper2 text-green border-line hover:border-green/50'
                 }`}
-                style={category === c ? { backgroundColor: '#1e7a4d', borderColor: '#1e7a4d' } : { color: '#1e7a4d' }}
               >
                 {c}
               </button>

@@ -128,7 +128,7 @@ export default function HeroBanner({ slides: initialSlides }: { slides?: Slide[]
         {slides.map((sl, i) => (
           <div
             key={i}
-            className="relative flex items-center bg-cover bg-center"
+            className="shine relative flex items-center bg-cover bg-center"
             style={
               sl.image_url
                 ? { width: `${100 / slides.length}%`, backgroundImage: `linear-gradient(rgba(0,0,0,.35),rgba(0,0,0,.35)), url(${sl.image_url})`, flexShrink: 0 }
