@@ -26,7 +26,7 @@
 :root {
   /* Sticky header height (announcement bar excluded — it scrolls away, not sticky).
      Fallback for first paint; kept in sync on mount/resize by Navbar.tsx. */
-  --nav-height: 201px;
+  --nav-height: 93px;
 }
 
 html {
