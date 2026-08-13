@@ -23,6 +23,7 @@ import BannerStrip from '@/components/BannerStrip'
 import BookCover from '@/components/BookCover'
 import Countdown from '@/components/Countdown'
 import OtherProductCard from '@/components/OtherProductCard'
+import Notepad from '@/components/Notepad'
 import type { Book, BlogPost, OtherProduct } from '@/types'
 
 export const metadata: Metadata = {
@@ -251,30 +252,34 @@ export default async function HomePage() {
 
           </div>{/* end main */}
 
-          {/* ── Top Selling sidebar ── */}
-          {topSellingBooks && topSellingBooks.length > 0 && (
-            <aside className="hidden lg:block w-56 shrink-0 self-start mt-2 rounded-xl overflow-hidden bg-white shadow-sm">
-              <div className="px-4 py-3" style={{ background: 'linear-gradient(135deg, #1b1c2b 0%, #2d1f3d 100%)' }}>
-                <span className="text-white/50 text-[10px] font-black uppercase tracking-widest block mb-0.5">Trending</span>
-                <span className="text-white text-sm font-bold">Top Selling</span>
-              </div>
-              <nav className="py-1">
-                {(topSellingBooks as Book[]).map(book => (
-                  <Link
-                    key={book.id}
-                    href={`/book/${book.id}`}
-                    className="flex items-center gap-3 px-4 py-2 text-sm text-ink hover:bg-rust/10 hover:text-rust transition-colors group"
-                  >
-                    <div className="w-9 h-9 rounded overflow-hidden shrink-0 border border-line">
-                      <BookCover book={book} height={36} />
-                    </div>
-                    <span className="flex-1 font-medium line-clamp-1">{book.title}</span>
-                    <span className="text-muted text-xs group-hover:text-rust transition-colors">›</span>
-                  </Link>
-                ))}
-              </nav>
-            </aside>
-          )}
+          {/* ── Right column: Top Selling + Notepad ── */}
+          <div className="hidden lg:flex lg:flex-col lg:gap-2 w-56 shrink-0 self-start mt-2">
+            {topSellingBooks && topSellingBooks.length > 0 && (
+              <aside className="rounded-xl overflow-hidden bg-white shadow-sm">
+                <div className="px-4 py-3" style={{ background: 'linear-gradient(135deg, #1b1c2b 0%, #2d1f3d 100%)' }}>
+                  <span className="text-white/50 text-[10px] font-black uppercase tracking-widest block mb-0.5">Trending</span>
+                  <span className="text-white text-sm font-bold">Top Selling</span>
+                </div>
+                <nav className="py-1">
+                  {(topSellingBooks as Book[]).map(book => (
+                    <Link
+                      key={book.id}
+                      href={`/book/${book.id}`}
+                      className="flex items-center gap-3 px-4 py-2 text-sm text-ink hover:bg-rust/10 hover:text-rust transition-colors group"
+                    >
+                      <div className="w-9 h-9 rounded overflow-hidden shrink-0 border border-line">
+                        <BookCover book={book} height={36} />
+                      </div>
+                      <span className="flex-1 font-medium line-clamp-1">{book.title}</span>
+                      <span className="text-muted text-xs group-hover:text-rust transition-colors">›</span>
+                    </Link>
+                  ))}
+                </nav>
+              </aside>
+            )}
+
+            <Notepad />
+          </div>
         </div>{/* end flex */}
       </div>{/* end container */}
     </div>

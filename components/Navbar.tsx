@@ -87,39 +87,31 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
-  // Keeps the page-flow spacer (and dependent pages' sticky offsets) pinned to the
-  // navbar's *collapsed* height, since the nav itself is `position: fixed` and no
-  // longer pushes content around. The taller, announcement-bar-visible state is only
-  // ever shown near the top of the page, where it's fine for it to briefly overlay
-  // content instead of shoving it down — that overlay is what used to read as a jump/bounce.
+  // Keeps the page-flow spacer (and dependent pages' sticky offsets) matched to the
+  // navbar's actual height, since the nav itself is `position: fixed` and no longer
+  // pushes content around. Re-measures on every collapse/expand (not just collapse)
+  // so the spacer never drifts out of sync with the real nav — a prior version only
+  // resynced on collapse, letting the spacer get stuck short after the announcement
+  // bar re-expanded near the top, which let the fixed nav silently cover the first
+  // ~100px of page content instead of sitting flush above it.
   useLayoutEffect(() => {
     const el = navRef.current
     if (!el) return
-
-    function applyMeasuredHeight() {
-      const h = el!.offsetHeight
-      setSpacerHeight(h)
-      document.documentElement.style.setProperty('--nav-height', `${h}px`)
-    }
-
-    if (collapsed || spacerHeight === null) {
-      applyMeasuredHeight() // heights now snap instantly, so measure right away
-    }
-    // spacerHeight intentionally omitted: this only needs to re-run when `collapsed`
-    // flips, and each run already sees the current spacerHeight via closure.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const h = el.offsetHeight // heights snap instantly (only opacity transitions), so measure right away
+    setSpacerHeight(h)
+    document.documentElement.style.setProperty('--nav-height', `${h}px`)
   }, [collapsed])
 
   useEffect(() => {
     function onResize() {
-      if (!collapsed || !navRef.current) return
+      if (!navRef.current) return
       const h = navRef.current.offsetHeight
       setSpacerHeight(h)
       document.documentElement.style.setProperty('--nav-height', `${h}px`)
     }
     window.addEventListener('resize', onResize)
     return () => window.removeEventListener('resize', onResize)
-  }, [collapsed])
+  }, [])
 
   useEffect(() => {
     if (count !== prevCount.current) {

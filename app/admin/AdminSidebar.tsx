@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { LayoutDashboard, BookOpen, ShoppingCart, Star, Newspaper, Inbox, Package, Image, Megaphone, Zap, Layers, LogOut, X } from 'lucide-react'
+import { LayoutDashboard, BookOpen, ShoppingCart, Star, Newspaper, Inbox, Package, Image, Megaphone, Zap, Layers, StickyNote, LogOut, X } from 'lucide-react'
 
 const links = [
   { href: '/admin',              label: 'Dashboard',    icon: LayoutDashboard, group: 'Overview' },
@@ -17,6 +17,7 @@ const links = [
   { href: '/admin/hero-slides',  label: 'Hero Slides',  icon: Layers,          group: 'Marketing' },
   { href: '/admin/banners',      label: 'Banners',      icon: Image,           group: 'Marketing' },
   { href: '/admin/announcements',label: 'Announcements',icon: Megaphone,       group: 'Marketing' },
+  { href: '/admin/notepad',      label: 'Notepad',      icon: StickyNote,      group: 'Marketing' },
 ]
 
 const groups = ['Overview', 'Content', 'Marketing']
